@@ -3280,3 +3280,152 @@ html[lang="lo"] .tier-target-card.selected::after { content: '✓ ເປົ້�
   color: #ffffff;
   border-color: #ef4444;
 }
+
+/* --- Compact Single-Screen Popup Modal Overrides --- */
+.funnel-modal-overlay {
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+}
+
+.funnel-modal-card-container {
+  width: 100%;
+  max-width: 660px;
+  max-height: 94vh;
+  padding: 1.25rem 1.25rem 1rem;
+  border-radius: 20px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
+}
+
+.modal-stepper-wrapper {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+.modal-stepper-wrapper .step-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 0.7rem;
+}
+.modal-stepper-wrapper .step-label {
+  font-size: 0.58rem;
+}
+
+/* Internal cards reset inside popup modal */
+.funnel-modal-card-container .premium-register-form-card,
+.funnel-modal-card-container .program-review-card,
+.funnel-modal-card-container .order-form-card,
+.funnel-modal-card-container .completion-card {
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.funnel-modal-card-container .premium-card-border-line {
+  display: none;
+}
+
+.funnel-modal-card-container h3 {
+  font-size: 1.2rem !important;
+  margin-bottom: 0.2rem !important;
+}
+
+.funnel-modal-card-container .form-subtitle-desc,
+.funnel-modal-card-container .order-desc,
+.funnel-modal-card-container .completion-desc {
+  font-size: 0.75rem !important;
+  margin-bottom: 0.6rem !important;
+  line-height: 1.35 !important;
+}
+
+/* 2-Column grid for Register Form inside Modal */
+@media (min-width: 540px) {
+  .funnel-modal-card-container .premium-b2b-grid-form {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 0.85rem;
+  }
+  .funnel-modal-card-container .premium-field.wide {
+    grid-column: span 2;
+  }
+  .funnel-modal-card-container .premium-consent-box.wide,
+  .funnel-modal-card-container .premium-form-actions.wide {
+    grid-column: span 2;
+  }
+}
+
+.funnel-modal-card-container .premium-field {
+  gap: 0.25rem;
+}
+
+.funnel-modal-card-container .field-title,
+.funnel-modal-card-container .field-title-legend {
+  font-size: 0.62rem;
+}
+
+.funnel-modal-card-container .premium-field input {
+  height: 38px;
+  font-size: 0.8rem;
+  padding: 0 0.65rem;
+  border-radius: 8px;
+}
+
+.funnel-modal-card-container .survey-chips-grid {
+  gap: 0.3rem;
+  margin-top: 0.2rem;
+}
+
+.funnel-modal-card-container .survey-chip {
+  padding: 3px 8px;
+  font-size: 0.7rem;
+}
+
+.funnel-modal-card-container .premium-consent-box {
+  margin-top: 0.25rem;
+  font-size: 0.68rem;
+  line-height: 1.3;
+}
+
+.funnel-modal-card-container .btn-submit-premium,
+.funnel-modal-card-container .btn-unlock-wheel,
+.funnel-modal-card-container .btn-whatsapp-send {
+  min-height: 42px;
+  font-size: 0.88rem;
+  padding: 0 1rem;
+  border-radius: 10px;
+}
+
+/* Program Card Compact */
+.funnel-modal-card-container .program-pdf-preview {
+  margin: 8px 0;
+  max-height: 160px;
+  overflow: hidden;
+}
+.funnel-modal-card-container .program-pdf-preview img {
+  max-height: 130px;
+  object-fit: contain;
+}
+.funnel-modal-card-container .program-pdf-preview figcaption {
+  padding: 4px 8px;
+  font-size: 0.72rem;
+}
+
+.funnel-modal-card-container .program-key-points {
+  margin: 6px 0;
+  gap: 4px;
+}
+.funnel-modal-card-container .program-key-points li {
+  font-size: 0.73rem;
+}
+
+/* Order Form Compact */
+.funnel-modal-card-container .order-products-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+.funnel-modal-card-container .order-product-item {
+  padding: 6px 0;
+}
+.funnel-modal-card-container .order-item-visual img {
+  width: 34px;
+  height: 34px;
+}

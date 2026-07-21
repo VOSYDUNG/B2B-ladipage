@@ -524,31 +524,35 @@ function getMyReferralCode() {
 
 // Stepper visual rendering
 function updateStepperVisual() {
-  const stateToStep = { discover: 0, register: 0, program: 1, cart: 1, wheel: 2, completion: 3 };
+  const stateToStep = { discover: 0, register: 0, program: 1, wheel: 2, cart: 3, completion: 4 };
   const currentIndex = stateToStep[flowState] !== undefined ? stateToStep[flowState] : 0;
   
   for (let i = 1; i <= 5; i++) {
     const node = document.getElementById(`step-node-${i}`);
-    if (!node) continue;
+    const modalNode = document.getElementById(`modal-step-node-${i}`);
     
-    if (i - 1 <= currentIndex) {
-      node.className = 'stepper-step active';
-    } else {
-      node.className = 'stepper-step';
-    }
-    
-    if (i - 1 === currentIndex) {
-      node.classList.add('current');
-    }
+    [node, modalNode].forEach(el => {
+      if (!el) return;
+      if (i - 1 <= currentIndex) {
+        el.className = 'stepper-step active';
+      } else {
+        el.className = 'stepper-step';
+      }
+      if (i - 1 === currentIndex) {
+        el.classList.add('current');
+      }
+    });
     
     const line = document.getElementById(`step-line-${i}`);
-    if (line) {
+    const modalLine = document.getElementById(`modal-step-line-${i}`);
+    [line, modalLine].forEach(l => {
+      if (!l) return;
       if (i - 1 < currentIndex) {
-        line.className = 'stepper-line active';
+        l.className = 'stepper-line active';
       } else {
-        line.className = 'stepper-line';
+        l.className = 'stepper-line';
       }
-    }
+    });
   }
 }
 
