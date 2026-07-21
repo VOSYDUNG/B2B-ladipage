@@ -3598,13 +3598,17 @@ html[lang="lo"] .tier-target-card.selected::after { content: '✓ ເປົ້�
 
 /* Program Card Compact */
 .funnel-modal-card-container .program-pdf-preview {
-  margin: 8px 0;
-  max-height: 160px;
-  overflow: hidden;
+  margin: 12px 0;
+  max-height: 50vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: #f9fafb;
 }
 .funnel-modal-card-container .program-pdf-preview img {
-  max-height: 130px;
-  object-fit: contain;
+  width: 100%;
+  height: auto;
+  display: block;
 }
 .funnel-modal-card-container .program-pdf-preview figcaption {
   padding: 4px 8px;
