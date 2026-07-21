@@ -3401,20 +3401,7 @@ html[lang="lo"] .tier-target-card.selected::after { content: '✓ ເປົ້�
   border-radius: 10px;
 }
 
-/* Program Card Compact */
-.funnel-modal-card-container .program-pdf-preview {
-  margin: 8px 0;
-  max-height: 160px;
-  overflow: hidden;
-}
-.funnel-modal-card-container .program-pdf-preview img {
-  max-height: 130px;
-  object-fit: contain;
-}
-.funnel-modal-card-container .program-pdf-preview figcaption {
-  padding: 4px 8px;
-  font-size: 0.72rem;
-}
+/* Program Card CSS moved down to end of file */
 
 .funnel-modal-card-container .program-key-points {
   margin: 6px 0;
@@ -3596,10 +3583,10 @@ html[lang="lo"] .tier-target-card.selected::after { content: '✓ ເປົ້�
   border-radius: 10px;
 }
 
-/* Program Card Compact */
+/* Program Card CSS moved down to end of file */
 .funnel-modal-card-container .program-pdf-preview {
   margin: 12px 0;
-  max-height: 50vh;
+  max-height: 55vh;
   overflow-y: auto;
   border-radius: 8px;
   border: 1px solid rgba(0,0,0,0.1);
@@ -3608,11 +3595,16 @@ html[lang="lo"] .tier-target-card.selected::after { content: '✓ ເປົ້�
 .funnel-modal-card-container .program-pdf-preview img {
   width: 100%;
   height: auto;
+  max-height: none;
   display: block;
+  object-fit: initial;
 }
 .funnel-modal-card-container .program-pdf-preview figcaption {
-  padding: 4px 8px;
-  font-size: 0.72rem;
+  padding: 8px;
+  font-size: 0.8rem;
+  text-align: center;
+  background: #fff;
+  border-top: 1px solid rgba(0,0,0,0.05);
 }
 
 .funnel-modal-card-container .program-key-points {
@@ -3765,3 +3757,4 @@ html[lang="lo"] .tier-target-card.selected::after { content: '✓ ເປົ້�
   box-shadow: 0 8px 24px rgba(16,185,129,0.1);
   background: linear-gradient(180deg, #ffffff 0%, rgba(16,185,129,0.02) 100%);
 }
+
