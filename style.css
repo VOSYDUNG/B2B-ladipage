@@ -1962,6 +1962,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-width: 130px;
 }
 
 .copy-input button {
@@ -2996,14 +2997,15 @@ input[type="range"]::-webkit-slider-thumb:hover {
   width: 100%;
   margin-top: 10px;
   display: flex; align-items: center; justify-content: center; gap: 8px;
-  background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.35);
-  color: #fff; font-weight: 700; font-size: 0.92rem;
-  border-radius: 12px; padding: 13px;
+  background-color: var(--primary-color);
+  border: none;
+  color: #fff; font-weight: 700; font-size: 0.95rem;
+  border-radius: 12px; padding: 14px;
   cursor: pointer; transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(16, 62, 50, 0.2);
 }
 .btn-proceed-cart svg { width: 18px; height: 18px; }
-.btn-proceed-cart:hover { background: rgba(255, 255, 255, 0.1); border-color: #fbbf24; color: #fbbf24; }
+.btn-proceed-cart:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
 
 /* ===== Completion tier progress nudge ===== */
 .completion-tier-progress {
@@ -3424,8 +3426,8 @@ html[lang="lo"] .tier-target-card.selected::after { content: '✓ ເປົ້�
 
 /* Order Form Compact */
 .funnel-modal-card-container .order-products-list {
-  max-height: 200px;
-  overflow-y: auto;
+  max-height: none;
+  overflow-y: visible;
 }
 .funnel-modal-card-container .order-product-item {
   padding: 6px 0;

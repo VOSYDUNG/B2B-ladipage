@@ -1296,7 +1296,7 @@ function renderOrderProductsList() {
           </div>
           <div class="qty-control-buttons">
             <button type="button" class="btn-qty-minus" onclick="changeOrderQty('${p.id}', -1)">−</button>
-            <span class="qty-display">${qty}</span>
+            <input type="number" class="qty-input" value="${qty}" min="0" onchange="setOrderQty('${p.id}', this.value)" style="width:40px; text-align:center; border:none; font-weight:700; font-family:var(--font-mono); font-size:1rem; -moz-appearance:textfield; outline:none; background:transparent;" />
             <button type="button" class="btn-qty-plus" onclick="changeOrderQty('${p.id}', 1)">+</button>
           </div>
           <div class="qty-total-desktop md-visible">
@@ -1307,6 +1307,14 @@ function renderOrderProductsList() {
     `;
   });
   container.innerHTML = html;
+}
+
+function setOrderQty(productId, value) {
+  let val = parseInt(value, 10);
+  if (isNaN(val) || val < 0) val = 0;
+  quantities[productId] = val;
+  renderOrderProductsList();
+  calculateOrderTotals();
 }
 
 function changeOrderQty(productId, delta) {
@@ -1353,31 +1361,32 @@ function calculateOrderTotals() {
 
   const themeContainer = document.getElementById('cart-tier-theme');
   if (themeContainer) {
-    const nextTier = NNC_ACCUMULATION_TIERS.find((tier) => totalKip < tier.min_revenue_kip);
-    const lead = activeTier
-      ? (currentLang === 'vi'
-        ? `Đơn mẫu đang thuộc <strong>${activeTier.name_vi}</strong> — hưởng ngay ${activeTier.immediate_discount}% và thêm ${activeTier.quarter_end_reward}% cuối quý.`
-        : `ໃບສັ່ງຊື້ຕົວຢ່າງນີ້ຢູ່ <strong>${activeTier.name_lo}</strong> — ຮັບທັນທີ ${activeTier.immediate_discount}% ແລະ ເພີ່ມ ${activeTier.quarter_end_reward}% ທ້າຍໄຕມາດ.`)
-      : (currentLang === 'vi'
-        ? `Chọn số lượng để mở dần các <strong>bậc quyền lợi</strong> phù hợp với hành trình của anh/chị.`
-        : `ເລືອກຈຳນວນເພື່ອເປີດແຕ່ລະ <strong>ຂັ້ນສິດທິປະໂຫຍດ</strong> ທີ່ເໝາະສົມ.`);
-    themeContainer.innerHTML = `
-      <div class="cart-tier-heading">
-        <span>${currentLang === 'vi' ? 'BẬC QUYỀN LỢI' : 'ຂັ້ນສິດທິປະໂຫຍດ'}</span>
-        <strong>${activeTier ? `${activeTier.total_benefit}%` : '7–10%'}</strong>
-      </div>
-      <div class="cart-tier-grid">
-        ${NNC_ACCUMULATION_TIERS.map((tier) => {
-          const isActive = activeTier?.tier_id === tier.tier_id;
-          const isNext = !activeTier && nextTier?.tier_id === tier.tier_id;
-          const tierName = currentLang === 'vi' ? tier.name_vi : tier.name_lo;
-          return `<article class="cart-tier${isActive ? ' active' : ''}${isNext ? ' next' : ''}">
-            <span class="cart-tier-name">${tierName}</span>
-            <strong>${tier.total_benefit}%</strong>
-          </article>`;
-        }).join('')}
-      </div>
-      <p class="cart-tier-lead">${lead}</p>`;
+    if (activeTier) {
+      const tierName = currentLang === 'vi' ? activeTier.name_vi : activeTier.name_lo;
+      const title = currentLang === 'vi' ? `🎉 Đã kích hoạt <strong>${tierName}</strong>` : `🎉 ເປີດນຳໃຊ້ <strong>${tierName}</strong> ແລ້ວ`;
+      const t1 = currentLang === 'vi' ? `Chiết khấu trực tiếp ${activeTier.immediate_discount}%` : `ຮັບສ່ວນຫຼຸດທັນທີ ${activeTier.immediate_discount}%`;
+      const t2 = currentLang === 'vi' ? `Thưởng cuối quý ${activeTier.quarter_end_reward}%` : `ລາງວັນທ້າຍໄຕມາດ ${activeTier.quarter_end_reward}%`;
+      const t3 = currentLang === 'vi' ? `Tổng lợi ích lên tới <strong>${activeTier.total_benefit}%</strong>` : `ຜົນປະໂຫຍດລວມເຖິງ <strong>${activeTier.total_benefit}%</strong>`;
+      
+      themeContainer.innerHTML = `
+        <div style="background:rgba(16,62,50,0.04); border:1px solid rgba(16,62,50,0.1); border-radius:12px; padding:12px; margin:16px 0;">
+          <h4 style="color:var(--primary-color); font-size:0.95rem; font-weight:800; margin-bottom:10px; display:flex; align-items:center; gap:6px;">${title}</h4>
+          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px;">
+            <li style="display:flex; align-items:center; gap:8px; font-size:0.8rem; color:var(--text-dark);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg> ${t1}
+            </li>
+            <li style="display:flex; align-items:center; gap:8px; font-size:0.8rem; color:var(--text-dark);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg> ${t2}
+            </li>
+            <li style="display:flex; align-items:center; gap:8px; font-size:0.8rem; color:var(--text-dark);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg> ${t3}
+            </li>
+          </ul>
+        </div>
+      `;
+    } else {
+      themeContainer.innerHTML = '';
+    }
   }
 
   // Nudge against the customer's OWN chosen target tier from the program step
