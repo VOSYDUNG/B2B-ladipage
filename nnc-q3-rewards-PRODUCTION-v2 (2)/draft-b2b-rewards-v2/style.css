@@ -2374,9 +2374,9 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .cart-tier-heading span { font-size: 0.68rem; font-weight: 900; letter-spacing: .08em; }
 .cart-tier-heading strong { color: #0d94b6; font-size: 1.15rem; }
 .cart-tier-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
-.cart-tier-theme .cart-tier { min-width: 0; padding: 10px 7px; border: 1px solid #d7e6e0; border-radius: 12px; background: #fff; color: #7b8794; text-align: left; transition: .2s ease; }
+.cart-tier-theme .cart-tier { min-width: 0; padding: 11px 9px; border: 1px solid #d7e6e0; border-radius: 12px; background: #fff; color: #7b8794; text-align: center; transition: .2s ease; }
 .cart-tier-name { display: block; color: #0f3a30; font-size: .7rem; font-weight: 900; }
-.cart-tier strong { display: block; margin: 3px 0; color: #9aa8b8; font-size: 1.05rem; line-height: 1; }
+.cart-tier strong { display: block; margin-top: 4px; color: #9aa8b8; font-size: 1.12rem; line-height: 1; }
 .cart-tier small, .cart-tier em { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .59rem; font-style: normal; }
 .cart-tier em { margin-top: 4px; color: #17846a; font-weight: 800; }
 .cart-tier-theme .cart-tier.active { border-color: #0f3a30; background: linear-gradient(135deg, #0f3a30, #14634e); box-shadow: 0 10px 20px rgba(15, 58, 48, .2); }
@@ -2391,6 +2391,29 @@ input[type="range"]::-webkit-slider-thumb:hover {
 @media (max-width: 560px) {
   .cart-tier-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cart-tier-theme .cart-tier { padding: 9px; }
+}
+
+/* One cohesive order-and-benefits panel: value, tiers, and next action stay together. */
+@media (min-width: 769px) {
+  .order-summary-box {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 176px;
+    grid-template-areas:
+      "summary actions"
+      "tiers tiers";
+    align-items: stretch;
+    gap: 20px;
+    padding: 20px;
+  }
+  .summary-left { grid-area: summary; justify-content: center; max-width: none; }
+  .cart-tier-theme { grid-area: tiers; margin: 0; padding: 14px 0 0; border-top: 1px solid #dce9e4; align-self: stretch; }
+  .summary-actions { grid-area: actions; justify-content: center; min-width: 0; }
+  .summary-actions .btn-whatsapp-send { width: 100%; min-height: 52px; padding: 0 16px; }
+  .summary-actions .btn-skip-order { width: 100%; min-height: 32px; padding: 0 8px; font-size: .72rem; }
+}
+@media (max-width: 768px) {
+  .order-summary-box { gap: 16px; padding: 18px; }
+  .cart-tier-theme { margin-top: 0; }
 }
 .order-form-header {
   margin-bottom: 2rem;
@@ -3179,3 +3202,28 @@ html[lang="lo"] .tier-target-card.selected::after { content: '✓ ເປົ້�
   line-height: 1.5;
 }
 .order-target-nudge.reached { background: #f0fdf4; border-color: #86efac; color: #14532d; }
+
+/* Final cart composition override: this card is narrower than the desktop viewport. */
+@media (min-width: 769px) {
+  .order-summary-box {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 176px;
+    grid-template-areas:
+      "summary actions"
+      "tiers tiers";
+    align-items: center;
+    gap: 16px 20px;
+    padding: 20px;
+  }
+  .summary-left { grid-area: summary; max-width: none; }
+  .cart-tier-theme {
+    grid-area: tiers;
+    margin: 0;
+    padding: 14px 0 0;
+    border-top: 1px solid #dce9e4;
+    border-inline: 0;
+  }
+  .summary-actions { grid-area: actions; align-items: stretch; justify-content: center; }
+  .summary-actions .btn-whatsapp-send { width: 100%; min-height: 52px; padding: 0 16px; }
+  .summary-actions .btn-skip-order { width: 100%; min-height: 32px; padding: 0 8px; font-size: .72rem; }
+}

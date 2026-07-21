@@ -1350,14 +1350,9 @@ function calculateOrderTotals() {
           const isActive = activeTier?.tier_id === tier.tier_id;
           const isNext = !activeTier && nextTier?.tier_id === tier.tier_id;
           const tierName = currentLang === 'vi' ? tier.name_vi : tier.name_lo;
-          const range = tier.max_revenue_kip === Number.MAX_SAFE_INTEGER
-            ? (currentLang === 'vi' ? `Từ ${(tier.min_revenue_kip / 1000000).toLocaleString('vi-VN')} triệu` : `ຕັ້ງແຕ່ ${(tier.min_revenue_kip / 1000000).toLocaleString('lo-LA')} ລ້ານ`)
-            : `${(tier.min_revenue_kip / 1000000).toLocaleString(currentLang === 'vi' ? 'vi-VN' : 'lo-LA')}–${(tier.max_revenue_kip / 1000000).toLocaleString(currentLang === 'vi' ? 'vi-VN' : 'lo-LA')} triệu`;
           return `<article class="cart-tier${isActive ? ' active' : ''}${isNext ? ' next' : ''}">
             <span class="cart-tier-name">${tierName}</span>
             <strong>${tier.total_benefit}%</strong>
-            <small>${range}</small>
-            <em>5% + ${tier.quarter_end_reward}%</em>
           </article>`;
         }).join('')}
       </div>
