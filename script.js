@@ -1331,8 +1331,6 @@ function calculateOrderTotals() {
     totalKip += qty * p.price;
   });
   
-  const totalContainer = document.getElementById('summary-total-kip-container');
-  
   // Determine tier
   let activeTier = null;
   for (let i = NNC_ACCUMULATION_TIERS.length - 1; i >= 0; i--) {
@@ -1342,83 +1340,68 @@ function calculateOrderTotals() {
     }
   }
 
-  if (activeTier && activeTier.immediate_discount > 0 && totalContainer) {
-    const discountAmount = totalKip * (activeTier.immediate_discount / 100);
-    const finalAmount = totalKip - discountAmount;
-    const saveTxt = currentLang === 'vi' ? 'Tiết kiệm được' : 'ປະຢັດໄດ້';
-    const totalTxt = currentLang === 'vi' ? 'Tổng thanh toán' : 'ຍອດລວມ';
-    totalContainer.innerHTML = `
-      <div style="color:var(--text-muted); font-size:0.75rem; text-decoration:line-through; margin-bottom:2px;">${totalTxt}: ${totalKip.toLocaleString()} KIP</div>
-      <div style="color:#059669; font-weight:900; font-size:1.15rem; display:flex; align-items:center; gap:4px;">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-        ${saveTxt}: ${discountAmount.toLocaleString()} KIP
-      </div>
-    `;
-  } else if (totalContainer) {
-    totalContainer.innerHTML = `
-      <span class="total-val" id="order-total-val">${totalKip.toLocaleString()}</span>
-      <span class="total-unit">KIP</span>
-    `;
-  }
+  const invoiceBox = document.getElementById('order-invoice-box');
+  const formCard = document.getElementById('order-form-card');
   
-  const statusContainer = document.getElementById('order-tier-status');
-  if (activeTier) {
-    const tierName = currentLang === 'vi' ? activeTier.name_vi : activeTier.name_lo;
-    statusContainer.innerHTML = `
-      <div class="order-tier-badge active">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-        <span>${currentLang === 'vi' ? 'Đạt' : 'ບັນລຸ'} ${tierName}: CK ${activeTier.immediate_discount}% + ${currentLang === 'vi' ? 'Thưởng' : 'ລາງວັນ'} ${activeTier.quarter_end_reward}%</span>
-      </div>
-    `;
-  } else {
-    statusContainer.innerHTML = `
-      <div class="order-tier-badge inactive">
-        <span>${currentLang === 'vi' ? 'Chưa đạt mức tích lũy tối thiểu (2,000,000 KIP)' : 'ຍັງບໍ່ບັນລຸຂັ້ນສະສົມຂັ້ນຕ່ຳ (2,000,000 KIP)'}</span>
-      </div>
-    `;
-  }
-
-  const themeContainer = document.getElementById('cart-tier-theme');
-  if (themeContainer) {
-    if (activeTier) {
+  if (invoiceBox) {
+    if (activeTier && activeTier.immediate_discount > 0) {
+      const discountAmount = totalKip * (activeTier.immediate_discount / 100);
+      const finalAmount = totalKip - discountAmount;
       const tierName = currentLang === 'vi' ? activeTier.name_vi : activeTier.name_lo;
-      const title = currentLang === 'vi' ? `🎉 Đã kích hoạt <strong>${tierName}</strong>` : `🎉 ເປີດນຳໃຊ້ <strong>${tierName}</strong> ແລ້ວ`;
-      const t1 = currentLang === 'vi' ? `Chiết khấu trực tiếp ${activeTier.immediate_discount}%` : `ຮັບສ່ວນຫຼຸດທັນທີ ${activeTier.immediate_discount}%`;
-      const t2 = currentLang === 'vi' ? `Thưởng cuối quý ${activeTier.quarter_end_reward}%` : `ລາງວັນທ້າຍໄຕມາດ ${activeTier.quarter_end_reward}%`;
-      const t3 = currentLang === 'vi' ? `Tổng lợi ích lên tới <strong>${activeTier.total_benefit}%</strong>` : `ຜົນປະໂຫຍດລວມເຖິງ <strong>${activeTier.total_benefit}%</strong>`;
       
-      themeContainer.innerHTML = `
-        <div class="tier-unlocked-anim">
-          <h4>${title}</h4>
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg> ${t1}</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg> ${t2}</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg> ${t3}</li>
-          </ul>
+      invoiceBox.innerHTML = `
+        <div class="invoice-header">${currentLang === 'vi' ? 'TỔNG QUAN ĐƠN HÀNG' : 'ລວມບິນສັ່ງຊື້'}</div>
+        <div class="invoice-row text-muted">
+          <span>${currentLang === 'vi' ? 'Tổng tiền hàng:' : 'ມູນຄ່າສິນຄ້າ:'}</span>
+          <span>${totalKip.toLocaleString()} KIP</span>
+        </div>
+        <div class="invoice-row discount-row">
+          <span>${currentLang === 'vi' ? 'Chiết khấu' : 'ສ່ວນຫຼຸດ'} (${tierName} - ${activeTier.immediate_discount}%):</span>
+          <span>- ${discountAmount.toLocaleString()} KIP</span>
+        </div>
+        <div class="invoice-divider"></div>
+        <div class="invoice-row total-row">
+          <span>${currentLang === 'vi' ? 'TỔNG THANH TOÁN:' : 'ຍອດລວມທີ່ຕ້ອງຈ່າຍ:'}</span>
+          <span>${finalAmount.toLocaleString()} KIP</span>
+        </div>
+        <div class="invoice-bonus">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg>
+          ${currentLang === 'vi' ? 'Quyền lợi thêm:' : 'ສິດທິປະໂຫຍດເພີ່ມເຕີມ:'} ${currentLang === 'vi' ? 'Thưởng cuối quý' : 'ລາງວັນທ້າຍໄຕມາດ'} ${activeTier.quarter_end_reward}%
         </div>
       `;
+      formCard.classList.add('tier-active-theme');
     } else {
-      themeContainer.innerHTML = '';
+      invoiceBox.innerHTML = `
+        <div class="invoice-header">${currentLang === 'vi' ? 'TỔNG QUAN ĐƠN HÀNG' : 'ລວມບິນສັ່ງຊື້'}</div>
+        <div class="invoice-row total-row" style="margin-top:8px;">
+          <span>${currentLang === 'vi' ? 'Tổng thanh toán:' : 'ຍອດລວມທີ່ຕ້ອງຈ່າຍ:'}</span>
+          <span>${totalKip.toLocaleString()} KIP</span>
+        </div>
+        <div class="invoice-bonus text-muted" style="background:transparent; border:none; padding:0; margin-top:12px; font-weight:500;">
+          ${currentLang === 'vi' ? 'Chưa đạt mức tích lũy tối thiểu (2.000.000 KIP)' : 'ຍັງບໍ່ບັນລຸຂັ້ນສະສົມຂັ້ນຕ່ຳ (2.000.000 KIP)'}
+        </div>
+      `;
+      formCard.classList.remove('tier-active-theme');
     }
-  }
 
-  // Nudge against the customer's OWN chosen target tier from the program step
-  if (targetTierId) {
-    const target = NNC_ACCUMULATION_TIERS.find(x => x.tier_id === targetTierId);
-    if (target) {
-      const tName = currentLang === 'vi' ? target.name_vi : target.name_lo;
-      let nudgeHtml = '';
-      if (totalKip >= target.min_revenue_kip) {
-        nudgeHtml = currentLang === 'vi'
-          ? `<div class="order-target-nudge reached">🎯 Đơn này đã đạt mục tiêu <strong>${tName}</strong> anh/chị chọn (tổng lợi ích ${target.total_benefit}%).</div>`
-          : `<div class="order-target-nudge reached">🎯 ບິນນີ້ບັນລຸເປົ້າໝາຍ <strong>${tName}</strong> ທີ່ທ່ານເລືອກ (ຜົນປະໂຫຍດ ${target.total_benefit}%).</div>`;
-      } else {
-        const diff = target.min_revenue_kip - totalKip;
-        nudgeHtml = currentLang === 'vi'
-          ? `<div class="order-target-nudge">🎯 Mục tiêu anh/chị đã chọn: <strong>${tName}</strong> — đơn này còn thiếu <strong>${diff.toLocaleString()} KIP</strong> để đạt (doanh số tích lũy cả quý, không cần đủ trong 1 đơn).</div>`
-          : `<div class="order-target-nudge">🎯 ເປົ້າໝາຍທີ່ທ່ານເລືອກ: <strong>${tName}</strong> — ບິນນີ້ຍັງຂາດ <strong>${diff.toLocaleString()} ກີບ</strong> (ນັບຍອດສະສົມທັງໄຕມາດ, ບໍ່ຈຳເປັນຄົບໃນບິນດຽວ).</div>`;
+    // Append target tier nudge inside invoice box if applicable
+    if (targetTierId) {
+      const target = NNC_ACCUMULATION_TIERS.find(x => x.tier_id === targetTierId);
+      if (target) {
+        const tName = currentLang === 'vi' ? target.name_vi : target.name_lo;
+        let nudgeHtml = '';
+        if (totalKip >= target.min_revenue_kip) {
+          nudgeHtml = currentLang === 'vi'
+            ? `<div class="order-target-nudge reached">🎯 Đơn này đã đạt mục tiêu <strong>${tName}</strong> anh/chị chọn (tổng lợi ích ${target.total_benefit}%).</div>`
+            : `<div class="order-target-nudge reached">🎯 ບິນນີ້ບັນລຸເປົ້າໝາຍ <strong>${tName}</strong> ທີ່ທ່ານເລືອກ (ຜົນປະໂຫຍດ ${target.total_benefit}%).</div>`;
+        } else {
+          const diff = target.min_revenue_kip - totalKip;
+          nudgeHtml = currentLang === 'vi'
+            ? `<div class="order-target-nudge">🎯 Mục tiêu anh/chị đã chọn: <strong>${tName}</strong> — đơn này còn thiếu <strong>${diff.toLocaleString()} KIP</strong> để đạt (doanh số tích lũy cả quý).</div>`
+            : `<div class="order-target-nudge">🎯 ເປົ້າໝາຍທີ່ທ່ານເລືອກ: <strong>${tName}</strong> — ບິນນີ້ຍັງຂາດ <strong>${diff.toLocaleString()} ກີບ</strong> (ນັບຍອດສະສົມທັງໄຕມາດ).</div>`;
+        }
+        invoiceBox.innerHTML += nudgeHtml;
       }
-      statusContainer.innerHTML += nudgeHtml;
     }
   }
 }
