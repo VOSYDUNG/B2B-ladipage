@@ -1753,3 +1753,30 @@ document.addEventListener('keydown', (e) => {
     closeAllModals();
   }
 });
+
+// PDF Scroll to unlock logic
+function onPdfScroll() {
+  const pdfContainer = document.getElementById('program-pdf-preview');
+  const ackCheckbox = document.getElementById('program-ack');
+  const ackLabel = document.getElementById('program-ack-label');
+  
+  if (!pdfContainer || !ackCheckbox || !ackCheckbox.disabled) return;
+  
+  // Check if user has scrolled near the bottom (within 20px)
+  if (pdfContainer.scrollTop + pdfContainer.clientHeight >= pdfContainer.scrollHeight - 20) {
+    // Unlock the checkbox
+    ackCheckbox.disabled = false;
+    ackLabel.style.opacity = '1';
+    ackLabel.style.cursor = 'pointer';
+    
+    // Optional: Auto-check it for them or let them check it manually
+    // ackCheckbox.checked = true;
+    // onProgramAckChange();
+    
+    // Change label text back to original
+    const span = ackLabel.querySelector('span');
+    if (span) {
+      span.textContent = currentLang === 'vi' ? 'Tôi đã xem và hiểu chương trình tích lũy Q3/2026 của NNC Pharma.' : 'ຂ້ອຍໄດ້ອ່ານແລະເຂົ້າໃຈໂຄງການສະສົມ Q3/2026 ຂອງ NNC Pharma ແລ້ວ.';
+    }
+  }
+}

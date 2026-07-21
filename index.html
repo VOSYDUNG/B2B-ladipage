@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Noto+Sans+Lao:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- Style Sheet -->
-  <link rel="stylesheet" href="style.css?v=__BUILD_ID__">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -460,14 +460,14 @@
         <span aria-hidden="true" class="premium-card-border-line"></span>
         <h3 data-i18n="program.title">Chương trình Tích lũy Doanh số Q3/2026</h3>
 
-        <figure class="program-pdf-preview" style="margin-top: 10px;">
+        <figure class="program-pdf-preview" id="program-pdf-preview" style="margin-top: 10px;" onscroll="onPdfScroll()">
           <img src="images/page-1.png" alt="Thể lệ chương trình tích lũy doanh số NNC Pharma Q3/2026">
           <figcaption>Thể lệ chương trình Q3/2026</figcaption>
         </figure>
         
-        <label class="program-ack-box">
-          <input type="checkbox" id="program-ack" onchange="onProgramAckChange()">
-          <span>Tôi đã xem và hiểu chương trình tích lũy Q3/2026 của NNC Pharma.</span>
+        <label class="program-ack-box" id="program-ack-label" style="opacity: 0.5; cursor: not-allowed; transition: all 0.3s ease;">
+          <input type="checkbox" id="program-ack" onchange="onProgramAckChange()" disabled>
+          <span>Tôi đã xem và hiểu chương trình tích lũy Q3/2026 của NNC Pharma. (Vui lòng cuộn đọc hết PDF)</span>
         </label>
 
         <button type="button" class="btn-unlock-wheel" id="btn-unlock-wheel" disabled onclick="confirmProgramViewed()">
@@ -691,6 +691,6 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="script.js?v=__BUILD_ID__"></script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>
