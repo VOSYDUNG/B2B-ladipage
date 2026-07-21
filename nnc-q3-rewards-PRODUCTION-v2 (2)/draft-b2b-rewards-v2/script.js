@@ -100,7 +100,7 @@ const TRANSLATIONS = {
     'result.ref_code': 'Mã giới thiệu của bạn:',
     'result.ref_link': 'Link chia sẻ nhanh:',
     'result.wa_claim_btn': 'Nhận quà qua WhatsApp B2B',
-    'result.cta_next': 'Tiến hành lên đơn hàng',
+    'result.cta_next': 'Tiếp tục nhận quà',
     // Stepper
     'stepper.step1': 'Đăng ký & Khảo sát',
     'stepper.step2': 'Xem chương trình',
@@ -219,7 +219,7 @@ const TRANSLATIONS = {
     'result.ref_code': 'ລະຫັດແນະນຳຂອງທ່ານ:',
     'result.ref_link': 'ລິ້ງແບ່ງປັນດ່ວນ:',
     'result.wa_claim_btn': 'ຢືນຢັນ & ຮັບຂອງຂວັນຜ່ານ WhatsApp B2B',
-    'result.cta_next': 'ດຳເນີນການຈັດໃບສັ່ງຊື້',
+    'result.cta_next': 'ສືບຕໍ່ຮັບຂອງຂວັນ',
     // Stepper
     'stepper.step1': 'ລົງທະບຽນ & ສຳຫຼວດ',
     'stepper.step2': 'ເບິ່ງໂຄງການ',
@@ -1332,11 +1332,36 @@ function calculateOrderTotals() {
 
   const themeContainer = document.getElementById('cart-tier-theme');
   if (themeContainer) {
-    themeContainer.innerHTML = NNC_ACCUMULATION_TIERS.map((tier) => {
-      const isActive = activeTier?.tier_id === tier.tier_id;
-      const tierName = currentLang === 'vi' ? tier.name_vi : tier.name_lo;
-      return `<div class="cart-tier${isActive ? ' active' : ''}">${tierName}<br><small>${tier.total_benefit}%</small></div>`;
-    }).join('');
+    const nextTier = NNC_ACCUMULATION_TIERS.find((tier) => totalKip < tier.min_revenue_kip);
+    const lead = activeTier
+      ? (currentLang === 'vi'
+        ? `Đơn mẫu đang thuộc <strong>${activeTier.name_vi}</strong> — hưởng ngay ${activeTier.immediate_discount}% và thêm ${activeTier.quarter_end_reward}% cuối quý.`
+        : `ໃບສັ່ງຊື້ຕົວຢ່າງນີ້ຢູ່ <strong>${activeTier.name_lo}</strong> — ຮັບທັນທີ ${activeTier.immediate_discount}% ແລະ ເພີ່ມ ${activeTier.quarter_end_reward}% ທ້າຍໄຕມາດ.`)
+      : (currentLang === 'vi'
+        ? `Chọn số lượng để mở dần các <strong>bậc quyền lợi</strong> phù hợp với hành trình của anh/chị.`
+        : `ເລືອກຈຳນວນເພື່ອເປີດແຕ່ລະ <strong>ຂັ້ນສິດທິປະໂຫຍດ</strong> ທີ່ເໝາະສົມ.`);
+    themeContainer.innerHTML = `
+      <div class="cart-tier-heading">
+        <span>${currentLang === 'vi' ? 'BẬC QUYỀN LỢI' : 'ຂັ້ນສິດທິປະໂຫຍດ'}</span>
+        <strong>${activeTier ? `${activeTier.total_benefit}%` : '7–10%'}</strong>
+      </div>
+      <div class="cart-tier-grid">
+        ${NNC_ACCUMULATION_TIERS.map((tier) => {
+          const isActive = activeTier?.tier_id === tier.tier_id;
+          const isNext = !activeTier && nextTier?.tier_id === tier.tier_id;
+          const tierName = currentLang === 'vi' ? tier.name_vi : tier.name_lo;
+          const range = tier.max_revenue_kip === Number.MAX_SAFE_INTEGER
+            ? (currentLang === 'vi' ? `Từ ${(tier.min_revenue_kip / 1000000).toLocaleString('vi-VN')} triệu` : `ຕັ້ງແຕ່ ${(tier.min_revenue_kip / 1000000).toLocaleString('lo-LA')} ລ້ານ`)
+            : `${(tier.min_revenue_kip / 1000000).toLocaleString(currentLang === 'vi' ? 'vi-VN' : 'lo-LA')}–${(tier.max_revenue_kip / 1000000).toLocaleString(currentLang === 'vi' ? 'vi-VN' : 'lo-LA')} triệu`;
+          return `<article class="cart-tier${isActive ? ' active' : ''}${isNext ? ' next' : ''}">
+            <span class="cart-tier-name">${tierName}</span>
+            <strong>${tier.total_benefit}%</strong>
+            <small>${range}</small>
+            <em>5% + ${tier.quarter_end_reward}%</em>
+          </article>`;
+        }).join('')}
+      </div>
+      <p class="cart-tier-lead">${lead}</p>`;
   }
 
   // Nudge against the customer's OWN chosen target tier from the program step
