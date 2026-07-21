@@ -1,0 +1,23 @@
+node_modules/
+build/
+dist/
+coverage/
+.firebase/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Local source packages and production handoff artifacts are not part of the app.
+New-design/
+TVC_Video_Production/
+VG5_KMK_SOURCE_LOCKED_REFACTOR/
+WHITE_LOTUS_Q3_2026_ANTIGRAVITY_HANDOFF/
+artifacts/
+fix_image/
+stitch_h_th_ng_landing_page_marketing/
+WHITE_LOTUS_Q3_2026_ANTIGRAVITY_HANDOFF.zip
+stitch_h_th_ng_landing_page_marketing.zip
+nnc-q3-rewards-PRODUCTION-v2 (2)/
+nnc-q3-rewards-PRODUCTION-v2 (2).zip
+scripts/__pycache__/

@@ -1,0 +1,22 @@
+{
+  "vg5TradeOrder": {
+    "formId": "vg5-kmk-order",
+    "versionNumber": 1,
+    "flowKey": "trade_order"
+  },
+  "whiteLotusProductOrder": {
+    "formId": "white-lotus-order",
+    "versionNumber": 1,
+    "flowKey": "product_order"
+  },
+  "whiteLotusSampleRequest": {
+    "formId": "white-lotus-sample-request",
+    "versionNumber": 1,
+    "flowKey": "sample_request"
+  },
+  "nncRewardsOrder": {
+    "formId": "nnc-rewards-order",
+    "versionNumber": 1,
+    "flowKey": "rewards_order"
+  }
+}

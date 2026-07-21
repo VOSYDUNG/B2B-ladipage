@@ -1,0 +1,704 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function hasInternalEmail() {
+      return request.auth != null
+        && request.auth.token.email is string
+        && request.auth.token.email_verified == true
+        && request.auth.token.email.matches('.*@(nncpharma[.]com|nnc[.]la)$');
+    }
+
+    function hasRole(roles) {
+      return request.auth != null && request.auth.token.role in roles;
+    }
+
+    function isStaff() {
+      return hasInternalEmail();
+    }
+
+    function isAdmin() {
+      return hasInternalEmail()
+        && (
+          hasRole(['super_admin'])
+          || request.auth.token.email == 'admin@nncpharma.com'
+        );
+    }
+
+    function canReadAllLeads() {
+      return isAdmin()
+        || hasRole([
+          'marketing_admin',
+          'sales_manager'
+        ]);
+    }
+
+    function canReadAnalytics() {
+      return canReadAllLeads() || hasRole(['analyst']);
+    }
+
+    function validText(value, minSize, maxSize) {
+      return value is string
+        && value.size() >= minSize
+        && value.size() <= maxSize;
+    }
+
+    function validPublicLeadForm(data) {
+      return data is map
+        && data.keys().hasAll(['form_id', 'version_number', 'flow_key'])
+        && data.keys().hasOnly(['form_id', 'version_number', 'flow_key'])
+        && data.form_id in [
+          'vg5-kmk-order',
+          'white-lotus-order',
+          'white-lotus-sample-request',
+          'nnc-rewards-order'
+        ]
+        && data.version_number == 1
+        && data.flow_key in ['trade_order', 'product_order', 'sample_request', 'rewards_order'];
+    }
+
+    function validPublicLeadAttribution(data) {
+      return data is map
+        && data.keys().hasAll([
+          'landing_id',
+          'landing_version',
+          'campaign_id',
+          'template_id',
+          'variant_id',
+          'language',
+          'source',
+          'lead_type'
+        ])
+        && data.keys().hasOnly([
+          'landing_id',
+          'landing_version',
+          'campaign_id',
+          'template_id',
+          'variant_id',
+          'language',
+          'source',
+          'medium',
+          'campaign',
+          'content',
+          'referrer',
+          'lead_type'
+        ])
+        && data.landing_id in ['vg5-kmk', 'white-lotus', 'nnc-b2b-online-rewards-q3-2026']
+        && data.landing_version is int
+        && data.landing_version >= 1
+        && data.landing_version <= 1000
+        && validText(data.campaign_id, 3, 80)
+        && validText(data.template_id, 3, 80)
+        && validText(data.variant_id, 1, 40)
+        && data.language in ['vi', 'lo', 'en']
+        && validText(data.source, 1, 100)
+        && data.lead_type in ['ORDER', 'SAMPLE_REQUEST', 'PARTICIPANT']
+        && (!('medium' in data) || data.medium == null || validText(data.medium, 1, 100))
+        && (!('campaign' in data) || data.campaign == null || validText(data.campaign, 1, 120))
+        && (!('content' in data) || data.content == null || validText(data.content, 1, 120))
+        && (!('referrer' in data) || data.referrer == null || validText(data.referrer, 1, 500));
+    }
+
+    function validPublicLeadIdentity(data) {
+      return data is map
+        && data.keys().hasAll(['pharmacy_name', 'province', 'contact_name', 'phone'])
+        && data.keys().hasOnly(['pharmacy_name', 'province', 'contact_name', 'phone'])
+        && validText(data.pharmacy_name, 1, 160)
+        && validText(data.province, 1, 100)
+        && validText(data.contact_name, 1, 160)
+        && validText(data.phone, 6, 24)
+        && data.phone.matches('^[0-9+ ()-]{6,24}$');
+    }
+
+    function validPublicLeadItem(item) {
+      return item is map
+        && item.keys().hasAll(['product_id', 'quantity'])
+        && item.keys().hasOnly(['product_id', 'quantity'])
+        && item.product_id in [
+          'lotofex-200',
+          'fexentrix-60',
+          'fexentrix-120',
+          'etorilux-120'
+        ]
+        && item.quantity is int
+        && item.quantity >= 1
+        && item.quantity <= 10000;
+    }
+
+    function validPublicLeadItems(items) {
+      return items is list
+        && items.size() >= 1
+        && items.size() <= 4
+        && validPublicLeadItem(items[0])
+        && (items.size() < 2 || validPublicLeadItem(items[1]))
+        && (items.size() < 3 || validPublicLeadItem(items[2]))
+        && (items.size() < 4 || validPublicLeadItem(items[3]));
+    }
+
+    function validNncLeadItem(item) {
+      return item is map
+        && item.keys().hasAll(['product_id', 'quantity'])
+        && item.keys().hasOnly(['product_id', 'quantity'])
+        && item.product_id in [
+          'tadimax',
+          'bai-thach',
+          'cv-mox-1000',
+          'nc-cv-mox-625',
+          'cv-mox-228.5',
+          'cefixad-100mg',
+          'azihadi'
+        ]
+        && item.quantity == 1;
+    }
+
+    function validNncLeadItems(items) {
+      return items is list
+        && items.size() >= 1
+        && items.size() <= 7
+        && validNncLeadItem(items[0])
+        && (items.size() < 2 || validNncLeadItem(items[1]))
+        && (items.size() < 3 || validNncLeadItem(items[2]))
+        && (items.size() < 4 || validNncLeadItem(items[3]))
+        && (items.size() < 5 || validNncLeadItem(items[4]))
+        && (items.size() < 6 || validNncLeadItem(items[5]))
+        && (items.size() < 7 || validNncLeadItem(items[6]));
+    }
+
+    function validPublicLeadSelection(data, formId) {
+      return data is map
+        && data.keys().hasAll(['currency'])
+        && data.keys().hasOnly([
+          'package_id',
+          'reward_option',
+          'selected_package_value',
+          'currency',
+          'items',
+          'need_type'
+        ])
+        && data.currency == 'LAK'
+        && (!('package_id' in data) || validText(data.package_id, 1, 80))
+        && (!('reward_option' in data) || validText(data.reward_option, 1, 80))
+        && (!('need_type' in data) || validText(data.need_type, 1, 80))
+        && (!('selected_package_value' in data)
+          || (data.selected_package_value is number
+            && data.selected_package_value >= 0
+            && data.selected_package_value <= 1000000000))
+        && (!('items' in data)
+          || (formId == 'nnc-rewards-order'
+            ? validNncLeadItems(data.items)
+            : validPublicLeadItems(data.items)));
+    }
+
+    function validPublicLeadCrm(data) {
+      return data is map
+        && data.keys().hasAll([
+          'status',
+          'owner_id',
+          'next_action_at',
+          'lead_score',
+          'lost_reason',
+          'converted_order_value'
+        ])
+        && data.keys().hasOnly([
+          'status',
+          'owner_id',
+          'next_action_at',
+          'lead_score',
+          'lost_reason',
+          'converted_order_value'
+        ])
+        && data.status == 'NEW'
+        && data.owner_id == null
+        && data.next_action_at == null
+        && data.lead_score == null
+        && data.lost_reason == null
+        && data.converted_order_value == null;
+    }
+
+    function validPublicLeadCompliance(data) {
+      return data is map
+        && data.keys().hasAll(['contact_consent', 'privacy_version'])
+        && data.keys().hasOnly(['contact_consent', 'privacy_version'])
+        && data.contact_consent is bool
+        && data.privacy_version == 'lead_form_v1';
+    }
+
+    function publicLeadIntakeEnabled() {
+      return exists(/databases/$(database)/documents/system_settings/public_lead_intake)
+        && get(
+          /databases/$(database)/documents/system_settings/public_lead_intake
+        ).data.enabled == true
+        && get(
+          /databases/$(database)/documents/system_settings/public_lead_intake
+        ).data.app_check_enforced == true;
+    }
+
+    function nncCampaignIntakeOpen() {
+      return request.time >= timestamp.value(1785517200000)
+        && request.time < timestamp.value(1790787600000);
+    }
+
+    // Temporary owner-requested production UAT switch. Keep this aligned with
+    // src/config/nnc-production-uat.ts and set it to false after owner sign-off.
+    function nncProductionUatOpen() {
+      return true;
+    }
+
+    // Temporary White Lotus owner UAT switch. This bypasses only the browser
+    // App Check precondition; schema validation, kill switch and create-only
+    // collection permissions remain enforced.
+    function whiteLotusProductionUatOpen() {
+      return true;
+    }
+
+    function isNncRewardsLead(data) {
+      return data is map
+        && data.form is map
+        && data.form.form_id == 'nnc-rewards-order';
+    }
+
+    function isWhiteLotusOrderLead(data) {
+      return data is map
+        && data.form is map
+        && data.form.form_id == 'white-lotus-order';
+    }
+
+    // Keep the existing White Lotus public order path on a compact validator
+    // as well; the former shared multi-form branch also exceeded the Rules
+    // expression ceiling for a legitimate order.
+    function validWhiteLotusOrderCreate(leadId, data) {
+      return leadId.matches('^lead-v1-[A-Za-z0-9-]{16,120}$')
+        && data.keys().hasOnly([
+          'schema_version',
+          'form',
+          'attribution',
+          'identity',
+          'selection',
+          'crm',
+          'compliance',
+          'ingestion',
+          'created_at',
+          'updated_at'
+        ])
+        && data.schema_version == 'public_lead_v1'
+        && data.form.keys().hasOnly(['form_id', 'version_number', 'flow_key'])
+        && data.form.form_id == 'white-lotus-order'
+        && data.form.version_number == 1
+        && data.form.flow_key == 'product_order'
+        && data.attribution.keys().hasOnly([
+          'landing_id',
+          'landing_version',
+          'campaign_id',
+          'template_id',
+          'variant_id',
+          'language',
+          'source',
+          'medium',
+          'campaign',
+          'content',
+          'referrer',
+          'lead_type'
+        ])
+        && data.attribution.landing_id == 'white-lotus'
+        && data.attribution.landing_version is int
+        && data.attribution.landing_version >= 1
+        && data.attribution.landing_version <= 1000
+        && data.attribution.campaign_id == 'WL_NEW_PRODUCTS_2026_Q3'
+        && data.attribution.template_id == 'white_lotus_order_v1'
+        && data.attribution.variant_id == 'default'
+        && data.attribution.language in ['vi', 'lo', 'en']
+        && validText(data.attribution.source, 1, 100)
+        && data.attribution.lead_type == 'ORDER'
+        && (data.attribution.medium == null || validText(data.attribution.medium, 1, 100))
+        && (data.attribution.campaign == null || validText(data.attribution.campaign, 1, 120))
+        && (data.attribution.content == null || validText(data.attribution.content, 1, 120))
+        && (data.attribution.referrer == null || validText(data.attribution.referrer, 1, 500))
+        && validPublicLeadIdentity(data.identity)
+        && data.selection.keys().hasOnly(['items', 'package_id', 'reward_option', 'selected_package_value', 'currency'])
+        && data.selection.package_id == 'white_lotus_order'
+        && data.selection.reward_option == 'product'
+        && data.selection.currency == 'LAK'
+        && data.selection.selected_package_value is number
+        && data.selection.selected_package_value >= 0
+        && data.selection.selected_package_value <= 1000000000
+        && validPublicLeadItems(data.selection.items)
+        && validPublicLeadCrm(data.crm)
+        && validPublicLeadCompliance(data.compliance)
+        && data.ingestion.keys().hasOnly(['mode', 'app_check_required'])
+        && (
+          (data.ingestion.mode == 'firestore_web_v1'
+            && data.ingestion.app_check_required == true)
+          || (whiteLotusProductionUatOpen()
+            && data.ingestion.mode == 'firestore_web_uat_v1'
+            && data.ingestion.app_check_required == false)
+        )
+        && data.created_at == request.time
+        && data.updated_at == request.time;
+    }
+
+    // NNC has a dedicated compact validator. Routing the campaign through the
+    // generic multi-form validator exceeded Firestore's 1,000-expression
+    // evaluation ceiling before the NNC field checks completed.
+    function validNncPublicLeadCreate(leadId, data) {
+      // A public form write must behave the same whether the browser has no
+      // Firebase Auth session or still carries a CRM session for this app.
+      return leadId.matches('^lead-v1-nnc-[a-z0-9]{16,40}$')
+        && data.keys().hasOnly([
+          'schema_version',
+          'form',
+          'attribution',
+          'identity',
+          'selection',
+          'crm',
+          'compliance',
+          'ingestion',
+          'role',
+          'category_interest',
+          'product_interests',
+          'answers_json',
+          'purchase_intent_range',
+          'support_needs',
+          'preferred_contact',
+          'referral_code_used',
+          'referral_code_owned',
+          'created_at',
+          'updated_at'
+        ])
+        && data.schema_version == 'public_lead_v1'
+        && data.form.keys().hasOnly(['form_id', 'version_number', 'flow_key'])
+        && data.form.form_id == 'nnc-rewards-order'
+        && data.form.version_number == 1
+        && data.form.flow_key == 'rewards_order'
+        && data.attribution.keys().hasOnly([
+          'landing_id',
+          'landing_version',
+          'campaign_id',
+          'template_id',
+          'variant_id',
+          'language',
+          'source',
+          'medium',
+          'campaign',
+          'content',
+          'referrer',
+          'lead_type'
+        ])
+        && data.attribution.landing_id == 'nnc-b2b-online-rewards-q3-2026'
+        && data.attribution.landing_version == 2
+        && data.attribution.campaign_id == 'NNC_B2B_ONLINE_REWARDS_Q3_2026'
+        && data.attribution.template_id == 'nnc_b2b_rewards_v2'
+        && data.attribution.variant_id == 'clinical-progress'
+        && data.attribution.language in ['vi', 'lo']
+        && data.attribution.lead_type == 'PARTICIPANT'
+        && validText(data.attribution.source, 1, 100)
+        && (data.attribution.medium == null || validText(data.attribution.medium, 1, 100))
+        && (data.attribution.campaign == null || validText(data.attribution.campaign, 1, 120))
+        && (data.attribution.content == null || validText(data.attribution.content, 1, 120))
+        && (data.attribution.referrer == null || validText(data.attribution.referrer, 1, 500))
+        && data.identity.keys().hasOnly(['pharmacy_name', 'province', 'contact_name', 'phone'])
+        && validText(data.identity.pharmacy_name, 1, 160)
+        && validText(data.identity.province, 1, 100)
+        && validText(data.identity.contact_name, 1, 160)
+        && validText(data.identity.phone, 8, 24)
+        && data.identity.phone.matches('^\\+?([0-9][ ()-]*){8,15}$')
+        && data.selection.keys().hasOnly(['package_id', 'reward_option', 'currency', 'need_type'])
+        && data.selection.package_id == 'nnc_rewards_b2b'
+        && data.selection.reward_option == 'pending_confirmation'
+        && data.selection.currency == 'LAK'
+        && data.selection.need_type == data.category_interest
+        && validPublicLeadCrm(data.crm)
+        && validPublicLeadCompliance(data.compliance)
+        && data.ingestion.keys().hasOnly(['mode', 'app_check_required'])
+        && (
+          (data.ingestion.mode == 'firestore_web_v1'
+            && data.ingestion.app_check_required == true)
+          || (nncProductionUatOpen()
+            && data.ingestion.mode == 'firestore_web_uat_v1'
+            && data.ingestion.app_check_required == false)
+        )
+        && data.role in ['doctor', 'clinic', 'pharmacy', 'agent', 'other']
+        && data.category_interest in ['herbal', 'adult_antibiotic', 'child_antibiotic', 'multiple', 'more_advice']
+        && data.product_interests is list
+        && data.product_interests.size() >= 1
+        && data.product_interests.size() <= 7
+        && data.product_interests.hasOnly([
+          'tadimax',
+          'bai-thach',
+          'cv-mox-1000',
+          'nc-cv-mox-625',
+          'cv-mox-228.5',
+          'cefixad-100mg',
+          'azihadi'
+        ])
+        && validText(data.answers_json, 2, 10000)
+        && data.purchase_intent_range in ['under_2m', '2m_to_6m', '6m_to_12m', '12m_to_25m', 'above_25m', 'undetermined']
+        && data.support_needs is list
+        && data.support_needs.size() >= 1
+        && data.support_needs.size() <= 6
+        && data.support_needs.hasOnly(['product_info', 'price_policy', 'samples', 'inventory_delivery', 'direct_sales', 'accumulation_rewards'])
+        && data.preferred_contact in ['whatsapp', 'phone', 'other']
+        && data.referral_code_used is string
+        && data.referral_code_used.size() <= 80
+        && validText(data.referral_code_owned, 8, 80)
+        && data.created_at == request.time
+        && data.updated_at == request.time
+        && (isStaff() || nncProductionUatOpen() || nncCampaignIntakeOpen());
+    }
+
+    function validPublicLeadCreate(leadId, data) {
+      return (request.auth == null || isStaff())
+        && leadId.matches('^lead-v1-[A-Za-z0-9-]{16,120}$')
+        && data is map
+        && data.keys().hasAll([
+          'schema_version',
+          'form',
+          'attribution',
+          'identity',
+          'selection',
+          'crm',
+          'compliance',
+          'ingestion',
+          'created_at',
+          'updated_at'
+        ])
+        && data.keys().hasOnly([
+          'schema_version',
+          'form',
+          'attribution',
+          'identity',
+          'selection',
+          'crm',
+          'compliance',
+          'ingestion',
+          'role',
+          'category_interest',
+          'product_interests',
+          'answers_json',
+          'purchase_intent_range',
+          'support_needs',
+          'preferred_contact',
+          'referral_code_used',
+          'referral_code_owned',
+          'wheel_reward_id',
+          'wheel_reward_name',
+          'wheel_reward_status',
+          'wheel_reward_recorded_at',
+          'created_at',
+          'updated_at'
+        ])
+        && data.schema_version == 'public_lead_v1'
+        && validPublicLeadForm(data.form)
+        && validPublicLeadAttribution(data.attribution)
+        && validPublicLeadIdentity(data.identity)
+        && validPublicLeadSelection(data.selection, data.form.form_id)
+        && validPublicLeadCrm(data.crm)
+        && validPublicLeadCompliance(data.compliance)
+        && data.ingestion is map
+        && data.ingestion.keys().hasAll(['mode', 'app_check_required'])
+        && data.ingestion.keys().hasOnly(['mode', 'app_check_required'])
+        && (
+          (data.ingestion.mode == 'firestore_web_v1'
+            && data.ingestion.app_check_required == true)
+          || (data.form.form_id == 'nnc-rewards-order'
+            && nncProductionUatOpen()
+            && data.ingestion.mode == 'firestore_web_uat_v1'
+            && data.ingestion.app_check_required == false)
+          || (data.attribution.campaign_id == 'WL_NEW_PRODUCTS_2026_Q3'
+            && whiteLotusProductionUatOpen()
+            && data.ingestion.mode == 'firestore_web_uat_v1'
+            && data.ingestion.app_check_required == false)
+        )
+        && data.created_at == request.time
+        && data.updated_at == request.time
+        && (data.form.form_id == 'nnc-rewards-order'
+          ? false
+          : !data.keys().hasAny([
+              'role',
+              'category_interest',
+              'product_interests',
+              'answers_json',
+              'purchase_intent_range',
+              'support_needs',
+              'preferred_contact',
+              'referral_code_used',
+              'referral_code_owned',
+              'wheel_reward_id',
+              'wheel_reward_name',
+              'wheel_reward_status',
+              'wheel_reward_recorded_at'
+            ]))
+        && (
+          (data.form.form_id == 'vg5-kmk-order'
+            && data.form.flow_key == 'trade_order'
+            && data.attribution.landing_id == 'vg5-kmk'
+            && data.attribution.campaign_id == 'VG5_KMK_LAO_2026'
+            && data.attribution.template_id == 'pharmacy_trade_v1'
+            && data.attribution.lead_type == 'ORDER')
+          || (data.form.form_id == 'white-lotus-order'
+            && data.form.flow_key == 'product_order'
+            && data.attribution.landing_id == 'white-lotus'
+            && data.attribution.campaign_id == 'WL_NEW_PRODUCTS_2026_Q3'
+            && data.attribution.template_id == 'white_lotus_order_v1'
+            && data.attribution.lead_type == 'ORDER')
+          || (data.form.form_id == 'white-lotus-sample-request'
+            && data.form.flow_key == 'sample_request'
+            && data.attribution.landing_id == 'white-lotus'
+            && data.attribution.campaign_id == 'WL_NEW_PRODUCTS_2026_Q3'
+            && data.attribution.template_id == 'white_lotus_order_v1'
+            && data.attribution.lead_type == 'SAMPLE_REQUEST')
+          || (data.form.form_id == 'nnc-rewards-order'
+            && data.form.flow_key == 'rewards_order'
+            && data.attribution.landing_id == 'nnc-b2b-online-rewards-q3-2026'
+            && data.attribution.campaign_id == 'NNC_B2B_ONLINE_REWARDS_Q3_2026'
+            && data.attribution.template_id == 'nnc_b2b_rewards_v2'
+            && data.attribution.landing_version == 2
+            && data.attribution.variant_id == 'clinical-progress'
+            && (isStaff() || nncProductionUatOpen() || nncCampaignIntakeOpen())
+            && data.attribution.lead_type == 'PARTICIPANT')
+        );
+    }
+
+    match /landing_pages/{landingId} {
+      // Public resolution and all admin lifecycle operations are brokered by backend APIs.
+      allow read, write: if false;
+    }
+
+    match /landing_activities/{activityId} {
+      allow read, write: if false;
+    }
+
+    match /landing_versions/{versionId} {
+      allow read, write: if false;
+    }
+
+    match /forms/{formId} {
+      allow read, write: if false;
+    }
+
+    match /claim_matrix/{claimId} {
+      allow read, write: if false;
+    }
+
+    match /claim_activities/{activityId} {
+      allow read, write: if false;
+    }
+
+    match /landing_assets/{assetId} {
+      allow read, write: if false;
+    }
+
+    match /landing_action_keys/{keyId} {
+      allow read, write: if false;
+    }
+
+    match /asset_replacement_jobs/{jobId} {
+      allow read, write: if false;
+    }
+
+    match /asset_replacement_activities/{activityId} {
+      allow read, write: if false;
+    }
+
+    match /asset_action_keys/{keyId} {
+      allow read, write: if false;
+    }
+
+    match /leads/{leadId} {
+      allow create: if publicLeadIntakeEnabled()
+        && isNncRewardsLead(request.resource.data)
+        && validNncPublicLeadCreate(leadId, request.resource.data);
+      allow create: if publicLeadIntakeEnabled()
+        && isWhiteLotusOrderLead(request.resource.data)
+        && validWhiteLotusOrderCreate(leadId, request.resource.data);
+      allow create: if publicLeadIntakeEnabled()
+        && !isNncRewardsLead(request.resource.data)
+        && !isWhiteLotusOrderLead(request.resource.data)
+        && validPublicLeadCreate(leadId, request.resource.data);
+      allow read: if isStaff()
+        && (
+          canReadAllLeads()
+          || (hasRole(['sales_rep'])
+            && resource.data.crm.owner_id == request.auth.token.email)
+        );
+      allow update, delete: if false;
+    }
+
+    match /lead_activities/{activityId} {
+      allow read: if isStaff() && canReadAllLeads();
+      allow create, update, delete: if false;
+    }
+
+    match /system_settings/{settingId} {
+      allow read, write: if false;
+    }
+
+    match /stats_daily_landing_v1/{statId} {
+      allow read: if isStaff() && canReadAnalytics();
+      allow create, update, delete: if false;
+    }
+
+    match /analytics_snapshots_v1/{snapshotId} {
+      allow read, write: if false;
+    }
+
+    match /ai_lead_features_v1/{featureId} {
+      allow read, write: if false;
+    }
+
+    match /ai_analysis_jobs/{jobId} {
+      allow read, write: if false;
+    }
+
+    match /ai_job_activities/{activityId} {
+      allow read, write: if false;
+    }
+
+    match /ai_analysis_results/{resultId} {
+      allow read, write: if false;
+    }
+
+    match /ai_job_keys/{keyId} {
+      allow read, write: if false;
+    }
+
+    match /lead_ingestion_keys/{keyId} {
+      allow read, write: if false;
+    }
+
+    match /lead_admin_action_keys/{keyId} {
+      allow read, write: if false;
+    }
+
+    match /lead_outbox_events/{eventId} {
+      allow read, write: if false;
+    }
+
+    match /webhook_deliveries/{deliveryId} {
+      allow read, write: if false;
+    }
+
+    match /webhook_delivery_attempts/{attemptId} {
+      allow read, write: if false;
+    }
+
+    match /webhook_delivery_activities/{activityId} {
+      allow read, write: if false;
+    }
+
+    match /webhook_action_keys/{keyId} {
+      allow read, write: if false;
+    }
+
+    match /stats_daily_delivery_v1/{statId} {
+      allow read, write: if false;
+    }
+
+    match /b2b_rewards_participants/{participantId} {
+      allow create, update, get: if true;
+      allow list: if hasInternalEmail() || canReadAllLeads();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,88 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@source "../index.html";
+@source "../white-lotus.html";
+@source "../nnc-b2b-rewards.html";
+
+@theme {
+  --font-sans: "Be Vietnam Pro", "Noto Sans Lao", ui-sans-serif, system-ui, sans-serif;
+  --font-lao: "Noto Sans Lao", "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-green: #15803d;
+  --color-brand-deep: #064e3b;
+  --color-brand-lime: #a3e635;
+  --color-brand-gold: #d4a72c;
+}
+
+:root {
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --header-height: 4.5rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+  background: #f8fbf8;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: "Be Vietnam Pro", "Noto Sans Lao", ui-sans-serif, system-ui, sans-serif;
+}
+
+:lang(lo),
+.lao {
+  font-family: "Noto Sans Lao", "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.65;
+}
+
+html:lang(lo) .nnc-campaign [class*="tracking-["] {
+  letter-spacing: 0 !important;
+}
+
+html:lang(lo) .nnc-campaign .uppercase {
+  text-transform: none;
+}
+
+button,
+a,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(163, 230, 53, 0.45);
+  color: #064e3b;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2.5s infinite;
+}
