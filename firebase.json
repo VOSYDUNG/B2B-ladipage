@@ -4,27 +4,15 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "dist",
+    "site": "salesonlinennc",
+    "public": "nnc-q3-rewards-PRODUCTION-v2 (2)/draft-b2b-rewards-v2",
     "ignore": [
       "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
+      "**/.*"
     ],
     "headers": [
       {
-        "source": "/index.html",
-        "headers": [
-          { "key": "Cache-Control", "value": "no-store, max-age=0" }
-        ]
-      },
-      {
-        "source": "/sw.js",
+        "source": "**/*.html",
         "headers": [
           { "key": "Cache-Control", "value": "no-store, max-age=0" }
         ]
