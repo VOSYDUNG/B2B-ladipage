@@ -1350,13 +1350,16 @@ function calculateOrderTotals() {
       const tierName = currentLang === 'vi' ? activeTier.name_vi : activeTier.name_lo;
       
       invoiceBox.innerHTML = `
-        <div class="invoice-header">${currentLang === 'vi' ? 'TỔNG QUAN ĐƠN HÀNG' : 'ລວມບິນສັ່ງຊື້'}</div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:12px;">
+          <div class="invoice-header" style="margin-bottom:0;">${currentLang === 'vi' ? 'TỔNG QUAN ĐƠN HÀNG' : 'ລວມບິນສັ່ງຊື້'}</div>
+          <div style="font-weight:900; font-size:1.05rem; color:#059669; text-transform:uppercase;">${tierName}</div>
+        </div>
         <div class="invoice-row text-muted">
           <span>${currentLang === 'vi' ? 'Tổng tiền hàng:' : 'ມູນຄ່າສິນຄ້າ:'}</span>
           <span>${totalKip.toLocaleString()} KIP</span>
         </div>
         <div class="invoice-row discount-row">
-          <span>${currentLang === 'vi' ? 'Chiết khấu' : 'ສ່ວນຫຼຸດ'} (${tierName} - ${activeTier.immediate_discount}%):</span>
+          <span>${currentLang === 'vi' ? 'Chiết khấu' : 'ສ່ວນຫຼຸດ'} (${activeTier.immediate_discount}%):</span>
           <span>- ${discountAmount.toLocaleString()} KIP</span>
         </div>
         <div class="invoice-divider"></div>
