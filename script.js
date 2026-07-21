@@ -552,17 +552,25 @@ function updateStepperVisual() {
   }
 }
 
+function closeFunnelModal() {
+  const overlay = document.getElementById('funnel-modal-overlay');
+  if (overlay) overlay.style.display = 'none';
+  document.body.style.overflow = '';
+  if (flowState !== 'wheel') {
+    flowState = 'discover';
+    updateStepperVisual();
+  }
+}
+
 // Flow state transitions
 function setFlowState(nextState) {
   flowState = nextState;
   updateStepperVisual();
   updateWheelLockVisual();
 
-  // Elements
-  const funnelSec = document.getElementById('funnel-content-section');
+  const overlay = document.getElementById('funnel-modal-overlay');
   const registerCard = document.getElementById('register-card');
   const programCard = document.getElementById('program-card');
-  const wheelCard = document.getElementById('wheel-card');
   const orderCard = document.getElementById('order-form-card');
   const completionCard = document.getElementById('completion-card');
   const spinBtn = document.getElementById('btn-spin-wheel');
@@ -570,37 +578,38 @@ function setFlowState(nextState) {
   const show = (el, on) => { if (el) el.style.display = on ? 'block' : 'none'; };
 
   if (flowState === 'discover') {
-    show(funnelSec, false);
+    if (overlay) overlay.style.display = 'none';
+    document.body.style.overflow = '';
     if (spinBtn) spinBtn.classList.add('pulse-border');
+  } else if (flowState === 'wheel') {
+    if (overlay) overlay.style.display = 'none';
+    document.body.style.overflow = '';
+    if (spinBtn) {
+      spinBtn.disabled = false;
+      spinBtn.classList.add('pulse-border');
+    }
+    scrollToId('target-wheel-box');
   } else {
-    show(funnelSec, true);
+    // Open Popup Modal Overlay over screen!
+    if (overlay) overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+
     show(registerCard, flowState === 'register');
     show(programCard, flowState === 'program');
-    show(wheelCard, flowState === 'wheel');
     show(orderCard, flowState === 'cart');
     show(completionCard, flowState === 'completion');
 
-    if (flowState === 'wheel') {
-      if (spinBtn) {
-        spinBtn.disabled = false;
-        spinBtn.classList.add('pulse-border');
-      }
-      setTimeout(drawLuckyWheel, 50);
-    } else if (flowState === 'cart') {
+    if (flowState === 'cart') {
       renderOrderProductsList();
       calculateOrderTotals();
     } else if (flowState === 'completion') {
-      // Render completion referral link info dynamically
       const code = getMyReferralCode();
       const myCodeEl = document.getElementById('my-referral-code');
       const myLinkEl = document.getElementById('my-referral-link');
       if (myCodeEl) myCodeEl.innerText = code;
       if (myLinkEl) myLinkEl.innerText = `${window.location.origin}/?ref=${code}`;
-
       renderCompletionTierProgress();
     }
-
-    scrollToId('funnel-content-section');
   }
 }
 
@@ -1038,7 +1047,6 @@ function handleFormSubmit(e) {
   const province = document.getElementById('province').value.trim();
   const refCode = document.getElementById('referralCode').value.trim();
   
-  // Input Validation & Locking
   if (!fullname) {
     alert(currentLang === 'vi' ? 'Vui lòng nhập Họ và tên người phụ trách!' : 'ກະລຸນາປ້ອນ ຊື່ ແລະ ນາມສະກຸນ!');
     document.getElementById('fullname').focus();
@@ -1246,8 +1254,10 @@ function proceedToCartStep() {
 function focusWheel() {
   if (flowState === 'discover') {
     setFlowState('register');
-  } else {
+  } else if (flowState === 'register') {
     scrollToId('funnel-content-section');
+  } else {
+    scrollToId('target-wheel-box');
     const btn = document.getElementById('btn-spin-wheel');
     if (btn) {
       btn.style.animation = 'none';
@@ -1714,7 +1724,7 @@ function initCountdownTimer() {
 // Utility scroll
 function scrollToId(id) {
   const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
 
 // Close all active modals/popups using Escape key

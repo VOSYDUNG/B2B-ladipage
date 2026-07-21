@@ -2318,15 +2318,8 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .funnel-content-section {
   background-color: #f7f5f0;
   position: relative;
-  min-height: calc(100vh - var(--header-h, 58px) - 50px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  scroll-margin-top: calc(var(--header-h, 58px) + 50px);
-  padding: 2rem 0;
 }
 .funnel-content-container {
-  width: 100%;
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1.5rem;
@@ -2351,15 +2344,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .order-form-products { order: 3; }
 .summary-actions .btn-whatsapp-send,
 .summary-actions .btn-skip-order { display: inline-flex; }
-
-/* The cart is now the single interactive benefit surface. */
-.trust-hooks-section,
-#accumulation,
-.header-nav a[href="#accumulation"] { display: none; }
-.program-review-card .tier-target-grid,
-.program-review-card .tier-benefit-preview,
-.program-review-card .program-key-points { display: none !important; }
-.program-review-card .program-choose-prompt { display: none; }
 .program-pdf-preview {
   margin: 18px 0 12px;
   overflow: hidden;
@@ -3101,15 +3085,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .premium-register-form-card,
 .program-review-card,
 .order-form-card,
-.completion-card,
-#target-wheel-box,
-#hero-wheel-container {
-  scroll-margin-top: calc(var(--header-h, 58px) + 70px);
-}
-
-.premium-register-form-card,
-.program-review-card,
-.order-form-card,
 .completion-card {
   border-radius: 22px;
   border: 1px solid #e2ebe6;
@@ -3242,4 +3217,66 @@ html[lang="lo"] .tier-target-card.selected::after { content: '✓ ເປົ້�
   .summary-actions { grid-area: actions; align-items: stretch; justify-content: center; }
   .summary-actions .btn-whatsapp-send { width: 100%; min-height: 52px; padding: 0 16px; }
   .summary-actions .btn-skip-order { width: 100%; min-height: 32px; padding: 0 8px; font-size: .72rem; }
+}
+
+/* --- Funnel Popup Modal Overlay --- */
+.funnel-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(10, 30, 24, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow-y: auto;
+  animation: modal-backdrop-appear 0.3s ease-out;
+}
+
+@keyframes modal-backdrop-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.funnel-modal-card-container {
+  position: relative;
+  width: 100%;
+  max-width: 780px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.4);
+  padding: 2.5rem 1.75rem 2rem;
+  animation: card-appear 0.3s ease-out;
+}
+
+.btn-funnel-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  transition: all 0.2s ease;
+}
+.btn-funnel-modal-close:hover {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
 }
