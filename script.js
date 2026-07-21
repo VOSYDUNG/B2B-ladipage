@@ -1049,12 +1049,38 @@ function validateReferralCode() {
 function handleFormSubmit(e) {
   e.preventDefault();
   
-  const fullname = document.getElementById('fullname').value;
-  const phone = document.getElementById('phone').value;
-  const business = document.getElementById('businessName').value;
-  const province = document.getElementById('province').value;
-  const refCode = document.getElementById('referralCode').value;
+  const fullname = document.getElementById('fullname').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const business = document.getElementById('businessName').value.trim();
+  const province = document.getElementById('province').value.trim();
+  const refCode = document.getElementById('referralCode').value.trim();
   
+  // Input Validation & Locking
+  if (!fullname) {
+    alert(currentLang === 'vi' ? 'Vui lòng nhập Họ và tên người phụ trách!' : 'ກະລຸນາປ້ອນ ຊື່ ແລະ ນາມສະກຸນ!');
+    document.getElementById('fullname').focus();
+    return;
+  }
+  
+  const cleanPhone = phone.replace(/[^0-9]/g, '');
+  if (!phone || cleanPhone.length < 8) {
+    alert(currentLang === 'vi' ? 'Vui lòng nhập số điện thoại hợp lệ (tối thiểu 8 chữ số)!' : 'ກະລຸນາປ້ອນ ເບີໂທລະສັບ ທີ່ຖືກຕ້ອງ (ຢ່າງຕ່ຳ 8 ຕົວເລກ)!');
+    document.getElementById('phone').focus();
+    return;
+  }
+
+  if (!business) {
+    alert(currentLang === 'vi' ? 'Vui lòng nhập Tên Nhà thuốc / Phòng khám!' : 'ກະລຸນາປ້ອນ ຊື່ຮ້ານຢາ / ຄລີນິກ!');
+    document.getElementById('businessName').focus();
+    return;
+  }
+
+  if (!province) {
+    alert(currentLang === 'vi' ? 'Vui lòng nhập Tỉnh / Thành phố!' : 'ກະລຸນາປ້ອນ ແຂວງ / ນະຄອນ!');
+    document.getElementById('province').focus();
+    return;
+  }
+
   const contactRadio = document.querySelector('input[name="preferredContact"]:checked');
   const preferredContact = contactRadio ? contactRadio.value : 'whatsapp';
 
@@ -1552,55 +1578,74 @@ function downloadInvoiceImage() {
   link.click();
 }
 
-// Prefilled WhatsApp order submission
-function submitOrderWhatsApp() {
+// Comprehensive WhatsApp message builder aggregating 100% customer journey data
+function buildWhatsAppSummary(headline) {
   const isLao = currentLang === 'lo';
+  let msg = isLao 
+    ? `ສະບາຍດີ NNC Pharma,\n${headline || 'ຂ້ອຍຕ້ອງການຮັບຄຳປຶກສາ B2B Q3/2026'}:\n\n`
+    : `Xin chào NNC Pharma,\n${headline || 'Tôi muốn tư vấn chương trình B2B Q3/2026'}:\n\n`;
+
+  // 1. Customer Info
+  if (registrationInfo) {
+    msg += isLao 
+      ? `👤 ຂໍ້ມູນລູກຄ້າ:\n- ຊື່: ${registrationInfo.fullname}\n- ເບີໂທ: ${registrationInfo.phone}\n- ຮ້ານ/ຄລີນິກ: ${registrationInfo.business}\n- ແຂວງ: ${registrationInfo.province}\n`
+      : `👤 THÔNG TIN KHÁCH HÀNG:\n- Họ tên: ${registrationInfo.fullname}\n- SĐT: ${registrationInfo.phone}\n- Cơ sở: ${registrationInfo.business}\n- Tỉnh/TP: ${registrationInfo.province}\n`;
+    if (registrationInfo.refCode) {
+      msg += isLao ? `- ລະຫັດແນະນຳທີ່ໃຊ້: ${registrationInfo.refCode}\n` : `- Mã giới thiệu dùng: ${registrationInfo.refCode}\n`;
+    }
+    msg += `\n`;
+  }
+
+  // 2. Target Tier
+  const targetT = targetTierId ? NNC_ACCUMULATION_TIERS.find(x => x.tier_id === targetTierId) : null;
+  if (targetT) {
+    msg += isLao
+      ? `🎯 ເປົ້າໝາຍໄຕມາດ: ${targetT.name_lo} (${targetT.total_benefit}%)\n`
+      : `🎯 MỤC TIÊU DOANH SỐ QUÝ: ${targetT.name_vi} (${targetT.total_benefit}%)\n`;
+  }
+
+  // 3. Lucky Wheel Reward
+  if (rewardResult) {
+    msg += isLao
+      ? `🎁 ຂອງຂວັນວົງລໍ້: ${rewardResult.nameLo}\n`
+      : `🎁 QUÀ VÒNG QUAY: ${rewardResult.nameVi}\n`;
+  }
+
+  // 4. Cart / Order items
   let totalKip = 0;
-  let msg = isLao
-    ? `ສະບາຍດີ NNC Pharma,\n\nຂ້ອຍຕ້ອງການສັ່ງຊື້:\n\n`
-    : `Xin chào NNC Pharma,\n\nTôi muốn đặt hàng:\n\n`;
-    
   let hasItems = false;
+  let itemsList = '';
   PRODUCTS_DATA.forEach(p => {
     const qty = quantities[p.id] || 0;
     if (qty > 0) {
-      msg += `- ${p.name}: ${qty} ${isLao ? 'ກ່ອງ/ຂວດ' : 'hộp/chai'}\n`;
+      itemsList += `  + ${p.name}: ${qty} ${isLao ? 'ກ່ອງ/ຂວດ' : 'hộp/chai'}\n`;
       hasItems = true;
       totalKip += qty * p.price;
     }
   });
 
-  if (!hasItems) {
-    msg += isLao ? `(ຍັງບໍ່ໄດ້ເລືອກສິນຄ້າ)\n` : `(Chưa chọn sản phẩm)\n`;
+  if (hasItems) {
+    msg += isLao
+      ? `\n📦 ດອນຮ່າງສິນຄ້າ:\n${itemsList}👉 ຍອດລວມ: ${totalKip.toLocaleString()} KIP\n`
+      : `\n📦 ĐƠN HÀNG THAM KHẢO:\n${itemsList}👉 Tổng tiền sỉ: ${totalKip.toLocaleString()} KIP\n`;
   }
 
-  // Active tier
-  let activeTier = null;
-  for (let i = NNC_ACCUMULATION_TIERS.length - 1; i >= 0; i--) {
-    if (totalKip >= NNC_ACCUMULATION_TIERS[i].min_revenue_kip) {
-      activeTier = NNC_ACCUMULATION_TIERS[i];
-      break;
-    }
-  }
-
+  // 5. App Ref Code & Participant ID
   const code = getMyReferralCode();
+  msg += isLao
+    ? `\n🆔 ລະຫັດເຂົ້າຮ່ວມ: ${participantId || 'GUEST'}\n🔗 ລະຫັດແນະນຳຂອງຂ້ອຍ: ${code}`
+    : `\n🆔 Mã tham gia: ${participantId || 'GUEST'}\n🔗 Mã giới thiệu của bạn: ${code}`;
 
-  const targetT = targetTierId ? NNC_ACCUMULATION_TIERS.find(x => x.tier_id === targetTierId) : null;
-  msg += `\n${isLao ? 'ຍອດລວມ' : 'Tổng'}: ${totalKip.toLocaleString()} KIP\n`;
-  if (targetT) {
-    msg += `${isLao ? 'ເປົ້າໝາຍໄຕມາດ' : 'Mục tiêu quý đã chọn'}: ${isLao ? targetT.name_lo : targetT.name_vi} (${targetT.total_benefit}%)\n`;
-  }
-  msg += `${isLao ? 'ຂັ້ນ' : 'Bậc'}: ${activeTier ? (isLao ? activeTier.name_lo : activeTier.name_vi) : (isLao ? 'ບໍ່ມີ' : 'Chưa có')}\n\n`;
-  
-  msg += isLao 
-    ? `ຊື່: ${registrationInfo.fullname}\nເບີໂທ: ${registrationInfo.phone}\nຫົວໜ່ວຍ: ${registrationInfo.business}\nແຂວງ: ${registrationInfo.province}\n\nລະຫັດເຂົ້າຮ່ວມ: ${participantId}\nສິດທິ: ${rewardResult ? rewardResult.nameLo : 'ບໍ່ມີ'}\nລະຫັດແນະນຳຂອງທ່ານ: ${code}`
-    : `Họ tên: ${registrationInfo.fullname}\nSĐT: ${registrationInfo.phone}\nĐơn vị: ${registrationInfo.business}\nTỉnh/TP: ${registrationInfo.province}\n\nMã tham gia: ${participantId}\nQuyền lợi: ${rewardResult ? rewardResult.nameVi : 'không có'}\nMã giới thiệu của bạn: ${code}`;
+  return msg;
+}
 
-  // WhatsApp Ref code
-  const refString = `NNC_B2B_ONLINE_REWARDS_Q3_2026/cart_order/${rewardResult ? rewardResult.id : 'none'}`;
-  msg += `\n\nRef: ${refString}`;
+// Prefilled WhatsApp order submission
+function submitOrderWhatsApp() {
+  const headline = currentLang === 'lo' ? 'ຂ້ອຍຕ້ອງການສົ່ງໃບສັ່ງຊື້ອ້າງອີງ' : 'Tôi muốn gửi đơn hàng tham khảo B2B';
+  const msg = buildWhatsAppSummary(headline);
 
   window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+  logEvent('submit_whatsapp_order');
   
   // Transition to Completion
   setFlowState('completion');
@@ -1624,38 +1669,31 @@ function copyToClipboard(type) {
 
 // General WhatsApp contact redirect
 function openWhatsApp(intent) {
-  let message = '';
-  if (currentLang === 'vi') {
-    if (intent === 'completion') {
-      message = `Xin chào NNC Pharma, tôi đã gửi đơn hàng tham khảo. Mã tham gia của tôi là: ${participantId}.`;
-    } else {
-      message = "Xin chào NNC Pharma, tôi muốn nhận tư vấn về chương trình B2B Q3/2026.";
-    }
+  let headline = '';
+  if (intent === 'completion') {
+    headline = currentLang === 'lo' ? 'ຂ້ອຍໄດ້ສົ່ງໃບສັ່ງຊື້ອ້າງອີງແລ້ວ' : 'Tôi đã gửi đơn hàng tham khảo';
   } else {
-    if (intent === 'completion') {
-      message = `ສະບາຍດີ NNC Pharma, ຂ້ອຍໄດ້ສົ່ງໃບສັ່ງຊື້ອ້າງອີງແລ້ວ. ລະຫັດເຂົ້າຮ່ວມແມ່ນ: ${participantId}.`;
-    } else {
-      message = "ສະບາຍດີ NNC Pharma, ຂ້ອຍຕ້ອງການຮັບຄຳປຶກສາ B2B Q3/2026.";
-    }
+    headline = currentLang === 'lo' ? 'ຂ້ອຍຕ້ອງການຮັບຄຳປຶກສາ B2B Q3/2026' : 'Tôi muốn nhận tư vấn về chương trình B2B Q3/2026';
   }
+  const message = buildWhatsAppSummary(headline);
   window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
 }
 
 function inquireProductWhatsApp() {
   const p = PRODUCTS_DATA.find(item => item.id === selectedModalProductId);
   if (!p) return;
-  const message = currentLang === 'vi'
-    ? `Xin chào NNC Pharma, tôi muốn được tư vấn sỉ về sản phẩm ${p.name} thuộc chương trình Q3/2026.`
-    : `ສະບາຍດີ NNC Pharma, ຂ້ອຍຕ້ອງການຮັບຄຳປຶກສາຂາຍສົ່ງກ່ຽວກັບຜະລິດຕະພັນ ${p.name} ໃນໂຄງການ Q3/2026.`;
+  const headline = currentLang === 'vi'
+    ? `Tôi muốn được tư vấn sỉ sản phẩm ${p.name}`
+    : `ຂ້ອຍຕ້ອງການຮັບຄຳປຶກສາຂາຍສົ່ງ ${p.name}`;
+  const message = buildWhatsAppSummary(headline);
   window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
 }
 
 function claimRewardWhatsApp() {
-  const rewardName = document.getElementById('result-reward-name').innerText;
-  const code = getMyReferralCode();
-  const message = currentLang === 'vi'
-    ? `Xin chào NNC Pharma, tôi là ${registrationInfo ? registrationInfo.fullname : ''} (${registrationInfo ? registrationInfo.business : ''}). Tôi đã hoàn thành đăng ký chương trình Q3 và muốn xác nhận phần quà: "${rewardName}". Mã của tôi: ${code}.`
-    : `ສະບາຍດີ NNC Pharma, ຂ້ອຍໄດ້ລົງທະບຽນ B2B ແລະ ໝູນໄດ້ລາງວັນ: "${rewardName}". ລະຫັດແນະນຳແມ່ນ: ${code}.`;
+  const headline = currentLang === 'vi'
+    ? 'Tôi muốn xác nhận & nhận phần quà Vòng quay B2B'
+    : 'ຂ້ອຍຕ້ອງການຢືນຢັນ & ຮັບຂອງຂວັນວົງລໍ້ B2B';
+  const message = buildWhatsAppSummary(headline);
   logEvent('claim_whatsapp');
   window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
   // After claiming via WhatsApp, reveal the reference order (cart) step
@@ -1695,7 +1733,7 @@ function initCountdownTimer() {
 // Utility scroll
 function scrollToId(id) {
   const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth' });
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // Close all active modals/popups using Escape key

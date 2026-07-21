@@ -2318,8 +2318,15 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .funnel-content-section {
   background-color: #f7f5f0;
   position: relative;
+  min-height: calc(100vh - var(--header-h, 58px) - 50px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  scroll-margin-top: calc(var(--header-h, 58px) + 50px);
+  padding: 2rem 0;
 }
 .funnel-content-container {
+  width: 100%;
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1.5rem;
@@ -3091,6 +3098,15 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .stepper-line.active { background: linear-gradient(90deg, #0f3a30, #059669); }
 
 /* --- Cards: unified radius + soft clinical shadow --- */
+.premium-register-form-card,
+.program-review-card,
+.order-form-card,
+.completion-card,
+#target-wheel-box,
+#hero-wheel-container {
+  scroll-margin-top: calc(var(--header-h, 58px) + 70px);
+}
+
 .premium-register-form-card,
 .program-review-card,
 .order-form-card,

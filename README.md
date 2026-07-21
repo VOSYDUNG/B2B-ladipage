@@ -1,47 +1,59 @@
-# NNC Campaign Platform
+# NNC Pharma B2B Landing Page (Q3/2026)
 
-Web app quan ly va van hanh nhieu landing page cua NNC Pharma. Repository nay chi chua source dang chay, tai nguyen public, cau hinh Firebase Hosting/Firestore va cac bai kiem thu lien quan.
+Dự án Landing Page Tri ân Khách hàng B2B (Bác sĩ, Nhà thuốc, Phòng khám tại Lào) của NNC Pharma.
+Dự án được tối ưu hóa theo kiến trúc **Web tĩnh thuần (Pure HTML/CSS/JS)** - Không sử dụng React/Build step giúp tải trang cực nhanh, đạt hiệu suất SEO cao và cực kỳ dễ dàng bảo trì hoặc chỉnh sửa bằng AI.
 
-## Chay local
+## 📁 Cấu trúc thư mục dự án
 
-Yeu cau Node.js 20 tro len.
-
-```powershell
-npm install
-npm run dev
+```text
+B2B-ladipage/
+├── index.html           # File giao diện HTML chính (Gồm 5 bước phễu & Vòng quay)
+├── style.css            # Toàn bộ Style CSS & Responsive layout
+├── script.js            # Logic phễu đăng ký, Vòng quay Canvas, WhatsApp & Google Sheet
+├── images/              # Thư mục chứa hình ảnh sản phẩm & quà tặng
+├── firebase.json        # Cấu hình Firebase Hosting
+├── .firebaserc          # Cấu hình Firebase Project ID (sales-online-e8186)
+├── google-apps-script.gs# Mã nguồn lưu Lead về Google Sheet (Xem HUONG-DAN-CAI-DAT.md)
+└── README.md            # Tài liệu hướng dẫn dự án
 ```
 
-Ung dung mac dinh chay tai `http://localhost:3000`.
+## 🚀 Hướng dẫn chạy thử (Local Development)
 
-## Kiem tra truoc khi phat hanh
+Vì đây là dự án HTML/JS thuần, bạn không cần cài đặt Node.js hay `npm install`.
 
+### Cách 1: Sử dụng VS Code Live Server (Khuyên dùng)
+1. Mở thư mục này trong **VS Code**.
+2. Cài extension **Live Server**.
+3. Phải chuột vào `index.html` -> Chọn **Open with Live Server**.
+
+### Cách 2: Sử dụng Firebase CLI
 ```powershell
-npm run lint
-npm test
-npm run build
+firebase serve --only hosting
+```
+Truy cập: `http://localhost:5000`
+
+---
+
+## ⚙️ Cấu hình quan trọng (File `script.js`)
+
+Mọi thông số cấu hình chính nằm ở ngay đầu file `script.js`:
+```javascript
+const CONFIG = {
+  whatsappNumber: '8562099806327', // SĐT WhatsApp tư vấn B2B
+  sheetWebhookUrl: '',             // Webhook Google Apps Script để lưu Lead về Sheet
+  campaignEndDate: '2026-10-01T00:00:00+07:00', // Ngày hết hạn chương trình
+  referralPrefix: 'NNC-REF-'       // Tiền tố mã giới thiệu
+};
 ```
 
-## Cau truc chinh
+---
 
-- `src/`: landing pages, dashboard Lead, auth va cau hinh campaign.
-- `public/`: hinh anh va tai nguyen tinh cua cac landing page.
-- `firestore.rules`: phan quyen intake Lead va dashboard noi bo.
-- `firestore.indexes.json`: index Firestore.
-- `firebase.json`: cau hinh Firebase Hosting va route landing page.
-- `tests/`: kiem thu ranh gioi bao mat Firestore.
+## 🌐 Deploy lên sản phẩm (Firebase Hosting)
 
-## Trien khai
-
-Build production:
+Đã cấu hình sẵn cho Firebase Hosting. Để cập nhật trang web live trên internet:
 
 ```powershell
-npm run build
+firebase deploy --only hosting
 ```
 
-Deploy Firebase Hosting va Firestore sau khi UAT:
-
-```powershell
-firebase deploy --only hosting,firestore:rules,firestore:indexes
-```
-
-Analytics su dung Firebase/GA4. Dashboard trong ung dung chi doc va quan tri du lieu Lead; repository khong trien khai Cloud Functions.
+Trang live chính thức: [https://salesonlinennc.web.app](https://salesonlinennc.web.app)
