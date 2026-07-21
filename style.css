@@ -3431,8 +3431,45 @@ html[lang="lo"] .tier-target-card.selected::after { content: '✓ ເປົ້�
 }
 .funnel-modal-card-container .order-product-item {
   padding: 6px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 .funnel-modal-card-container .order-item-visual img {
   width: 34px;
   height: 34px;
+}
+
+/* Tier Unlocked Animations */
+@keyframes tier-unlock-pop {
+  0% { transform: scale(0.95); opacity: 0; }
+  50% { transform: scale(1.02); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.tier-unlocked-anim {
+  animation: tier-unlock-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.05) 100%);
+  border: 1px solid rgba(16,185,129,0.3);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+  box-shadow: 0 4px 12px rgba(16,185,129,0.1);
+}
+.tier-unlocked-anim h4 {
+  color: #059669;
+  font-size: 1.05rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tier-unlocked-anim ul li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+.tier-unlocked-anim ul li svg {
+  color: #f59e0b;
 }

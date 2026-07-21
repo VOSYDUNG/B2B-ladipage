@@ -489,6 +489,8 @@
           </button>
         </div>
 
+        <div class="cart-tier-theme" id="cart-tier-theme" aria-live="polite"></div>
+
         <div class="order-form-products">
           <ul class="order-products-list" id="order-products-list">
             <!-- JS dynamic list items for ordering 7 products -->
@@ -498,7 +500,7 @@
         <div class="order-summary-box">
           <div class="summary-left">
             <span class="summary-tag" data-i18n="cart.summary_title">Tổng quan đơn hàng</span>
-            <div class="summary-total-kip">
+            <div class="summary-total-kip" id="summary-total-kip-container">
               <span class="total-val" id="order-total-val">0</span>
               <span class="total-unit">KIP</span>
             </div>
@@ -506,8 +508,6 @@
               <!-- JS dynamic tier discount badge -->
             </div>
           </div>
-
-          <div class="cart-tier-theme" id="cart-tier-theme" aria-live="polite"></div>
           
           <div class="summary-actions">
             <button type="button" class="btn-whatsapp-send" onclick="submitOrderWhatsApp()">

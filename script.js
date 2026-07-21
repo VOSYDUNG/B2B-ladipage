@@ -1331,7 +1331,7 @@ function calculateOrderTotals() {
     totalKip += qty * p.price;
   });
   
-  document.getElementById('order-total-val').innerText = totalKip.toLocaleString();
+  const totalContainer = document.getElementById('summary-total-kip-container');
   
   // Determine tier
   let activeTier = null;
@@ -1340,6 +1340,25 @@ function calculateOrderTotals() {
       activeTier = NNC_ACCUMULATION_TIERS[i];
       break;
     }
+  }
+
+  if (activeTier && activeTier.immediate_discount > 0 && totalContainer) {
+    const discountAmount = totalKip * (activeTier.immediate_discount / 100);
+    const finalAmount = totalKip - discountAmount;
+    const saveTxt = currentLang === 'vi' ? 'Tiết kiệm được' : 'ປະຢັດໄດ້';
+    const totalTxt = currentLang === 'vi' ? 'Tổng thanh toán' : 'ຍອດລວມ';
+    totalContainer.innerHTML = `
+      <div style="color:var(--text-muted); font-size:0.75rem; text-decoration:line-through; margin-bottom:2px;">${totalTxt}: ${totalKip.toLocaleString()} KIP</div>
+      <div style="color:#059669; font-weight:900; font-size:1.15rem; display:flex; align-items:center; gap:4px;">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        ${saveTxt}: ${discountAmount.toLocaleString()} KIP
+      </div>
+    `;
+  } else if (totalContainer) {
+    totalContainer.innerHTML = `
+      <span class="total-val" id="order-total-val">${totalKip.toLocaleString()}</span>
+      <span class="total-unit">KIP</span>
+    `;
   }
   
   const statusContainer = document.getElementById('order-tier-status');
@@ -1369,18 +1388,12 @@ function calculateOrderTotals() {
       const t3 = currentLang === 'vi' ? `Tổng lợi ích lên tới <strong>${activeTier.total_benefit}%</strong>` : `ຜົນປະໂຫຍດລວມເຖິງ <strong>${activeTier.total_benefit}%</strong>`;
       
       themeContainer.innerHTML = `
-        <div style="background:rgba(16,62,50,0.04); border:1px solid rgba(16,62,50,0.1); border-radius:12px; padding:12px; margin:16px 0;">
-          <h4 style="color:var(--primary-color); font-size:0.95rem; font-weight:800; margin-bottom:10px; display:flex; align-items:center; gap:6px;">${title}</h4>
-          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px;">
-            <li style="display:flex; align-items:center; gap:8px; font-size:0.8rem; color:var(--text-dark);">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg> ${t1}
-            </li>
-            <li style="display:flex; align-items:center; gap:8px; font-size:0.8rem; color:var(--text-dark);">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg> ${t2}
-            </li>
-            <li style="display:flex; align-items:center; gap:8px; font-size:0.8rem; color:var(--text-dark);">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg> ${t3}
-            </li>
+        <div class="tier-unlocked-anim">
+          <h4>${title}</h4>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg> ${t1}</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg> ${t2}</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg> ${t3}</li>
           </ul>
         </div>
       `;
