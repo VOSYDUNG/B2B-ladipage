@@ -562,6 +562,7 @@ function setFlowState(nextState) {
   const funnelSec = document.getElementById('funnel-content-section');
   const registerCard = document.getElementById('register-card');
   const programCard = document.getElementById('program-card');
+  const wheelCard = document.getElementById('wheel-card');
   const orderCard = document.getElementById('order-form-card');
   const completionCard = document.getElementById('completion-card');
   const spinBtn = document.getElementById('btn-spin-wheel');
@@ -571,53 +572,35 @@ function setFlowState(nextState) {
   if (flowState === 'discover') {
     show(funnelSec, false);
     if (spinBtn) spinBtn.classList.add('pulse-border');
-  } else if (flowState === 'register') {
+  } else {
     show(funnelSec, true);
-    show(registerCard, true);
-    show(programCard, false);
-    show(orderCard, false);
-    show(completionCard, false);
-    if (spinBtn) spinBtn.classList.remove('pulse-border');
-    scrollToId('funnel-content-section');
-  } else if (flowState === 'program') {
-    show(funnelSec, true);
-    show(registerCard, false);
-    show(programCard, true);
-    show(orderCard, false);
-    show(completionCard, false);
-    scrollToId('program-card');
-  } else if (flowState === 'wheel') {
-    show(funnelSec, false); // funnel cards hidden while spinning at the top
-    if (spinBtn) {
-      spinBtn.disabled = false;
-      spinBtn.classList.add('pulse-border');
+    show(registerCard, flowState === 'register');
+    show(programCard, flowState === 'program');
+    show(wheelCard, flowState === 'wheel');
+    show(orderCard, flowState === 'cart');
+    show(completionCard, flowState === 'completion');
+
+    if (flowState === 'wheel') {
+      if (spinBtn) {
+        spinBtn.disabled = false;
+        spinBtn.classList.add('pulse-border');
+      }
+      setTimeout(drawLuckyWheel, 50);
+    } else if (flowState === 'cart') {
+      renderOrderProductsList();
+      calculateOrderTotals();
+    } else if (flowState === 'completion') {
+      // Render completion referral link info dynamically
+      const code = getMyReferralCode();
+      const myCodeEl = document.getElementById('my-referral-code');
+      const myLinkEl = document.getElementById('my-referral-link');
+      if (myCodeEl) myCodeEl.innerText = code;
+      if (myLinkEl) myLinkEl.innerText = `${window.location.origin}/?ref=${code}`;
+
+      renderCompletionTierProgress();
     }
-    scrollToId('target-wheel-box');
-  } else if (flowState === 'cart') {
-    show(funnelSec, true);
-    show(registerCard, false);
-    show(programCard, false);
-    show(orderCard, true);
-    show(completionCard, false);
-    renderOrderProductsList();
-    calculateOrderTotals();
-    scrollToId('order-form-card');
-  } else if (flowState === 'completion') {
-    show(funnelSec, true);
-    show(registerCard, false);
-    show(programCard, false);
-    show(orderCard, false);
-    show(completionCard, true);
 
-    // Render completion referral link info dynamically
-    const code = getMyReferralCode();
-    const myCodeEl = document.getElementById('my-referral-code');
-    const myLinkEl = document.getElementById('my-referral-link');
-    if (myCodeEl) myCodeEl.innerText = code;
-    if (myLinkEl) myLinkEl.innerText = `${window.location.origin}/?ref=${code}`;
-
-    renderCompletionTierProgress();
-    scrollToId('completion-card');
+    scrollToId('funnel-content-section');
   }
 }
 
@@ -1263,10 +1246,8 @@ function proceedToCartStep() {
 function focusWheel() {
   if (flowState === 'discover') {
     setFlowState('register');
-  } else if (flowState === 'register') {
-    scrollToId('funnel-content-section');
   } else {
-    scrollToId('target-wheel-box');
+    scrollToId('funnel-content-section');
     const btn = document.getElementById('btn-spin-wheel');
     if (btn) {
       btn.style.animation = 'none';
