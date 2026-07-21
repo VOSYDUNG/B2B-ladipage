@@ -447,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (registrationInfo && programViewed) {
         setFlowState('wheel');
       } else if (registrationInfo) {
-        setFlowState('cart');
+        setFlowState('program');
       }
     }
   } catch (e) {
@@ -585,7 +585,6 @@ function setFlowState(nextState) {
     show(programCard, true);
     show(orderCard, false);
     show(completionCard, false);
-    renderProgramTiersTable();
     scrollToId('program-card');
   } else if (flowState === 'wheel') {
     show(funnelSec, false); // funnel cards hidden while spinning at the top
@@ -685,10 +684,14 @@ function updateTierBenefitPreview() {
 }
 
 // Program gate: a target tier must be actively chosen
-function onProgramAckChange() { /* legacy no-op (checkbox removed) */ }
+function onProgramAckChange() {
+  const acknowledged = document.getElementById('program-ack')?.checked;
+  const btn = document.getElementById('btn-unlock-wheel');
+  if (btn) btn.disabled = !acknowledged;
+}
 
 function confirmProgramViewed() {
-  if (!targetTierId) return;
+  if (!document.getElementById('program-ack')?.checked) return;
   programViewed = true;
   try {
     const saved = sessionStorage.getItem('nnc_b2b_session');
@@ -697,9 +700,8 @@ function confirmProgramViewed() {
     data.targetTierId = targetTierId;
     sessionStorage.setItem('nnc_b2b_session', JSON.stringify(data));
   } catch (e) { console.error('Session write error:', e); }
-  const t = NNC_ACCUMULATION_TIERS.find(x => x.tier_id === targetTierId);
-  logEvent('program_target', { targetTier: t ? t.name_vi : targetTierId });
-  setFlowState('wheel');
+  logEvent('program_reviewed');
+  setFlowState('cart');
 }
 
 // The selection surface is the only pre-wheel step: derive its active tier
@@ -1083,7 +1085,7 @@ function handleFormSubmit(e) {
   logEvent('register');
 
   // Move to mandatory program-review step (gate B)
-  setFlowState('cart');
+  setFlowState('program');
 }
 
 // Draw HTML5 Canvas Lucky Wheel (6 Segments)
@@ -1326,6 +1328,15 @@ function calculateOrderTotals() {
         <span>${currentLang === 'vi' ? 'Chưa đạt mức tích lũy tối thiểu (2,000,000 KIP)' : 'ຍັງບໍ່ບັນລຸຂັ້ນສະສົມຂັ້ນຕ່ຳ (2,000,000 KIP)'}</span>
       </div>
     `;
+  }
+
+  const themeContainer = document.getElementById('cart-tier-theme');
+  if (themeContainer) {
+    themeContainer.innerHTML = NNC_ACCUMULATION_TIERS.map((tier) => {
+      const isActive = activeTier?.tier_id === tier.tier_id;
+      const tierName = currentLang === 'vi' ? tier.name_vi : tier.name_lo;
+      return `<div class="cart-tier${isActive ? ' active' : ''}">${tierName}<br><small>${tier.total_benefit}%</small></div>`;
+    }).join('');
   }
 
   // Nudge against the customer's OWN chosen target tier from the program step

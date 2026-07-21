@@ -2343,7 +2343,19 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .order-summary-box { order: 2; position: sticky; top: calc(var(--header-h, 58px) + 12px); z-index: 12; box-shadow: 0 18px 34px rgba(15, 58, 48, 0.16); }
 .order-form-products { order: 3; }
 .summary-actions .btn-whatsapp-send,
-.summary-actions .btn-skip-order { display: none; }
+.summary-actions .btn-skip-order { display: inline-flex; }
+
+/* The cart is now the single interactive benefit surface. */
+.trust-hooks-section,
+#accumulation,
+.header-nav a[href="#accumulation"] { display: none; }
+.program-review-card .tier-target-grid,
+.program-review-card .tier-benefit-preview,
+.program-review-card .program-key-points { display: none !important; }
+.program-review-card .btn-preview-invoice { width: 100%; margin: 18px 0 12px; }
+.cart-tier-theme { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 12px; }
+.cart-tier-theme .cart-tier { border: 1px solid #d9e7e1; border-radius: 10px; padding: 8px 5px; text-align: center; color: #94a3b8; font-size: 0.7rem; font-weight: 800; }
+.cart-tier-theme .cart-tier.active { background: linear-gradient(135deg, #0f3a30, #14634e); border-color: #0f3a30; color: #fcd34d; box-shadow: 0 8px 18px rgba(15, 58, 48, .2); }
 .order-form-header {
   margin-bottom: 2rem;
 }

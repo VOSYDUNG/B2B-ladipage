@@ -79,7 +79,7 @@
 
         <div class="hero-actions-btns">
           <button type="button" class="btn-primary" onclick="focusWheel()" data-i18n="hero.cta_main">MỞ KHÓA LƯỢT QUAY NGAY</button>
-          <a href="#accumulation" class="btn-secondary" data-i18n="hero.cta_secondary">THỬ TÍNH CHIẾT KHẤU ĐƠN HÀNG</a>
+          <button type="button" class="btn-secondary" onclick="focusWheel()" data-i18n="hero.cta_secondary">XEM CHƯƠNG TRÌNH</button>
         </div>
       </div>
 
@@ -437,6 +437,12 @@
 
         <div class="tier-benefit-preview" id="tier-benefit-preview" style="display:none;"></div>
 
+        <button type="button" class="btn-preview-invoice" onclick="openRulesPdfModal()">Xem PDF chương trình</button>
+        <label class="program-ack-box">
+          <input type="checkbox" id="program-ack" onchange="onProgramAckChange()">
+          <span>Tôi đã xem và hiểu chương trình tích lũy Q3/2026 của NNC Pharma.</span>
+        </label>
+
         <ul class="program-key-points">
           <li data-i18n="program.point1">Giảm ngay 5% trực tiếp trên mọi hóa đơn nhập hàng.</li>
           <li data-i18n="program.point2">Thưởng cuối quý 2% → 5% tính trên tổng doanh số tích lũy cả quý.</li>
@@ -474,6 +480,7 @@
             <div class="summary-tier-status" id="order-tier-status">
               <!-- JS dynamic tier discount badge -->
             </div>
+            <div class="cart-tier-theme" id="cart-tier-theme" aria-live="polite"></div>
           </div>
           
           <div class="summary-actions">
