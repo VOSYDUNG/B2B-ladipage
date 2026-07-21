@@ -2344,6 +2344,11 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .order-form-products { order: 3; }
 .summary-actions .btn-whatsapp-send,
 .summary-actions .btn-skip-order { display: inline-flex; }
+
+/* Hide redundant accumulation policy & trust hooks section */
+.trust-hooks-section,
+#accumulation,
+.header-nav a[href="#accumulation"] { display: none !important; }
 .program-pdf-preview {
   margin: 18px 0 12px;
   overflow: hidden;
