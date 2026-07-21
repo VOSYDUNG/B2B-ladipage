@@ -106,18 +106,15 @@ export function AccumulationCalculator({ onProgramView, isSelectionMode = false,
     NNC_PRODUCTS.forEach(p => initial[p.product_id] = 0);
     return initial;
   });
-  const [manualRevenue, setManualRevenue] = useState<number | null>(null);
 
   const handleQuantityChange = (productId: string, delta: number) => {
-    setManualRevenue(null);
     setQuantities(prev => ({
       ...prev,
       [productId]: Math.max(0, prev[productId] + delta)
     }));
   };
 
-  const productRevenue = useMemo(() => NNC_PRODUCTS.reduce((sum, p) => sum + (quantities[p.product_id] * p.price_vientiane_kip), 0), [quantities]);
-  const revenue = manualRevenue ?? productRevenue;
+  const revenue = useMemo(() => NNC_PRODUCTS.reduce((sum, p) => sum + (quantities[p.product_id] * p.price_vientiane_kip), 0), [quantities]);
   const sectionRef = useRef<HTMLElement>(null);
   const sectionInView = useInView(sectionRef, { amount: 0.12 });
   const programViewed = useRef(false);
@@ -224,17 +221,6 @@ export function AccumulationCalculator({ onProgramView, isSelectionMode = false,
 
 
 
-            <div className="mt-4 grid grid-cols-2 gap-2.5">
-              <motion.div initial={{ opacity: 0, y: reduceMotion ? 0 : 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.7 }} transition={{ duration: reduceMotion ? 0.1 : 0.35, delay: reduceMotion ? 0 : 0.08 }} className={`rounded-xl border p-3.5 backdrop-blur transition-colors duration-500 ${theme.directCard}`}>
-                <span className="text-[10px] font-bold uppercase tracking-wide text-emerald-200/70">{isLao ? 'ຮັບທັນທີ' : 'Trực tiếp'}</span>
-                <strong className="mt-1 block text-2xl font-black text-white">5%</strong>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, y: reduceMotion ? 0 : 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.7 }} transition={{ duration: reduceMotion ? 0.1 : 0.35, delay: reduceMotion ? 0 : 0.14 }} className={`rounded-xl border p-3.5 transition-colors duration-500 ${theme.totalCard}`}>
-                <span className="text-[10px] font-bold uppercase tracking-wide text-amber-200/80">{isLao ? 'ຜົນປະໂຫຍດລວມ' : 'Tổng quyền lợi'}</span>
-                <strong className={`mt-1 block text-2xl font-black transition-colors duration-500 ${theme.totalText}`}>7–10%</strong>
-              </motion.div>
-            </div>
-
             {/* Keep the selected tier and the monetary benefit beside the programme promise. */}
             <AnimatePresence mode="wait">
               <motion.div
@@ -243,7 +229,7 @@ export function AccumulationCalculator({ onProgramView, isSelectionMode = false,
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: reduceMotion ? 0 : -10 }}
                 transition={{ duration: reduceMotion ? 0.08 : 0.35 }}
-                className={`mt-4 rounded-2xl border p-4 sm:p-5 backdrop-blur-md transition-all duration-500 ${theme.calculator}`}
+                className={`mt-4 rounded-2xl border p-4 sm:p-5 backdrop-blur-md transition-all duration-500 ${isSelectionMode ? 'sticky top-20 z-20 shadow-2xl' : ''} ${theme.calculator}`}
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex min-w-0 items-center gap-3">
@@ -274,22 +260,15 @@ export function AccumulationCalculator({ onProgramView, isSelectionMode = false,
                   })}
                 </div>
                 {revenue > 0 && <div className="mt-3 flex flex-wrap justify-between gap-x-3 gap-y-1 rounded-lg border border-white/8 bg-white/[0.04] px-3 py-2 text-[10px] font-bold text-white/80"><span>{isLao ? 'ສ່ວນຫຼຸດ 5%' : 'CK trực tiếp 5%'}: <b className="font-mono text-white">{formatter.format(result.immediate || 0)}</b></span><span>{isLao ? 'ທ້າຍໄຕມາດ' : 'Cuối quý'} {result.quarterRate}%: <b className={`font-mono ${theme.accent}`}>{formatter.format(result.quarter || 0)}</b></span></div>}
+                {isSelectionMode && <button type="button" onClick={() => { const items = NNC_PRODUCTS.map(p => ({ product_id: p.product_id, quantity: quantities[p.product_id] })).filter(item => item.quantity > 0); onTierSelected?.(items, revenue); }} className={`mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl px-5 text-[11px] font-black text-white shadow-lg transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-200 ${themeIndex >= 2 ? 'bg-amber-600 hover:bg-amber-700' : 'bg-emerald-700 hover:bg-emerald-600'}`}>{isLao ? 'Xác nhận lựa chọn & mở khóa vòng quay' : 'XÁC NHẬN LỰA CHỌN & MỞ KHÓA VÒNG QUAY'}<ArrowRight className="h-4 w-4" /></button>}
               </motion.div>
             </AnimatePresence>
 
             <motion.div initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.7 }} transition={{ duration: reduceMotion ? 0.1 : 0.35, delay: reduceMotion ? 0 : 0.16 }} className={`mt-4 rounded-xl border p-4.5 backdrop-blur-md ${theme.portfolio}`}>
               <div className="flex items-center justify-between gap-3">
-                <span className="text-[10px] font-black uppercase tracking-[0.13em] text-white/65">{isLao ? 'ລອງລະດັບຍອດຊື້' : 'Thử lên đơn để xem mức chiết khấu'}</span>
-                <span className={`font-mono text-sm font-black ${theme.accent}`}>{formatter.format(revenue)} KIP</span>
+                <div><span className="text-[10px] font-black uppercase tracking-[0.13em] text-white/65">{isLao ? 'ເລືອກຜະລິດຕະພັນທີ່ສົນໃຈ' : 'Khám phá sản phẩm phù hợp'}</span><p className="mt-1 text-[11px] font-semibold text-emerald-100/70">{isLao ? 'ເລືອກຈຳນວນເພື່ອເບິ່ງສິດທິຂອງທ່ານ' : 'Chọn số lượng sản phẩm quan tâm để mở khóa quyền lợi của bạn'}</p></div>
+                <button type="button" onClick={() => document.querySelector<HTMLButtonElement>('[data-policy-trigger]')?.click()} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-amber-200/30 bg-amber-200/10 px-3 py-2 text-[10px] font-black text-amber-100 transition hover:bg-amber-200/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200"><Info className="h-3.5 w-3.5" />PDF</button>
               </div>
-              <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_auto] sm:items-end">
-                <label className="block">
-                  <span className="block text-[10px] font-bold text-white/70">{isLao ? 'Nhập tổng đơn dự kiến (KIP)' : 'Hoặc tự nhập tổng đơn dự kiến (KIP)'}</span>
-                  <input type="number" inputMode="numeric" min="0" step="1000" value={manualRevenue ?? ''} onChange={(event) => { const value = event.target.value; setManualRevenue(value === '' ? null : Math.max(0, Number(value) || 0)); }} placeholder="Ví dụ: 5.000.000" className="mt-1.5 h-11 w-full rounded-lg border border-white/20 bg-white/10 px-3 font-mono text-sm font-black text-white outline-none placeholder:text-white/35 focus:border-emerald-200 focus:ring-2 focus:ring-emerald-200/30" />
-                </label>
-                <button type="button" onClick={() => document.querySelector<HTMLButtonElement>('[data-policy-trigger]')?.click()} className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-amber-200/30 bg-amber-200/10 px-4 text-[10px] font-black text-amber-100 transition hover:bg-amber-200/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200"><Info className="h-3.5 w-3.5" />{isLao ? 'Xem PDF chính sách' : 'Xem PDF chính sách'}</button>
-              </div>
-              {manualRevenue !== null && <p className="mt-2 text-[10px] font-semibold text-emerald-200">Đang tính theo tổng đơn đã nhập. Chọn số lượng sản phẩm để quay lại tính theo từng mặt hàng.</p>}
               
               <div className="mt-4 bg-white/5 rounded-xl border border-white/10 overflow-hidden divide-y divide-white/5">
                 {NNC_PRODUCTS.map((product) => (
@@ -299,7 +278,7 @@ export function AccumulationCalculator({ onProgramView, isSelectionMode = false,
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="text-[12px] sm:text-[13px] font-black text-white truncate">{product.canonical_name}</h4>
-                      <p className="mt-0.5 text-[10px] sm:text-[11px] font-bold text-emerald-300">{kip.format(product.price_vientiane_kip)} KIP</p>
+                      <p className="mt-0.5 text-[10px] sm:text-[11px] font-bold text-emerald-300">{isLao ? 'ເລືອກຈຳນວນທີ່ສົນໃຈ' : 'Chọn số lượng quan tâm'}</p>
                     </div>
                     
                     <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto mt-2 sm:mt-0">
@@ -320,49 +299,14 @@ export function AccumulationCalculator({ onProgramView, isSelectionMode = false,
                           <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
                         </button>
                       </div>
-                      <div className="w-20 sm:w-24 text-right">
-                        <span className="text-[11px] sm:text-[12px] font-bold text-white tabular-nums">{kip.format(quantities[product.product_id] * product.price_vientiane_kip)}</span>
-                      </div>
                     </div>
                   </div>
                 ))}
               </div>
               
-              {/* Detailed Breakdown of Benefits */}
-              <div className="mt-4 space-y-2 border-t border-white/10 pt-3 text-xs font-semibold text-white/90">
-                <div className="flex justify-between">
-                  <span className="text-white/65">{isLao ? 'ສ່ວນຫຼຸດໂດຍກົງ (5%):' : 'Chiết khấu trực tiếp (5%):'}</span>
-                  <span className="font-mono">{formatter.format(result.immediate || 0)} KIP</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-white/65">
-                    {isLao ? 'ໂບນັດທ້າຍໄຕມາດ:' : 'Thưởng cuối quý:'}{' '}
-                    <span className={`font-bold ${theme.accent}`}>({result.quarterRate}%)</span>
-                  </span>
-                  <span className="font-mono">{formatter.format(result.quarter || 0)} KIP</span>
-                </div>
-                <div className="flex justify-between border-t border-white/5 pt-2 text-sm font-black text-amber-300">
-                  <span>{isLao ? 'Tổng tiết kiệm dự kiến:' : 'Tổng tiết kiệm dự kiến:'}</span>
-                  <span className="font-mono text-base">{formatter.format(result.total || 0)} KIP</span>
-                </div>
-              </div>
-
-              {/* Progress to next tier notice */}
-              {nextTier && (
-                <div className="mt-3 bg-emerald-950/40 border border-emerald-500/20 rounded-lg p-2.5 text-[10px] text-emerald-300 leading-normal">
-                  {isLao 
-                    ? `ຊື້ເພີ່ມອີກ ${formatter.format(nextTier.min_revenue_kip - revenue)} KIP ເພື່ອຂຶ້ນ ${nextTier.name_lo} (ຮັບສ່ວນຫຼຸດທ້າຍໄຕມາດ ${nextTier.quarter_end_reward}%)`
-                    : `Nhập thêm ${formatter.format(nextTier.min_revenue_kip - revenue)} KIP để đạt ${nextTier.name_vi} (Thưởng cuối quý tăng lên ${nextTier.quarter_end_reward}%)`}
-                </div>
-              )}
-
-              <div className={`mt-3 flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 ${theme.result}`}>
-                <span className="text-[10px] font-bold">{result.tier ? (isLao ? result.tier.name_lo : result.tier.name_vi) : (isLao ? 'ຍັງບໍ່ເຖິງຂັ້ນ 1' : 'Chưa tới mốc Bậc 1')}</span>
-                <strong className={`text-sm ${theme.resultAccent}`}>{result.totalRate ? `${result.totalRate}%` : '—'}</strong>
-              </div>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.75 }} transition={{ duration: reduceMotion ? 0.1 : 0.35, delay: reduceMotion ? 0 : 0.18 }} className="mt-3 rounded-xl border border-amber-200/20 bg-[#ffe7a3] p-3.5 text-[#4b3410]">
+            {false && <motion.div initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.75 }} transition={{ duration: reduceMotion ? 0.1 : 0.35, delay: reduceMotion ? 0 : 0.18 }} className="mt-3 rounded-xl border border-amber-200/20 bg-[#ffe7a3] p-3.5 text-[#4b3410]">
               <div className="flex items-start gap-2.5">
                 <Info className="mt-0.5 h-4 w-4 shrink-0" />
                 <div>
@@ -372,7 +316,7 @@ export function AccumulationCalculator({ onProgramView, isSelectionMode = false,
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </motion.div>}
           </motion.div>
 
           {/* Tier status is intentionally placed above the product picker. */}
@@ -475,7 +419,7 @@ export function AccumulationCalculator({ onProgramView, isSelectionMode = false,
           </AnimatePresence>}
 
           {/* View policy button */}
-          <div className="mt-4 flex items-center justify-center">
+          {false && <div className="mt-4 flex items-center justify-center">
             <button
               type="button"
               onClick={() => {
@@ -487,9 +431,9 @@ export function AccumulationCalculator({ onProgramView, isSelectionMode = false,
               <Info className="h-3.5 w-3.5" />
               {isLao ? 'ເບິ່ງນະໂຍບາຍສະສົມອີກຄັ້ງ' : 'Xem lại chính sách tích lũy (PDF)'}
             </button>
-          </div>
+          </div>}
 
-          {isSelectionMode && (
+          {false && isSelectionMode && (
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 w-full">
               <button
                 type="button"
