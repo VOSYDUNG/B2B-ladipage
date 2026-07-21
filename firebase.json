@@ -1,14 +1,11 @@
 {
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  },
   "hosting": {
     "site": "salesonlinennc",
-    "public": "dist-draft",
+    "public": ".",
     "ignore": [
       "firebase.json",
-      "**/.*"
+      "**/.*",
+      "**/node_modules/**"
     ],
     "headers": [
       {

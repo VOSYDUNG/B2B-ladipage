@@ -1,3 +1,0 @@
-export const WHITE_LOTUS_PRODUCTION_UAT_OPEN = true
-export const WHITE_LOTUS_PRODUCTION_UAT_ALLOW_MISSING_APP_CHECK = true
-export const WHITE_LOTUS_PRODUCTION_UAT_BANNER = 'White Lotus Firestore UAT đang mở'
