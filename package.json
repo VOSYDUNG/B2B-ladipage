@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
+    "build:draft": "node scripts/build-draft.mjs",
+    "deploy:draft": "npm run build:draft && firebase deploy --only hosting",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",

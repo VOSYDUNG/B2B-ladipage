@@ -431,13 +431,16 @@
         <h3 data-i18n="program.title">Chương trình Tích lũy Doanh số Q3/2026</h3>
         <p class="form-subtitle-desc" data-i18n="program.desc">Dành cho Nhà thuốc &amp; Phòng khám. Áp dụng gộp doanh số cả 7 sản phẩm, từ 01/08 đến 30/09/2026.</p>
 
-        <p class="program-choose-prompt" data-i18n="program.choose_prompt">Chạm chọn <strong>bậc mục tiêu doanh số</strong> anh/chị nhắm tới trong Quý 3 để mở khóa vòng quay:</p>
+        <p class="program-choose-prompt">Xem thông tin chương trình trước khi mở khóa lượt quay quà tặng.</p>
 
         <div class="tier-target-grid" id="tier-target-grid"></div>
 
         <div class="tier-benefit-preview" id="tier-benefit-preview" style="display:none;"></div>
 
-        <button type="button" class="btn-preview-invoice" onclick="openRulesPdfModal()">Xem PDF chương trình</button>
+        <figure class="program-pdf-preview">
+          <img src="images/page-1.png" alt="Thể lệ chương trình tích lũy doanh số NNC Pharma Q3/2026">
+          <figcaption>Thể lệ chương trình Q3/2026</figcaption>
+        </figure>
         <label class="program-ack-box">
           <input type="checkbox" id="program-ack" onchange="onProgramAckChange()">
           <span>Tôi đã xem và hiểu chương trình tích lũy Q3/2026 của NNC Pharma.</span>
@@ -484,9 +487,6 @@
           </div>
           
           <div class="summary-actions">
-            <button type="button" class="btn-unlock-wheel" id="btn-unlock-wheel-from-selection" onclick="unlockWheelFromSelection()">
-              <span>Xác nhận lựa chọn &amp; mở khóa vòng quay</span>
-            </button>
             <button type="button" class="btn-preview-invoice" onclick="openInvoicePreview()">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
               <span data-i18n="cart.preview_invoice">Xem PDF Đặt hàng</span>

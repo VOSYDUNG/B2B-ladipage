@@ -5,7 +5,7 @@
   },
   "hosting": {
     "site": "salesonlinennc",
-    "public": "nnc-q3-rewards-PRODUCTION-v2 (2)/draft-b2b-rewards-v2",
+    "public": "dist-draft",
     "ignore": [
       "firebase.json",
       "**/.*"

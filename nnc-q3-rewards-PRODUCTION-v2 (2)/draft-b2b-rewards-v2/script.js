@@ -701,7 +701,7 @@ function confirmProgramViewed() {
     sessionStorage.setItem('nnc_b2b_session', JSON.stringify(data));
   } catch (e) { console.error('Session write error:', e); }
   logEvent('program_reviewed');
-  setFlowState('cart');
+  setFlowState('wheel');
 }
 
 // The selection surface is the only pre-wheel step: derive its active tier
@@ -1230,7 +1230,7 @@ function showResultModal(rewardId) {
 
 function proceedToCartStep() {
   document.getElementById('result-modal').classList.remove('active');
-  setFlowState('completion');
+  setFlowState('cart');
 }
 
 // Stepper navigation / focus
