@@ -1,0 +1,2668 @@
+{
+  "DOC-TOI-IT": [
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "NNC PHARMA — CONTENT MỚI CHO LANDING PAGE Q3/2026",
+      "Unnamed: 2": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "Gửi đội IT — cập nhật nội dung song ngữ theo đúng cấu trúc file NNC_Translations hiện có",
+      "Unnamed: 2": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "",
+      "Unnamed: 2": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "MỤC TIÊU CONTENT MỚI",
+      "Unnamed: 2": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "1.",
+      "Unnamed: 2": "Kéo khách KẾT NỐI WHATSAPP: mọi nút quan trọng đều dẫn về WhatsApp, quà chỉ trao qua WhatsApp."
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "2.",
+      "Unnamed: 2": "Kéo khách XEM CHƯƠNG TRÌNH TÍCH LŨY: CTA phụ, mô tả quà, mô tả sản phẩm đều nhắc lại cơ chế 4 bậc."
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "3.",
+      "Unnamed: 2": "Chỉnh giọng văn từ \"khuyến mãi chợ\" sang \"đặc quyền đối tác\" — phù hợp dược sĩ/bác sĩ mua lý trí."
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "",
+      "Unnamed: 2": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "CÁCH DÙNG FILE NÀY",
+      "Unnamed: 2": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "•",
+      "Unnamed: 2": "Sheet \"VI_MOI\" và \"LO_MOI\": cột KEY khớp 100% với file NNC_Translations_VI/LO.xlsx đang dùng."
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "•",
+      "Unnamed: 2": "Cột \"NỘI DUNG MỚI\" là bản chốt để dán vào code (biến translations trong script.js)."
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "•",
+      "Unnamed: 2": "Dòng nền VÀNG = có thay đổi (55 keys VI). Dòng nền TRẮNG = giữ nguyên, không cần đụng."
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "•",
+      "Unnamed: 2": "Cột \"LÝ DO\" để anh/chị review nhanh vì sao đổi — không cần đưa vào code."
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "•",
+      "Unnamed: 2": "Sheet \"QUA_TANG\": cơ cấu 6 quà + tỷ lệ trúng + nội dung hiển thị, khớp key reward.* và WHEEL_SEGMENTS/REWARD_DETAILS trong script.js."
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "",
+      "Unnamed: 2": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "⚠️ 2 LỖI DỮ LIỆU CẦN SỬA GẤP (ưu tiên cao nhất)",
+      "Unnamed: 2": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "1.",
+      "Unnamed: 2": "Quyền lợi giới thiệu ĐÃ CHỐT LẠI CƠ CHẾ: người giới thiệu nhận 5% giá trị ĐƠN ĐẦU TIÊN của khách mới, trừ thẳng vào đơn nhập hàng kế tiếp của người giới thiệu. Bản cũ hiển thị lẫn lộn 0.5%/5%/5.5% — IT vui lòng rà cả code: mọi chỗ hardcode \"+0.5%\" (kể cả tin nhắn WhatsApp, tooltip, script.js) phải sửa theo cơ chế mới trong 5 key referral/result.ref của file này."
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "2.",
+      "Unnamed: 2": "Key footer.desc chưa có bản tiếng Lào trong file LO — đã bổ sung trong sheet LO_MOI, cần thêm key này vào translations LO của code."
+    }
+  ],
+  "VI_MOI": [
+    {
+      "STT": 1,
+      "Màn Hình / Vị Trí": "1. Thanh Điều Hướng (Navigation)",
+      "Key Code (Tham chiếu code)": "nav.products",
+      "NỘI DUNG MỚI (dán vào code)": "Sản phẩm",
+      "Nội dung cũ": "Sản phẩm",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 2,
+      "Màn Hình / Vị Trí": "1. Thanh Điều Hướng (Navigation)",
+      "Key Code (Tham chiếu code)": "nav.accumulation",
+      "NỘI DUNG MỚI (dán vào code)": "Tích lũy",
+      "Nội dung cũ": "Tích lũy",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 3,
+      "Màn Hình / Vị Trí": "1. Thanh Điều Hướng (Navigation)",
+      "Key Code (Tham chiếu code)": "nav.wheel",
+      "NỘI DUNG MỚI (dán vào code)": "Vòng quay",
+      "Nội dung cũ": "Vòng quay",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 4,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.proceed_cart_btn",
+      "NỘI DUNG MỚI (dán vào code)": "LÊN THỬ ĐƠN HÀNG NGAY →",
+      "Nội dung cũ": "CHỐT THỬ ĐƠN HÀNG (BƯỚC 4) →",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Bỏ \"(BƯỚC 4)\" kỹ thuật — khách không cần biết số bước nội bộ."
+    },
+    {
+      "STT": 5,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.showcase_sub",
+      "NỘI DUNG MỚI (dán vào code)": "Toàn bộ quà tặng được cộng hưởng cùng chiết khấu tích lũy — quyền lợi song hành, không loại trừ:",
+      "Nội dung cũ": "Quà tặng áp dụng đồng thời với mọi chiết khấu tiền mặt:",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Trả lời đúng nỗi nghi ngờ số 1 của khách B2B (\"nhận quà thì mất chiết khấu?\") — và nhắc chương trình tích lũy lần nữa. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 6,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.showcase_title",
+      "NỘI DUNG MỚI (dán vào code)": "Cơ cấu 6 phần quà Quý 3",
+      "Nội dung cũ": "Cơ Cấu 6 Phần Quà Giá Trị",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Bỏ \"Cơ Cấu... Giá Trị\" sáo rỗng. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 7,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.showcase_tag",
+      "NỘI DUNG MỚI (dán vào code)": "100% QUAY LÀ CÓ QUÀ",
+      "Nội dung cũ": "VÒNG QUAY 100% TRÚNG QUÀ",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Đồng bộ với hero."
+    },
+    {
+      "STT": 8,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.locked_cta",
+      "NỘI DUNG MỚI (dán vào code)": "Bắt đầu ngay →",
+      "Nội dung cũ": "Vào quay ngay →",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Gọn."
+    },
+    {
+      "STT": 9,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.locked_hint",
+      "NỘI DUNG MỚI (dán vào code)": "Hoàn thành 2 bước đăng ký để kích hoạt lượt quay 100% có quà",
+      "Nội dung cũ": "Chỉ còn 1 bước cuối để nhận quà 100%",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Nêu rõ \"2 bước\" — khách biết chi phí công sức trước, giảm bỏ ngang. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 10,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.spin_btn",
+      "NỘI DUNG MỚI (dán vào code)": "QUAY NHẬN QUÀ NGAY",
+      "Nội dung cũ": "HÚP TRỌN QUÀ NGAY",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"HÚP TRỌN QUÀ NGAY\" là teencode — rủi ro phản cảm cao nhất trang với dược sĩ lớn tuổi. Bắt buộc đổi. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 11,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.desc",
+      "NỘI DUNG MỚI (dán vào code)": "100% lượt quay đều mang về quà tặng. Mọi phần quà được chuyên viên phụ trách khu vực xác nhận và trao qua WhatsApp — nhanh chóng, minh bạch, đúng cam kết.",
+      "Nội dung cũ": "Bạn đã mở khóa thành công lượt quay quyền lợi sỉ. 100% cơ hội trúng quà tặng thực tế hoặc chiết khấu ưu đãi từ NNC Pharma.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Cài luật chơi \"trao qua WhatsApp\" TRƯỚC khi quay — khách bấm nút WhatsApp sau đó như một lẽ tự nhiên (mục tiêu 1). (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 12,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.title",
+      "NỘI DUNG MỚI (dán vào code)": "Lượt quay đặc quyền Quý 3 của anh/chị đã sẵn sàng",
+      "Nội dung cũ": "Mở khóa Hộp Quà Quyền Lợi Q3",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Cá nhân hóa \"của anh/chị\" thay vì \"Hộp Quà\" chung chung. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 13,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.eyebrow",
+      "NỘI DUNG MỚI (dán vào code)": "VÒNG QUAY TRI ÂN ĐỐI TÁC",
+      "Nội dung cũ": "VÒNG QUAY MAY MẮN B2B",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Bỏ \"MAY MẮN B2B\" — \"tri ân đối tác\" đúng định vị chương trình."
+    },
+    {
+      "STT": 14,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.v200_title",
+      "NỘI DUNG MỚI (dán vào code)": "Voucher 200.000 KIP",
+      "Nội dung cũ": "Voucher 200.000 KIP",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 15,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.kit_desc",
+      "NỘI DUNG MỚI (dán vào code)": "Sổ tay + Bút + Ô dù cao cấp",
+      "Nội dung cũ": "Sổ tay + Bút + Ô dù cao cấp",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 16,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.v100_title",
+      "NỘI DUNG MỚI (dán vào code)": "Voucher 100.000 KIP",
+      "Nội dung cũ": "Voucher 100.000 KIP",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 17,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.disc_desc",
+      "NỘI DUNG MỚI (dán vào code)": "Cộng thêm ngoài mức 5% chuẩn",
+      "Nội dung cũ": "Cộng thêm ngoài mức 5% chuẩn",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 18,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.disc_title",
+      "NỘI DUNG MỚI (dán vào code)": "Thêm 1% Chiết Khấu",
+      "Nội dung cũ": "Thêm 1% Chiết Khấu",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 19,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.tadi_desc",
+      "NỘI DUNG MỚI (dán vào code)": "Áp dụng cho đơn từ 3tr KIP",
+      "Nội dung cũ": "Áp dụng cho đơn từ 3tr KIP",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 20,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.v100_desc",
+      "NỘI DUNG MỚI (dán vào code)": "Trừ thẳng vào đơn từ 2tr KIP",
+      "Nội dung cũ": "Trừ thẳng vào đơn từ 2tr KIP",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 21,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.ship_desc",
+      "NỘI DUNG MỚI (dán vào code)": "NNC lo 100% phí ship 2 đơn đầu",
+      "Nội dung cũ": "NNC lo 100% phí ship 2 đơn đầu",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 22,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.ship_title",
+      "NỘI DUNG MỚI (dán vào code)": "Freeship 2 Đơn",
+      "Nội dung cũ": "Freeship 2 Đơn",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 23,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.v200_desc",
+      "NỘI DUNG MỚI (dán vào code)": "Trừ thẳng vào đơn từ 5tr KIP",
+      "Nội dung cũ": "Trừ thẳng vào đơn từ 5tr KIP",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 24,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.kit_title",
+      "NỘI DUNG MỚI (dán vào code)": "Bộ quà tặng NNC",
+      "Nội dung cũ": "Bộ quà tặng NNC",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 25,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.tadi_title",
+      "NỘI DUNG MỚI (dán vào code)": "Tặng 1 hộp Tadimax",
+      "Nội dung cũ": "Tặng 1 hộp Tadimax",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 26,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.province",
+      "NỘI DUNG MỚI (dán vào code)": "Tỉnh / Thành phố",
+      "Nội dung cũ": "Tỉnh / Thành phố",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 27,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.validate_btn",
+      "NỘI DUNG MỚI (dán vào code)": "Kiểm tra",
+      "Nội dung cũ": "Kiểm tra",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 28,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.submit_btn",
+      "NỘI DUNG MỚI (dán vào code)": "XÁC NHẬN THAM GIA NGAY",
+      "Nội dung cũ": "CHỐT THÔNG TIN & NHẬN LỘC",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Bỏ \"NHẬN LỘC\". Nút nói đúng việc xảy ra tiếp theo — nguyên tắc copy UX. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 29,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.consent",
+      "NỘI DUNG MỚI (dán vào code)": "Tôi đồng ý để NNC Pharma lưu thông tin và tư vấn qua kênh liên hệ đã chọn.",
+      "Nội dung cũ": "Tôi đồng ý để NNC ghi nhận thông tin và tư vấn qua kênh đã chọn.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Thêm tên công ty đầy đủ — tăng độ tin cậy pháp lý."
+    },
+    {
+      "STT": 30,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.other",
+      "NỘI DUNG MỚI (dán vào code)": "Khác",
+      "Nội dung cũ": "Khác",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 31,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.call",
+      "NỘI DUNG MỚI (dán vào code)": "Gọi điện",
+      "Nội dung cũ": "Gọi điện",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 32,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.contact_pref",
+      "NỘI DUNG MỚI (dán vào code)": "Kênh liên hệ ưu tiên",
+      "Nội dung cũ": "Kênh liên hệ ưu tiên",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 33,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.ref_code",
+      "NỘI DUNG MỚI (dán vào code)": "Mã giới thiệu (nếu có)",
+      "Nội dung cũ": "Mã giới thiệu (nếu có)",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 34,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.business",
+      "NỘI DUNG MỚI (dán vào code)": "Tên Quầy / Phòng khám",
+      "Nội dung cũ": "Tên Quầy / Phòng khám",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 35,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.referral_invalid",
+      "NỘI DUNG MỚI (dán vào code)": "Mã không hợp lệ (tối thiểu 4 ký tự)",
+      "Nội dung cũ": "Mã không hợp lệ (tối thiểu 4 ký tự)",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 36,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.fullname",
+      "NỘI DUNG MỚI (dán vào code)": "Họ tên người phụ trách",
+      "Nội dung cũ": "Họ tên người phụ trách",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 37,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.desc",
+      "NỘI DUNG MỚI (dán vào code)": "Thông tin giúp NNC trao quà đúng người, đúng quầy — và để chuyên viên tư vấn đồng hành cùng anh/chị qua WhatsApp một cách chu đáo nhất.",
+      "Nội dung cũ": "Để lại thông tin để NNC lên đơn và gửi quà tặng chính xác nhất.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Giải thích VÌ SAO cần thông tin (nguyên tắc minh bạch với khách lý trí) + gieo trước kết nối WhatsApp. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 38,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.title",
+      "NỘI DUNG MỚI (dán vào code)": "Xác nhận tham gia — chỉ 30 giây",
+      "Nội dung cũ": "Xác Nhận Tham Gia & Nhận Lộc",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Nhận Lộc\" hợp Tết, lệch ngữ cảnh B2B Lào. Cam kết \"30 giây\" hạ rào cản điền form. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 39,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.referral_valid",
+      "NỘI DUNG MỚI (dán vào code)": "✓ Mã giới thiệu hợp lệ và đã khóa",
+      "Nội dung cũ": "✓ Mã giới thiệu hợp lệ và đã khóa",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 40,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.phone",
+      "NỘI DUNG MỚI (dán vào code)": "Số điện thoại",
+      "Nội dung cũ": "Số điện thoại",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 41,
+      "Màn Hình / Vị Trí": "13. Popup Sản Phẩm (Product Modal)",
+      "Key Code (Tham chiếu code)": "modal.pack_size",
+      "NỘI DUNG MỚI (dán vào code)": "Quy cách:",
+      "Nội dung cũ": "Quy cách:",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 42,
+      "Màn Hình / Vị Trí": "13. Popup Sản Phẩm (Product Modal)",
+      "Key Code (Tham chiếu code)": "modal.price",
+      "NỘI DUNG MỚI (dán vào code)": "Giá sỉ Vientiane:",
+      "Nội dung cũ": "Giá sỉ Vientiane:",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 43,
+      "Màn Hình / Vị Trí": "13. Popup Sản Phẩm (Product Modal)",
+      "Key Code (Tham chiếu code)": "modal.interest_yes",
+      "NỘI DUNG MỚI (dán vào code)": "✓ Đã chọn quan tâm",
+      "Nội dung cũ": "✓ Đã chọn quan tâm",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 44,
+      "Màn Hình / Vị Trí": "13. Popup Sản Phẩm (Product Modal)",
+      "Key Code (Tham chiếu code)": "modal.interest_no",
+      "NỘI DUNG MỚI (dán vào code)": "Tôi quan tâm sản phẩm này",
+      "Nội dung cũ": "Tôi quan tâm sản phẩm này",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 45,
+      "Màn Hình / Vị Trí": "13. Popup Sản Phẩm (Product Modal)",
+      "Key Code (Tham chiếu code)": "modal.formulation",
+      "NỘI DUNG MỚI (dán vào code)": "Hoạt chất:",
+      "Nội dung cũ": "Hoạt chất:",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 46,
+      "Màn Hình / Vị Trí": "13. Popup Sản Phẩm (Product Modal)",
+      "Key Code (Tham chiếu code)": "modal.wa_btn",
+      "NỘI DUNG MỚI (dán vào code)": "Chat sỉ qua WhatsApp",
+      "Nội dung cũ": "Chat sỉ qua WhatsApp",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 47,
+      "Màn Hình / Vị Trí": "14. Lên Đơn Hàng (Cart/Invoice)",
+      "Key Code (Tham chiếu code)": "cart.skip",
+      "NỘI DUNG MỚI (dán vào code)": "Để sau — tôi muốn nhận quà trước",
+      "Nội dung cũ": "Bỏ qua bước này",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Bỏ qua bước này\" lạnh; câu mới thân thiện và vẫn giữ khách trong phễu nhận quà qua WhatsApp. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 48,
+      "Màn Hình / Vị Trí": "14. Lên Đơn Hàng (Cart/Invoice)",
+      "Key Code (Tham chiếu code)": "cart.send_whatsapp",
+      "NỘI DUNG MỚI (dán vào code)": "GỬI ĐƠN NHÁP QUA WHATSAPP",
+      "Nội dung cũ": "Gửi chốt đơn WhatsApp",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Viết hoa + rõ \"nháp\" — nút chính của bước này."
+    },
+    {
+      "STT": 49,
+      "Màn Hình / Vị Trí": "14. Lên Đơn Hàng (Cart/Invoice)",
+      "Key Code (Tham chiếu code)": "cart.preview_invoice",
+      "NỘI DUNG MỚI (dán vào code)": "Xem PDF Đơn Hàng",
+      "Nội dung cũ": "Xem PDF Đơn Hàng",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 50,
+      "Màn Hình / Vị Trí": "14. Lên Đơn Hàng (Cart/Invoice)",
+      "Key Code (Tham chiếu code)": "cart.summary_title",
+      "NỘI DUNG MỚI (dán vào code)": "Tổng quan lợi nhuận",
+      "Nội dung cũ": "Tổng quan lợi nhuận",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 51,
+      "Màn Hình / Vị Trí": "14. Lên Đơn Hàng (Cart/Invoice)",
+      "Key Code (Tham chiếu code)": "cart.subtitle",
+      "NỘI DUNG MỚI (dán vào code)": "Nhập số lượng — hệ thống tính chiết khấu theo thời gian thực. Đơn nháp được gửi qua WhatsApp để chuyên viên tư vấn mức giá và lịch giao tối ưu; hoàn toàn chưa phát sinh thanh toán.",
+      "Nội dung cũ": "Nhập số lượng để tự động tính tiền lời. Đơn nháp sẽ được gửi qua WhatsApp để NNC tư vấn chốt sỉ.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Chưa phát sinh thanh toán\" gỡ nỗi sợ lớn nhất khi bấm gửi đơn — tăng mạnh tỷ lệ gửi WhatsApp (mục tiêu 1). (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 52,
+      "Màn Hình / Vị Trí": "14. Lên Đơn Hàng (Cart/Invoice)",
+      "Key Code (Tham chiếu code)": "cart.title",
+      "NỘI DUNG MỚI (dán vào code)": "Thiết kế đơn hàng đầu tiên của anh/chị",
+      "Nội dung cũ": "Chốt thử đơn hàng của bạn",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Cá nhân hóa + \"đầu tiên\" mở quan hệ dài hạn. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 53,
+      "Màn Hình / Vị Trí": "14. Lên Đơn Hàng (Cart/Invoice)",
+      "Key Code (Tham chiếu code)": "cart.eyebrow",
+      "NỘI DUNG MỚI (dán vào code)": "ĐƠN HÀNG NHÁP",
+      "Nội dung cũ": "BẢNG LÊN ĐƠN NHÁP",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Gọn."
+    },
+    {
+      "STT": 54,
+      "Màn Hình / Vị Trí": "15. PDF Báo Giá Nháp (Invoice PDF Modal)",
+      "Key Code (Tham chiếu code)": "invoice.download",
+      "NỘI DUNG MỚI (dán vào code)": "Tải ảnh",
+      "Nội dung cũ": "Tải ảnh",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 55,
+      "Màn Hình / Vị Trí": "15. PDF Báo Giá Nháp (Invoice PDF Modal)",
+      "Key Code (Tham chiếu code)": "invoice.title",
+      "NỘI DUNG MỚI (dán vào code)": "PDF Đơn Nháp",
+      "Nội dung cũ": "PDF Đơn Nháp",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 56,
+      "Màn Hình / Vị Trí": "15. PDF Báo Giá Nháp (Invoice PDF Modal)",
+      "Key Code (Tham chiếu code)": "invoice.close",
+      "NỘI DUNG MỚI (dán vào code)": "Đóng",
+      "Nội dung cũ": "Đóng",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 57,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.wa_claim_btn",
+      "NỘI DUNG MỚI (dán vào code)": "XÁC NHẬN QUÀ QUA WHATSAPP — CHỈ 1 CHẠM",
+      "Nội dung cũ": "Nhận Quà Qua WhatsApp",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Đây là NÚT QUAN TRỌNG NHẤT TRANG (mục tiêu 1). \"Xác nhận\" + \"1 chạm\" nói rõ: quà đã là của khách, chỉ còn 1 thao tác — giảm mọi do dự. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 58,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.ref_link",
+      "NỘI DUNG MỚI (dán vào code)": "Copy link chia sẻ:",
+      "Nội dung cũ": "Copy link chia sẻ:",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 59,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.ref_code",
+      "NỘI DUNG MỚI (dán vào code)": "Mã giới thiệu của bạn:",
+      "Nội dung cũ": "Mã giới thiệu của bạn:",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 60,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.congrats",
+      "NỘI DUNG MỚI (dán vào code)": "Chúc mừng anh/chị!",
+      "Nội dung cũ": "Chúc mừng anh/chị!",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 61,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.ref_title",
+      "NỘI DUNG MỚI (dán vào code)": "Giới thiệu đồng nghiệp — nhận 5% giá trị đơn đầu của họ",
+      "Nội dung cũ": "Giới thiệu Đồng nghiệp - Nhận thêm 0.5%",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Đồng bộ công thức quyền lợi với banner giới thiệu."
+    },
+    {
+      "STT": 62,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.condition",
+      "NỘI DUNG MỚI (dán vào code)": "Điều kiện áp dụng:",
+      "Nội dung cũ": "Điều kiện áp dụng:",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 63,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.win_intro",
+      "NỘI DUNG MỚI (dán vào code)": "Phần quà tri ân dành riêng cho anh/chị:",
+      "Nội dung cũ": "Tuyệt vời! Anh/chị đã trúng thưởng phần quà:",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Bỏ \"Tuyệt vời!\" thừa — để tên quà tự tỏa sáng. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 64,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.ref_desc",
+      "NỘI DUNG MỚI (dán vào code)": "Chia sẻ mã dành riêng này tới đồng nghiệp sở hữu quầy thuốc/phòng khám. Khi họ chốt đơn đầu tiên cùng NNC, 5% giá trị đơn được khấu trừ trực tiếp vào đơn nhập kế tiếp của anh/chị. Đơn cử: đơn 10 triệu KIP — anh/chị nhận về 500.000 KIP.",
+      "Nội dung cũ": "Chia sẻ mã này tới đồng nghiệp để cả 2 cùng nhận thêm 0.5% chiết khấu tích lũy đơn sỉ gộp.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Thêm ví dụ tiền thật (10tr → trừ 500k) — con số cụ thể kích thích chia sẻ mạnh hơn mọi lời mô tả. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 65,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.cta_next",
+      "NỘI DUNG MỚI (dán vào code)": "Trải nghiệm lên đơn đầu tiên",
+      "Nội dung cũ": "Tiếp tục lên đơn",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Đầu tiên\" gợi mở quan hệ dài hạn thay vì \"tiếp tục\" vô hồn. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 66,
+      "Màn Hình / Vị Trí": "17. Banner Mời Đồng Nghiệp (Referral CTA)",
+      "Key Code (Tham chiếu code)": "referral_cta.desc",
+      "NỘI DUNG MỚI (dán vào code)": "Với mỗi đối tác mới do anh/chị giới thiệu, 5% giá trị đơn hàng đầu tiên của họ được khấu trừ trực tiếp vào đơn nhập kế tiếp của anh/chị. Đối tác mới vẫn hưởng trọn chính sách tích lũy — quyền lợi trọn vẹn cho cả đôi bên.",
+      "Nội dung cũ": "Ưu đãi kép cho cả người giới thiệu & người được giới thiệu.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Trả lời 2 câu hỏi khách chắc chắn sẽ hỏi: nhận bằng cách nào (trừ vào đơn kế tiếp) và khách mới có bị thiệt không (không) — gỡ rào cản tâm lý khi giới thiệu đồng nghiệp. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 67,
+      "Màn Hình / Vị Trí": "17. Banner Mời Đồng Nghiệp (Referral CTA)",
+      "Key Code (Tham chiếu code)": "referral_cta.title",
+      "NỘI DUNG MỚI (dán vào code)": "Mở rộng mạng lưới đối tác — nhận ngay 5% giá trị đơn đầu tiên",
+      "Nội dung cũ": "Giới thiệu Đối tác: Nhận thêm 5.5% lợi ích!",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Nêu thẳng công thức quyền lợi ngay tiêu đề: ai giới thiệu, nhận gì, tính trên đơn nào. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 68,
+      "Màn Hình / Vị Trí": "17. Banner Mời Đồng Nghiệp (Referral CTA)",
+      "Key Code (Tham chiếu code)": "referral_cta.tag",
+      "NỘI DUNG MỚI (dán vào code)": "HOA HỒNG GIỚI THIỆU 5%",
+      "Nội dung cũ": "🔥 THƯỞNG GIỚI THIỆU 5%",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Cơ chế chốt cùng anh Sơn: người giới thiệu nhận 5% giá trị ĐƠN ĐẦU TIÊN của khách mới. Gọi đúng tên \"hoa hồng\" — mạnh và rõ hơn \"thưởng\"."
+    },
+    {
+      "STT": 69,
+      "Màn Hình / Vị Trí": "18. Màn Hình Hoàn Tất (Completion Screen)",
+      "Key Code (Tham chiếu code)": "completion.wa_btn",
+      "NỘI DUNG MỚI (dán vào code)": "KẾT NỐI WHATSAPP NGAY",
+      "Nội dung cũ": "Chat trực tiếp WhatsApp",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Đảo thế chủ động cho khách nóng lòng — thêm một đường kết nối WhatsApp. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 70,
+      "Màn Hình / Vị Trí": "18. Màn Hình Hoàn Tất (Completion Screen)",
+      "Key Code (Tham chiếu code)": "completion.title",
+      "NỘI DUNG MỚI (dán vào code)": "Hoàn tất! Quyền lợi của anh/chị đã được ghi nhận",
+      "Nội dung cũ": "Chốt đơn nháp thành công!",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Xác nhận trạng thái cụ thể thay vì hô \"thành công\". (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 71,
+      "Màn Hình / Vị Trí": "18. Màn Hình Hoàn Tất (Completion Screen)",
+      "Key Code (Tham chiếu code)": "completion.desc",
+      "NỘI DUNG MỚI (dán vào code)": "Chuyên viên NNC sẽ chủ động kết nối WhatsApp trong giờ làm việc để trao quà và hoàn tất đơn chính thức. Anh/chị vui lòng lưu số 020 9980 6327 để không bỏ lỡ quyền lợi.",
+      "Nội dung cũ": "Đội ngũ NNC sẽ nhắn tin WhatsApp cho bạn ngay lập tức để hỗ trợ lên đơn chính thức.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Nêu đích danh số WhatsApp — khách lưu số, không bỏ lỡ tin nhắn sale (mục tiêu 1 trọn vẹn). \"Ngay lập tức\" cũ dễ thất hứa ngoài giờ. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 72,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.tbl_direct",
+      "NỘI DUNG MỚI (dán vào code)": "CK Trực tiếp",
+      "Nội dung cũ": "CK Trực tiếp",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 73,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.tbl_range",
+      "NỘI DUNG MỚI (dán vào code)": "Doanh số Quý",
+      "Nội dung cũ": "Doanh số Quý",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 74,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.tbl_quarter",
+      "NỘI DUNG MỚI (dán vào code)": "Thưởng Quý",
+      "Nội dung cũ": "Thưởng Quý",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 75,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.tbl_total",
+      "NỘI DUNG MỚI (dán vào code)": "Tổng",
+      "Nội dung cũ": "Tổng",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 76,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.tbl_max",
+      "NỘI DUNG MỚI (dán vào code)": "Tiền lời tối đa",
+      "Nội dung cũ": "Tiền lời tối đa",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 77,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.products_note",
+      "NỘI DUNG MỚI (dán vào code)": "Doanh số của 7 mã hàng này được cộng dồn chung.",
+      "Nội dung cũ": "Doanh số của 7 mã hàng này được cộng dồn chung.",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 78,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.products_title",
+      "NỘI DUNG MỚI (dán vào code)": "7 MÃ HÀNG TÍCH LŨY",
+      "Nội dung cũ": "7 MÃ HÀNG TÍCH LŨY",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 79,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.table_title",
+      "NỘI DUNG MỚI (dán vào code)": "CƠ CHẾ THƯỞNG LŨY TIẾN",
+      "Nội dung cũ": "CƠ CHẾ THƯỞNG LŨY TIẾN",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 80,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.tbl_tier",
+      "NỘI DUNG MỚI (dán vào code)": "Bậc",
+      "Nội dung cũ": "Bậc",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 81,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.subtitle",
+      "NỘI DUNG MỚI (dán vào code)": "Bản tóm tắt dành cho Nhà Thuốc & Phòng Khám",
+      "Nội dung cũ": "Bản tóm tắt dành cho Nhà Thuốc & Phòng Khám",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 82,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.title",
+      "NỘI DUNG MỚI (dán vào code)": "BẢNG QUYỀN LỢI TÍCH LŨY QUÝ 3/2026",
+      "Nội dung cũ": "BẢNG QUYỀN LỢI TÍCH LŨY QUÝ 3/2026",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 83,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.valid_until",
+      "NỘI DUNG MỚI (dán vào code)": "Áp dụng đến",
+      "Nội dung cũ": "Áp dụng đến",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 84,
+      "Màn Hình / Vị Trí": "2. Màn Hình Chính (Hero Section)",
+      "Key Code (Tham chiếu code)": "hero.cta_secondary",
+      "NỘI DUNG MỚI (dán vào code)": "KHÁM PHÁ CHÍNH SÁCH CHIẾT KHẤU",
+      "Nội dung cũ": "DỰ TOÁN LÃI GỘP",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Đổi từ \"DỰ TOÁN LÃI GỘP\" — CTA phụ phải phục vụ trực tiếp mục tiêu 2: kéo khách vào chương trình tích lũy. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 85,
+      "Màn Hình / Vị Trí": "2. Màn Hình Chính (Hero Section)",
+      "Key Code (Tham chiếu code)": "hero.cta_main",
+      "NỘI DUNG MỚI (dán vào code)": "NHẬN LƯỢT QUAY ĐẶC QUYỀN",
+      "Nội dung cũ": "CHƠI NGAY - TRÚNG THẬT",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"CHƠI NGAY - TRÚNG THẬT\" nghe như game bài. \"Của tôi\" tạo cảm giác sở hữu suất riêng — tăng click mà vẫn sang. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 86,
+      "Màn Hình / Vị Trí": "2. Màn Hình Chính (Hero Section)",
+      "Key Code (Tham chiếu code)": "hero.subtitle",
+      "NỘI DUNG MỚI (dán vào code)": "Đặc quyền dành riêng Nhà thuốc & Phòng khám tại Lào: quay nhận quà tri ân, xác nhận qua WhatsApp chỉ trong 1 phút, và khám phá chính sách chiết khấu tích lũy minh bạch theo từng bậc doanh số.",
+      "Nội dung cũ": "Đặc quyền cho Nhà thuốc & Phòng khám tại Lào. Quét sạch quà khủng, chốt sỉ lời to!",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Quét sạch quà khủng, chốt sỉ lời to\" phá uy tín với người mua lý trí. Câu mới cài đúng 2 mục tiêu: WhatsApp 1 phút + bảng chiết khấu minh bạch. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 87,
+      "Màn Hình / Vị Trí": "2. Màn Hình Chính (Hero Section)",
+      "Key Code (Tham chiếu code)": "hero.title_part2",
+      "NỘI DUNG MỚI (dán vào code)": "CHIẾT KHẤU TÍCH LŨY ĐẾN 10%",
+      "Nội dung cũ": "CHIẾT KHẤU SỈ ĐỤNG TRẦN 10%",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"ĐỤNG TRẦN\" là khẩu ngữ chợ; \"tích lũy đến 10%\" đúng thuật ngữ chương trình, dẫn khách tò mò xem bảng bậc (mục tiêu 2)."
+    },
+    {
+      "STT": 88,
+      "Màn Hình / Vị Trí": "2. Màn Hình Chính (Hero Section)",
+      "Key Code (Tham chiếu code)": "hero.title_part1",
+      "NỘI DUNG MỚI (dán vào code)": "100% QUAY LÀ CÓ QUÀ",
+      "Nội dung cũ": "QUAY LÀ TRÚNG 100%",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Giữ hook chủ đạo, bỏ chữ \"TRÚNG\" lặp — gọn và chắc chắn hơn."
+    },
+    {
+      "STT": 89,
+      "Màn Hình / Vị Trí": "2. Màn Hình Chính (Hero Section)",
+      "Key Code (Tham chiếu code)": "hero.eyebrow",
+      "NỘI DUNG MỚI (dán vào code)": "NNC PHARMA · CHƯƠNG TRÌNH TRI ÂN ĐỐI TÁC CHIẾN LƯỢC · QUÝ 3/2026",
+      "Nội dung cũ": "NNC PHARMA · ĐẠI TIỆC TRI ÂN ĐỐI TÁC B2B Q3/2026",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Đại tiệc\" nghe như hội chợ tiêu dùng; khách dược sĩ cần cảm giác chương trình đối tác nghiêm túc. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 90,
+      "Màn Hình / Vị Trí": "20. Thể Lệ Chương Trình (Rules Modal)",
+      "Key Code (Tham chiếu code)": "rules.close",
+      "NỘI DUNG MỚI (dán vào code)": "Đóng",
+      "Nội dung cũ": "Đóng",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 91,
+      "Màn Hình / Vị Trí": "20. Thể Lệ Chương Trình (Rules Modal)",
+      "Key Code (Tham chiếu code)": "rules.download",
+      "NỘI DUNG MỚI (dán vào code)": "Tải ảnh",
+      "Nội dung cũ": "Tải ảnh",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 92,
+      "Màn Hình / Vị Trí": "20. Thể Lệ Chương Trình (Rules Modal)",
+      "Key Code (Tham chiếu code)": "rules.title",
+      "NỘI DUNG MỚI (dán vào code)": "Cơ chế tích lũy",
+      "Nội dung cũ": "Cơ chế tích lũy",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 93,
+      "Màn Hình / Vị Trí": "21. Chân Trang (Footer)",
+      "Key Code (Tham chiếu code)": "footer.desc",
+      "NỘI DUNG MỚI (dán vào code)": "Chương trình tri ân đối tác Quý 3/2026 — NNC Pharma đồng hành cùng Nhà thuốc & Phòng khám tại Lào. Mọi quà tặng và chiết khấu được xác nhận qua kênh WhatsApp chính thức: 020 9980 6327.",
+      "Nội dung cũ": "Chương trình B2B Q3/2026 độc quyền từ NNC Pharma tại thị trường Lào.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Chốt trang bằng số WhatsApp chính thức — vừa tăng uy tín vừa thêm điểm chạm mục tiêu 1. (Key này chưa có bản LO — đề nghị IT bổ sung.) (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 94,
+      "Màn Hình / Vị Trí": "3. Thanh Tiến Độ Bước (Stepper)",
+      "Key Code (Tham chiếu code)": "stepper.step1",
+      "NỘI DUNG MỚI (dán vào code)": "Đăng ký",
+      "Nội dung cũ": "Đăng ký",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 95,
+      "Màn Hình / Vị Trí": "3. Thanh Tiến Độ Bước (Stepper)",
+      "Key Code (Tham chiếu code)": "stepper.step2",
+      "NỘI DUNG MỚI (dán vào code)": "Chính sách",
+      "Nội dung cũ": "Chính sách",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 96,
+      "Màn Hình / Vị Trí": "3. Thanh Tiến Độ Bước (Stepper)",
+      "Key Code (Tham chiếu code)": "stepper.step3",
+      "NỘI DUNG MỚI (dán vào code)": "Quay quà",
+      "Nội dung cũ": "Quay quà",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 97,
+      "Màn Hình / Vị Trí": "3. Thanh Tiến Độ Bước (Stepper)",
+      "Key Code (Tham chiếu code)": "stepper.step4",
+      "NỘI DUNG MỚI (dán vào code)": "Lên đơn",
+      "Nội dung cũ": "Lên đơn",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 98,
+      "Màn Hình / Vị Trí": "3. Thanh Tiến Độ Bước (Stepper)",
+      "Key Code (Tham chiếu code)": "stepper.step5",
+      "NỘI DUNG MỚI (dán vào code)": "Hoàn tất",
+      "Nội dung cũ": "Hoàn tất",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 99,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.unlock_btn",
+      "NỘI DUNG MỚI (dán vào code)": "MỞ KHÓA VÒNG QUAY QUÀ TẶNG",
+      "Nội dung cũ": "MỞ KHÓA VÒNG QUAY",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Thêm \"quà tặng\" — nhắc lại phần thưởng ngay tại nút, đẩy động lực hoàn thành gate."
+    },
+    {
+      "STT": 100,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.badge",
+      "NỘI DUNG MỚI (dán vào code)": "BƯỚC 2/2 — MỞ KHÓA VÒNG QUAY",
+      "Nội dung cũ": "BƯỚC 2/2 ĐỂ MỞ KHÓA VÒNG QUAY",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Giữ cấu trúc, gọn dấu câu."
+    },
+    {
+      "STT": 101,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.choose_prompt",
+      "NỘI DUNG MỚI (dán vào code)": "Chọn <strong>mục tiêu doanh số Quý 3</strong> của anh/chị — NNC cam kết đồng hành để anh/chị chạm mốc:",
+      "Nội dung cũ": "Chạm để chọn <strong>Mục tiêu Doanh số</strong> Quý 3 của anh/chị:",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Thêm vế \"NNC đồng hành\" — biến việc chọn bậc thành cam kết 2 chiều, khách chọn nghiêm túc hơn. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 102,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.title",
+      "NỘI DUNG MỚI (dán vào code)": "Chính sách Tích lũy Doanh số Q3/2026",
+      "Nội dung cũ": "Chiến Dịch Lũy Tiến Q3/2026",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Chiến Dịch Lũy Tiến\" là ngôn ngữ nội bộ marketing; \"Chính sách\" là chữ khách B2B tin và muốn đọc."
+    },
+    {
+      "STT": 103,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.desc",
+      "NỘI DUNG MỚI (dán vào code)": "Dành riêng Nhà thuốc & Phòng khám. Doanh số 7 sản phẩm được cộng gộp chung, từ 01/08 đến 30/09/2026.",
+      "Nội dung cũ": "Dành riêng B2B. Gộp chung doanh số cả 7 mã hàng (01/08 - 30/09/2026).",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Nêu rõ đối tượng thay vì \"B2B\" khô khan."
+    },
+    {
+      "STT": 104,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.point1",
+      "NỘI DUNG MỚI (dán vào code)": "Giảm ngay 5% trực tiếp trên mọi hóa đơn nhập hàng.",
+      "Nội dung cũ": "Giảm ngay 5% trực tiếp trên mọi hóa đơn.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Giữ nguyên."
+    },
+    {
+      "STT": 105,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.point2",
+      "NỘI DUNG MỚI (dán vào code)": "Cuối quý, nhận thêm 2% → 5% thưởng tính trên TOÀN BỘ doanh số tích lũy — càng về cuối quý, mỗi đơn hàng càng giá trị.",
+      "Nội dung cũ": "Thưởng cuối quý 2% → 5% trên tổng doanh số.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Nhấn \"TỔNG\" — điểm ăn tiền nhất của cơ chế mà khách hay hiểu nhầm là chỉ tính phần vượt. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 106,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.point3",
+      "NỘI DUNG MỚI (dán vào code)": "Lưu ý: không áp dụng đồng thời với chương trình hàng tặng 30+1.",
+      "Nội dung cũ": "Lưu ý: KHÔNG áp dụng kèm chương trình hàng tặng 30+1.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Giữ — minh bạch điều kiện tăng uy tín."
+    },
+    {
+      "STT": 107,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.ack",
+      "NỘI DUNG MỚI (dán vào code)": "Tôi đã đọc và nắm rõ chính sách tích lũy Q3/2026.",
+      "Nội dung cũ": "Tôi đã nắm rõ cơ chế lũy tiến Q3/2026.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Đồng bộ chữ \"chính sách\" với tiêu đề."
+    },
+    {
+      "STT": 108,
+      "Màn Hình / Vị Trí": "6. Danh Mục Sản Phẩm (Catalog)",
+      "Key Code (Tham chiếu code)": "products.desc",
+      "NỘI DUNG MỚI (dán vào code)": "Doanh số của cả 7 sản phẩm được hợp nhất vào một mức tích lũy duy nhất — mỗi đơn hàng, dù mã nào, đều đưa anh/chị tiến gần bậc chiết khấu cao hơn.",
+      "Nội dung cũ": "Tất cả 7 mã hàng dưới đây đều được tính chung vào doanh số gộp. Nhập càng nhiều, chiết khấu càng sâu.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Diễn giải lợi ích cơ chế gộp thay vì hô khẩu hiệu \"nhập càng nhiều\". (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 109,
+      "Màn Hình / Vị Trí": "6. Danh Mục Sản Phẩm (Catalog)",
+      "Key Code (Tham chiếu code)": "products.eyebrow",
+      "NỘI DUNG MỚI (dán vào code)": "DANH MỤC SẢN PHẨM",
+      "Nội dung cũ": "DANH MỤC SẢN PHẨM",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 110,
+      "Màn Hình / Vị Trí": "6. Danh Mục Sản Phẩm (Catalog)",
+      "Key Code (Tham chiếu code)": "products.title",
+      "NỘI DUNG MỚI (dán vào code)": "7 sản phẩm cộng dồn doanh số",
+      "Nội dung cũ": "7 Mã Hàng Siêu Tốc Cộng Dồn Doanh Số",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Siêu Tốc\" vô nghĩa với danh mục thuốc. Ngắn, đúng cơ chế."
+    },
+    {
+      "STT": 111,
+      "Màn Hình / Vị Trí": "6. Danh Mục Sản Phẩm (Catalog)",
+      "Key Code (Tham chiếu code)": "products.support_title",
+      "NỘI DUNG MỚI (dán vào code)": "NHÓM THẢO DƯỢC & NHI KHOA",
+      "Nội dung cũ": "TOP 4 HÀNG THẢO DƯỢC & PEDIATRIC",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"PEDIATRIC\" tiếng Anh lẫn tiếng Việt — dịch hẳn \"Nhi khoa\"."
+    },
+    {
+      "STT": 112,
+      "Màn Hình / Vị Trí": "6. Danh Mục Sản Phẩm (Catalog)",
+      "Key Code (Tham chiếu code)": "products.flagships_title",
+      "NỘI DUNG MỚI (dán vào code)": "NHÓM KHÁNG SINH KÊ ĐƠN CHỦ LỰC",
+      "Nội dung cũ": "TOP 3 HÀNG CHỦ LỰC KÊ ĐƠN",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"TOP 3 HÀNG CHỦ LỰC\" mơ hồ — gọi đúng nhóm dược lý, dược sĩ đọc là hiểu ngay."
+    },
+    {
+      "STT": 113,
+      "Màn Hình / Vị Trí": "7. Khảo Sát Nhu Cầu (Survey)",
+      "Key Code (Tham chiếu code)": "survey.hint",
+      "NỘI DUNG MỚI (dán vào code)": "Chạm chọn (không giới hạn số mã). Chuyên viên sẽ gửi báo giá sỉ chi tiết qua WhatsApp dành riêng cho anh/chị.",
+      "Nội dung cũ": "Chọn các mã hàng anh/chị muốn tư vấn sỉ sâu hơn.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Hứa hẹn cụ thể \"gửi giá sỉ qua WhatsApp\" — vừa tăng tick, vừa tạo lý do khách chờ tin nhắn (mục tiêu 1). (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 114,
+      "Màn Hình / Vị Trí": "7. Khảo Sát Nhu Cầu (Survey)",
+      "Key Code (Tham chiếu code)": "survey.title",
+      "NỘI DUNG MỚI (dán vào code)": "Chọn sản phẩm anh/chị muốn nhận báo giá sỉ ưu đãi",
+      "Nội dung cũ": "Chọn Hàng Quan Tâm",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Chọn Hàng Quan Tâm\" chung chung. \"Nhận báo giá sỉ\" cho khách lý do thực dụng để tick — tăng chất lượng data. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 115,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.eyebrow",
+      "NỘI DUNG MỚI (dán vào code)": "BẢNG QUYỀN LỢI TÍCH LŨY",
+      "Nội dung cũ": "BẢNG QUYỀN LỢI TÍCH LŨY",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 116,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.title",
+      "NỘI DUNG MỚI (dán vào code)": "Cơ chế chiết khấu tích lũy 4 bậc",
+      "Nội dung cũ": "Cơ chế Doanh số gộp Lũy tiến",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Nêu con số \"4 bậc\" — cụ thể luôn thắng trừu tượng."
+    },
+    {
+      "STT": 117,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.desc",
+      "NỘI DUNG MỚI (dán vào code)": "Chiết khấu 5% khấu trừ ngay trên từng hóa đơn. Cuối quý, NNC tri ân thêm 2–5% tính trên tổng doanh số tích lũy — doanh số càng cao, quyền lợi càng sâu.",
+      "Nội dung cũ": "Nhập sỉ gộp đơn 7 dòng sản phẩm NNC, nhận chiết khấu trực tiếp trên đơn và thưởng cộng dồn suốt quý.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Tách rõ 2 dòng tiền (ngay + cuối quý) — cách khách B2B tư duy dòng tiền. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 118,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.tbl_tier",
+      "NỘI DUNG MỚI (dán vào code)": "Bậc",
+      "Nội dung cũ": "Bậc",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 119,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.tbl_total",
+      "NỘI DUNG MỚI (dán vào code)": "Tổng lợi ích",
+      "Nội dung cũ": "Tổng lợi ích",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 120,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.tbl_direct",
+      "NỘI DUNG MỚI (dán vào code)": "Giảm trực tiếp",
+      "Nội dung cũ": "Giảm trực tiếp",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 121,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.tbl_quarter",
+      "NỘI DUNG MỚI (dán vào code)": "Thưởng cuối Quý",
+      "Nội dung cũ": "Thưởng cuối Quý",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 122,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.note",
+      "NỘI DUNG MỚI (dán vào code)": "Không áp dụng đồng thời với chương trình mua 30 tặng 1.",
+      "Nội dung cũ": "Không áp dụng đồng thời với chương trình mua 30 tặng 1.",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 123,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.tbl_range",
+      "NỘI DUNG MỚI (dán vào code)": "Doanh số Quý (KIP)",
+      "Nội dung cũ": "Doanh số Quý (KIP)",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 124,
+      "Màn Hình / Vị Trí": "9. Bảng Tính Lợi Nhuận (Calculator)",
+      "Key Code (Tham chiếu code)": "calc.title",
+      "NỘI DUNG MỚI (dán vào code)": "Bảng tính quyền lợi thực nhận",
+      "Nội dung cũ": "Bảng Dự Toán Lãi Tiền Mặt",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Bảng Dự Toán Lãi Tiền Mặt\" khô cứng; câu mới mời tương tác trực tiếp. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 125,
+      "Màn Hình / Vị Trí": "9. Bảng Tính Lợi Nhuận (Calculator)",
+      "Key Code (Tham chiếu code)": "calc.subtitle",
+      "NỘI DUNG MỚI (dán vào code)": "Kéo thanh trượt theo doanh số dự kiến — quyền lợi của anh/chị hiển thị tức thì.",
+      "Nội dung cũ": "Kéo thanh trượt để xem ngay số tiền lời bỏ túi.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Hướng dẫn thao tác rõ. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 126,
+      "Màn Hình / Vị Trí": "9. Bảng Tính Lợi Nhuận (Calculator)",
+      "Key Code (Tham chiếu code)": "calc.immediate_label",
+      "NỘI DUNG MỚI (dán vào code)": "Giảm giá trực tiếp (5%):",
+      "Nội dung cũ": "Giảm giá trực tiếp (5%):",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 127,
+      "Màn Hình / Vị Trí": "9. Bảng Tính Lợi Nhuận (Calculator)",
+      "Key Code (Tham chiếu code)": "calc.quarter_label",
+      "NỘI DUNG MỚI (dán vào code)": "Thưởng cuối Quý tích lũy:",
+      "Nội dung cũ": "Thưởng cuối Quý tích lũy:",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 128,
+      "Màn Hình / Vị Trí": "9. Bảng Tính Lợi Nhuận (Calculator)",
+      "Key Code (Tham chiếu code)": "calc.total_label",
+      "NỘI DUNG MỚI (dán vào code)": "Tổng quyền lợi thực nhận:",
+      "Nội dung cũ": "Tổng tiền lời bỏ túi:",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Tiền lời bỏ túi\" hơi chợ; \"quyền lợi nhận về\" giữ sức nặng mà vẫn sang. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 129,
+      "Màn Hình / Vị Trí": "9. Bảng Tính Lợi Nhuận (Calculator)",
+      "Key Code (Tham chiếu code)": "calc.view_pdf",
+      "NỘI DUNG MỚI (dán vào code)": "Xem chính sách đầy đủ (PDF)",
+      "Nội dung cũ": "Xem chi tiết chương trình (PDF)",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Đồng bộ chữ \"chính sách\"."
+    },
+    {
+      "STT": 130,
+      "Màn Hình / Vị Trí": "9. Bảng Tính Lợi Nhuận (Calculator)",
+      "Key Code (Tham chiếu code)": "calc.revenue_label",
+      "NỘI DUNG MỚI (dán vào code)": "Doanh số dự kiến:",
+      "Nội dung cũ": "Doanh số dự kiến:",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    }
+  ],
+  "LO_MOI": [
+    {
+      "STT": 1,
+      "Màn Hình / Vị Trí": "1. Thanh Điều Hướng (Navigation)",
+      "Key Code (Tham chiếu code)": "nav.products",
+      "NỘI DUNG MỚI (dán vào code)": "ສິນຄ້າ",
+      "Nội dung cũ": "ສິນຄ້າ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 2,
+      "Màn Hình / Vị Trí": "1. Thanh Điều Hướng (Navigation)",
+      "Key Code (Tham chiếu code)": "nav.accumulation",
+      "NỘI DUNG MỚI (dán vào code)": "ສະສົມຍອດ",
+      "Nội dung cũ": "ສະສົມຍອດ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 3,
+      "Màn Hình / Vị Trí": "1. Thanh Điều Hướng (Navigation)",
+      "Key Code (Tham chiếu code)": "nav.wheel",
+      "NỘI DUNG MỚI (dán vào code)": "ໝູນຮັບໂຊກ",
+      "Nội dung cũ": "ໝູນຮັບໂຊກ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 4,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.proceed_cart_btn",
+      "NỘI DUNG MỚI (dán vào code)": "ລອງຈັດບິນສັ່ງຊື້ເລີຍ →",
+      "Nội dung cũ": "ລອງຈັດບິນສັ່ງຊື້ (ຂັ້ນຕອນ 4) →",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Bỏ \"(BƯỚC 4)\" kỹ thuật — khách không cần biết số bước nội bộ."
+    },
+    {
+      "STT": 5,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.showcase_sub",
+      "NỘI DUNG MỚI (dán vào code)": "ທຸກຂອງຂວັນເສີມກັນກັບສ່ວນຫຼຸດສະສົມ — ຜົນປະໂຫຍດຄຽງຄູ່ກັນ, ບໍ່ຕັດສິດກັນ:",
+      "Nội dung cũ": "ຂອງຂວັນໃຊ້ຮ່ວມກັບສ່ວນຫຼຸດເງິນສົດໄດ້ເລີຍ:",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Trả lời đúng nỗi nghi ngờ số 1 của khách B2B (\"nhận quà thì mất chiết khấu?\") — và nhắc chương trình tích lũy lần nữa. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 6,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.showcase_title",
+      "NỘI DUNG MỚI (dán vào code)": "ໂຄງສ້າງ 6 ຂອງຂວັນ ໄຕມາດ 3",
+      "Nội dung cũ": "6 ຂອງຂວັນສຸດຄຸ້ມ",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Bỏ \"Cơ Cấu... Giá Trị\" sáo rỗng. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 7,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.eyebrow",
+      "NỘI DUNG MỚI (dán vào code)": "ວົງລໍ້ຂອບໃຈຄູ່ຮ່ວມທຸລະກິດ",
+      "Nội dung cũ": "ວົງລໍ້ B2B",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Bỏ \"MAY MẮN B2B\" — \"tri ân đối tác\" đúng định vị chương trình."
+    },
+    {
+      "STT": 8,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.showcase_tag",
+      "NỘI DUNG MỚI (dán vào code)": "ໝູນແມ່ນໄດ້ 100%",
+      "Nội dung cũ": "ວົງລໍ້ 100% ໄດ້ຂອງຂວັນ",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Đồng bộ với hero."
+    },
+    {
+      "STT": 9,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.desc",
+      "NỘI DUNG MỚI (dán vào code)": "ທຸກການໝູນນຳຂອງຂວັນມາໃຫ້ 100%. ທຸກລາງວັນຖືກຜູ້ຊ່ຽວຊານປະຈຳເຂດຢືນຢັນ ແລະ ມອບຜ່ານ WhatsApp — ວ່ອງໄວ, ໂປ່ງໃສ, ຕາມຄຳໝັ້ນສັນຍາ.",
+      "Nội dung cũ": "ສຳເລັດແລ້ວ! ໂອກາດ 100% ໄດ້ຂອງຂວັນແທ້ ຫຼື ສ່ວນຫຼຸດຈາກ NNC.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Cài luật chơi \"trao qua WhatsApp\" TRƯỚC khi quay — khách bấm nút WhatsApp sau đó như một lẽ tự nhiên (mục tiêu 1). (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 10,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.spin_btn",
+      "NỘI DUNG MỚI (dán vào code)": "ໝູນຮັບຂອງຂວັນດຽວນີ້",
+      "Nội dung cũ": "ໝູນເລີຍ ຈຳກັດເວລາ!",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"HÚP TRỌN QUÀ NGAY\" là teencode — rủi ro phản cảm cao nhất trang với dược sĩ lớn tuổi. Bắt buộc đổi. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 11,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.locked_cta",
+      "NỘI DUNG MỚI (dán vào code)": "ເລີ່ມເລີຍ →",
+      "Nội dung cũ": "ເຂົ້າໄປໝູນວົງລໍ້ →",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Gọn."
+    },
+    {
+      "STT": 12,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.locked_hint",
+      "NỘI DUNG MỚI (dán vào code)": "ສຳເລັດ 2 ຂັ້ນຕອນລົງທະບຽນ ເພື່ອເປີດໃຊ້ສິດໝູນ 100% ມີຂອງຂວັນ",
+      "Nội dung cũ": "ເຫຼືອພຽງ 1 ຂັ້ນຕອນ ເພື່ອຮັບຂອງຂວັນ 100%",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Nêu rõ \"2 bước\" — khách biết chi phí công sức trước, giảm bỏ ngang. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 13,
+      "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+      "Key Code (Tham chiếu code)": "wheel.title",
+      "NỘI DUNG MỚI (dán vào code)": "ສິດໝູນພິເສດ ໄຕມາດ 3 ຂອງທ່ານພ້ອມແລ້ວ",
+      "Nội dung cũ": "ປົດລັອກກ່ອງຂອງຂວັນ Q3",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Cá nhân hóa \"của anh/chị\" thay vì \"Hộp Quà\" chung chung. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 14,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.ship_title",
+      "NỘI DUNG MỚI (dán vào code)": "ສົ່ງຟຣີ 2 ບິນ",
+      "Nội dung cũ": "ສົ່ງຟຣີ 2 ບິນ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 15,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.kit_title",
+      "NỘI DUNG MỚI (dán vào code)": "ຊຸດຂອງຂວັນ NNC",
+      "Nội dung cũ": "ຊຸດຂອງຂວັນ NNC",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 16,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.kit_desc",
+      "NỘI DUNG MỚI (dán vào code)": "ປຶ້ມບັນທຶກ + ບິກ + ຮົ່ມ",
+      "Nội dung cũ": "ປຶ້ມບັນທຶກ + ບິກ + ຮົ່ມ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 17,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.v200_title",
+      "NỘI DUNG MỚI (dán vào code)": "ຄູປ໋ອງ 200.000 ກີບ",
+      "Nội dung cũ": "ຄູປ໋ອງ 200.000 ກີບ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 18,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.v200_desc",
+      "NỘI DUNG MỚI (dán vào code)": "ຫັກເລີຍ ສຳລັບບິນ 5 ລ້ານຂຶ້ນໄປ",
+      "Nội dung cũ": "ຫັກເລີຍ ສຳລັບບິນ 5 ລ້ານຂຶ້ນໄປ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 19,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.ship_desc",
+      "NỘI DUNG MỚI (dán vào code)": "NNC ຈ່າຍຄ່າສົ່ງໃຫ້ 2 ບິນທຳອິດ",
+      "Nội dung cũ": "NNC ຈ່າຍຄ່າສົ່ງໃຫ້ 2 ບິນທຳອິດ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 20,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.disc_title",
+      "NỘI DUNG MỚI (dán vào code)": "ສ່ວນຫຼຸດເພີ່ມ 1%",
+      "Nội dung cũ": "ສ່ວນຫຼຸດເພີ່ມ 1%",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 21,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.tadi_desc",
+      "NỘI DUNG MỚI (dán vào code)": "ສຳລັບບິນ 3 ລ້ານຂຶ້ນໄປ",
+      "Nội dung cũ": "ສຳລັບບິນ 3 ລ້ານຂຶ້ນໄປ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 22,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.disc_desc",
+      "NỘI DUNG MỚI (dán vào code)": "ເພີ່ມຈາກ 5% ປົກກະຕິ",
+      "Nội dung cũ": "ເພີ່ມຈາກ 5% ປົກກະຕິ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 23,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.v100_title",
+      "NỘI DUNG MỚI (dán vào code)": "ຄູປ໋ອງ 100.000 ກີບ",
+      "Nội dung cũ": "ຄູປ໋ອງ 100.000 ກີບ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 24,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.v100_desc",
+      "NỘI DUNG MỚI (dán vào code)": "ຫັກເລີຍ ສຳລັບບິນ 2 ລ້ານຂຶ້ນໄປ",
+      "Nội dung cũ": "ຫັກເລີຍ ສຳລັບບິນ 2 ລ້ານຂຶ້ນໄປ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 25,
+      "Màn Hình / Vị Trí": "11. Cơ Cấu Quà Tặng (Rewards List)",
+      "Key Code (Tham chiếu code)": "reward.tadi_title",
+      "NỘI DUNG MỚI (dán vào code)": "ແຖມ Tadimax 1 ກັບ",
+      "Nội dung cũ": "ແຖມ Tadimax 1 ກັບ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 26,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.ref_code",
+      "NỘI DUNG MỚI (dán vào code)": "ລະຫັດຜູ້ແນະນຳ (ຖ້າມີ)",
+      "Nội dung cũ": "ລະຫັດຜູ້ແນະນຳ (ຖ້າມີ)",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 27,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.consent",
+      "NỘI DUNG MỚI (dán vào code)": "ຂ້ອຍຍິນຍອມໃຫ້ NNC Pharma ເກັບຂໍ້ມູນ ແລະ ໃຫ້ຄຳປຶກສາຜ່ານຊ່ອງທາງທີ່ເລືອກ.",
+      "Nội dung cũ": "ຂ້ອຍຕົກລົງໃຫ້ NNC ບັນທຶກຂໍ້ມູນ ແລະ ຕິດຕໍ່ກັບມາ.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Thêm tên công ty đầy đủ — tăng độ tin cậy pháp lý."
+    },
+    {
+      "STT": 28,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.submit_btn",
+      "NỘI DUNG MỚI (dán vào code)": "ຢືນຢັນເຂົ້າຮ່ວມດຽວນີ້",
+      "Nội dung cũ": "ຢືນຢັນ & ໄປຕໍ່ເລີຍ!",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Bỏ \"NHẬN LỘC\". Nút nói đúng việc xảy ra tiếp theo — nguyên tắc copy UX. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 29,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.validate_btn",
+      "NỘI DUNG MỚI (dán vào code)": "ກວດສອບ",
+      "Nội dung cũ": "ກວດສອບ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 30,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.referral_valid",
+      "NỘI DUNG MỚI (dán vào code)": "✓ ລະຫັດແນະນຳຖືກຕ້ອງ",
+      "Nội dung cũ": "✓ ລະຫັດແນະນຳຖືກຕ້ອງ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 31,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.referral_invalid",
+      "NỘI DUNG MỚI (dán vào code)": "ລະຫັດບໍ່ຖືກຕ້ອງ",
+      "Nội dung cũ": "ລະຫັດບໍ່ຖືກຕ້ອງ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 32,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.other",
+      "NỘI DUNG MỚI (dán vào code)": "ອື່ນໆ",
+      "Nội dung cũ": "ອື່ນໆ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 33,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.call",
+      "NỘI DUNG MỚI (dán vào code)": "ໂທ",
+      "Nội dung cũ": "ໂທ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 34,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.contact_pref",
+      "NỘI DUNG MỚI (dán vào code)": "ຊ່ອງທາງຕິດຕໍ່",
+      "Nội dung cũ": "ຊ່ອງທາງຕິດຕໍ່",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 35,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.province",
+      "NỘI DUNG MỚI (dán vào code)": "ແຂວງ / ນະຄອນ",
+      "Nội dung cũ": "ແຂວງ / ນະຄອນ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 36,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.business",
+      "NỘI DUNG MỚI (dán vào code)": "ຊື່ຮ້ານຢາ / ຄລີນິກ",
+      "Nội dung cũ": "ຊື່ຮ້ານຢາ / ຄລີນິກ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 37,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.phone",
+      "NỘI DUNG MỚI (dán vào code)": "ເບີໂທລະສັບ",
+      "Nội dung cũ": "ເບີໂທລະສັບ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 38,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.fullname",
+      "NỘI DUNG MỚI (dán vào code)": "ຊື່ ແລະ ນາມສະກຸນ",
+      "Nội dung cũ": "ຊື່ ແລະ ນາມສະກຸນ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 39,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.desc",
+      "NỘI DUNG MỚI (dán vào code)": "ຂໍ້ມູນຊ່ວຍໃຫ້ NNC ມອບຂອງຂວັນຖືກຄົນ ຖືກຮ້ານ — ແລະ ໃຫ້ຜູ້ຊ່ຽວຊານທີ່ປຶກສາຕິດຕາມດູແລທ່ານຜ່ານ WhatsApp ຢ່າງຮອບຄອບທີ່ສຸດ.",
+      "Nội dung cũ": "ປ້ອນຂໍ້ມູນ ເພື່ອໃຫ້ທີມງານ NNC ຕິດຕໍ່ ແລະ ສົ່ງຂອງຂວັນ.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Giải thích VÌ SAO cần thông tin (nguyên tắc minh bạch với khách lý trí) + gieo trước kết nối WhatsApp. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 40,
+      "Màn Hình / Vị Trí": "12. Form Đăng Ký (Registration Form)",
+      "Key Code (Tham chiếu code)": "form.title",
+      "NỘI DUNG MỚI (dán vào code)": "ຢືນຢັນເຂົ້າຮ່ວມ — ພຽງ 30 ວິນາທີ",
+      "Nội dung cũ": "ລົງທະບຽນ ຮັບສິດເລີຍ!",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Nhận Lộc\" hợp Tết, lệch ngữ cảnh B2B Lào. Cam kết \"30 giây\" hạ rào cản điền form. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 41,
+      "Màn Hình / Vị Trí": "13. Popup Sản Phẩm (Product Modal)",
+      "Key Code (Tham chiếu code)": "modal.interest_no",
+      "NỘI DUNG MỚI (dán vào code)": "ຂ້ອຍສົນໃຈໂຕນີ້",
+      "Nội dung cũ": "ຂ້ອຍສົນໃຈໂຕນີ້",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 42,
+      "Màn Hình / Vị Trí": "13. Popup Sản Phẩm (Product Modal)",
+      "Key Code (Tham chiếu code)": "modal.interest_yes",
+      "NỘI DUNG MỚI (dán vào code)": "✓ ສົນໃຈແລ້ວ",
+      "Nội dung cũ": "✓ ສົນໃຈແລ້ວ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 43,
+      "Màn Hình / Vị Trí": "13. Popup Sản Phẩm (Product Modal)",
+      "Key Code (Tham chiếu code)": "modal.price",
+      "NỘI DUNG MỚI (dán vào code)": "ລາຄາສົ່ງ Vientiane:",
+      "Nội dung cũ": "ລາຄາສົ່ງ Vientiane:",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 44,
+      "Màn Hình / Vị Trí": "13. Popup Sản Phẩm (Product Modal)",
+      "Key Code (Tham chiếu code)": "modal.pack_size",
+      "NỘI DUNG MỚI (dán vào code)": "ຂະໜາດບັນຈຸ:",
+      "Nội dung cũ": "ຂະໜາດບັນຈຸ:",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 45,
+      "Màn Hình / Vị Trí": "13. Popup Sản Phẩm (Product Modal)",
+      "Key Code (Tham chiếu code)": "modal.formulation",
+      "NỘI DUNG MỚI (dán vào code)": "ສ່ວນປະກອບ:",
+      "Nội dung cũ": "ສ່ວນປະກອບ:",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 46,
+      "Màn Hình / Vị Trí": "13. Popup Sản Phẩm (Product Modal)",
+      "Key Code (Tham chiếu code)": "modal.wa_btn",
+      "NỘI DUNG MỚI (dán vào code)": "ສົນທະນາ WhatsApp",
+      "Nội dung cũ": "ສົນທະນາ WhatsApp",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 47,
+      "Màn Hình / Vị Trí": "14. Lên Đơn Hàng (Cart/Invoice)",
+      "Key Code (Tham chiếu code)": "cart.skip",
+      "NỘI DUNG MỚI (dán vào code)": "ໄວ້ກ່ອນ — ຂ້ອຍຢາກຮັບຂອງຂວັນກ່ອນ",
+      "Nội dung cũ": "ຂ້າມຂັ້ນຕອນນີ້",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Bỏ qua bước này\" lạnh; câu mới thân thiện và vẫn giữ khách trong phễu nhận quà qua WhatsApp. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 48,
+      "Màn Hình / Vị Trí": "14. Lên Đơn Hàng (Cart/Invoice)",
+      "Key Code (Tham chiếu code)": "cart.preview_invoice",
+      "NỘI DUNG MỚI (dán vào code)": "ເບິ່ງ PDF ໃບສັ່ງຊື້",
+      "Nội dung cũ": "ເບິ່ງ PDF ໃບສັ່ງຊື້",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 49,
+      "Màn Hình / Vị Trí": "14. Lên Đơn Hàng (Cart/Invoice)",
+      "Key Code (Tham chiếu code)": "cart.summary_title",
+      "NỘI DUNG MỚI (dán vào code)": "ສະຫຼຸບກຳໄລ",
+      "Nội dung cũ": "ສະຫຼຸບກຳໄລ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 50,
+      "Màn Hình / Vị Trí": "14. Lên Đơn Hàng (Cart/Invoice)",
+      "Key Code (Tham chiếu code)": "cart.subtitle",
+      "NỘI DUNG MỚI (dán vào code)": "ໃສ່ຈຳນວນ — ລະບົບຄິດໄລ່ສ່ວນຫຼຸດແບບທັນທີ. ບິນຮ່າງສົ່ງຜ່ານ WhatsApp ໃຫ້ຜູ້ຊ່ຽວຊານແນະນຳລາຄາ ແລະ ຕາຕະລາງສົ່ງທີ່ເໝາະສົມ; ຍັງບໍ່ມີການຈ່າຍເງິນໃດໆ.",
+      "Nội dung cũ": "ໃສ່ຈຳນວນ ເພື່ອເບິ່ງກຳໄລອັດຕະໂນມັດ. ແລ້ວສົ່ງໃຫ້ NNC ທາງ WhatsApp.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Chưa phát sinh thanh toán\" gỡ nỗi sợ lớn nhất khi bấm gửi đơn — tăng mạnh tỷ lệ gửi WhatsApp (mục tiêu 1). (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 51,
+      "Màn Hình / Vị Trí": "14. Lên Đơn Hàng (Cart/Invoice)",
+      "Key Code (Tham chiếu code)": "cart.title",
+      "NỘI DUNG MỚI (dán vào code)": "ອອກແບບບິນສັ່ງຊື້ທຳອິດຂອງທ່ານ",
+      "Nội dung cũ": "ຈັດບິນເບິ່ງກຳໄລ",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Cá nhân hóa + \"đầu tiên\" mở quan hệ dài hạn. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 52,
+      "Màn Hình / Vị Trí": "14. Lên Đơn Hàng (Cart/Invoice)",
+      "Key Code (Tham chiếu code)": "cart.eyebrow",
+      "NỘI DUNG MỚI (dán vào code)": "ບິນສັ່ງຊື້ສະບັບຮ່າງ",
+      "Nội dung cũ": "ລອງຈັດບິນເບິ່ງ",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Gọn."
+    },
+    {
+      "STT": 53,
+      "Màn Hình / Vị Trí": "14. Lên Đơn Hàng (Cart/Invoice)",
+      "Key Code (Tham chiếu code)": "cart.send_whatsapp",
+      "NỘI DUNG MỚI (dán vào code)": "ສົ່ງບິນຮ່າງຜ່ານ WHATSAPP",
+      "Nội dung cũ": "ສົ່ງບິນທາງ WhatsApp",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Viết hoa + rõ \"nháp\" — nút chính của bước này."
+    },
+    {
+      "STT": 54,
+      "Màn Hình / Vị Trí": "15. PDF Báo Giá Nháp (Invoice PDF Modal)",
+      "Key Code (Tham chiếu code)": "invoice.title",
+      "NỘI DUNG MỚI (dán vào code)": "PDF ໃບສັ່ງຊື້",
+      "Nội dung cũ": "PDF ໃບສັ່ງຊື້",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 55,
+      "Màn Hình / Vị Trí": "15. PDF Báo Giá Nháp (Invoice PDF Modal)",
+      "Key Code (Tham chiếu code)": "invoice.close",
+      "NỘI DUNG MỚI (dán vào code)": "ປິດ",
+      "Nội dung cũ": "ປິດ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 56,
+      "Màn Hình / Vị Trí": "15. PDF Báo Giá Nháp (Invoice PDF Modal)",
+      "Key Code (Tham chiếu code)": "invoice.download",
+      "NỘI DUNG MỚI (dán vào code)": "ດາວໂຫຼດຮູບ",
+      "Nội dung cũ": "ດາວໂຫຼດຮູບ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 57,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.cta_next",
+      "NỘI DUNG MỚI (dán vào code)": "ທົດລອງຈັດບິນທຳອິດ",
+      "Nội dung cũ": "ສືບຕໍ່ສັ່ງຊື້",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Đầu tiên\" gợi mở quan hệ dài hạn thay vì \"tiếp tục\" vô hồn. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 58,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.wa_claim_btn",
+      "NỘI DUNG MỚI (dán vào code)": "ຢືນຢັນຂອງຂວັນຜ່ານ WHATSAPP — ພຽງແຕະດຽວ",
+      "Nội dung cũ": "ຮັບຂອງຂວັນທາງ WhatsApp",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Đây là NÚT QUAN TRỌNG NHẤT TRANG (mục tiêu 1). \"Xác nhận\" + \"1 chạm\" nói rõ: quà đã là của khách, chỉ còn 1 thao tác — giảm mọi do dự. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 59,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.ref_link",
+      "NỘI DUNG MỚI (dán vào code)": "ກັອບປີ້ລິ້ງແຊຣ໌:",
+      "Nội dung cũ": "ກັອບປີ້ລິ້ງແຊຣ໌:",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 60,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.ref_code",
+      "NỘI DUNG MỚI (dán vào code)": "ລະຫັດແນະນຳຂອງທ່ານ:",
+      "Nội dung cũ": "ລະຫັດແນະນຳຂອງທ່ານ:",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 61,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.condition",
+      "NỘI DUNG MỚI (dán vào code)": "ເງື່ອນໄຂນຳໃຊ້:",
+      "Nội dung cũ": "ເງື່ອນໄຂ:",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Giữ nguyên."
+    },
+    {
+      "STT": 62,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.ref_title",
+      "NỘI DUNG MỚI (dán vào code)": "ແນະນຳເພື່ອນຮ່ວມອາຊີບ — ຮັບ 5% ຂອງມູນຄ່າບິນທຳອິດຂອງເຂົາເຈົ້າ",
+      "Nội dung cũ": "ແນະນຳໝູ່ - ຮັບເພີ່ມ 0.5%",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Đồng bộ công thức quyền lợi với banner giới thiệu."
+    },
+    {
+      "STT": 63,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.win_intro",
+      "NỘI DUNG MỚI (dán vào code)": "ຂອງຂວັນຂອບໃຈສະເພາະທ່ານ:",
+      "Nội dung cũ": "ຍິນດີນຳ! ທ່ານໄດ້ຮັບຂອງຂວັນ:",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Bỏ \"Tuyệt vời!\" thừa — để tên quà tự tỏa sáng. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 64,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.congrats",
+      "NỘI DUNG MỚI (dán vào code)": "ຊົມເຊີຍທ່ານ!",
+      "Nội dung cũ": "ສຸດປັງ!",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Giữ nguyên."
+    },
+    {
+      "STT": 65,
+      "Màn Hình / Vị Trí": "16. Kết Quả Quay & Liên Kết (Results/Referral)",
+      "Key Code (Tham chiếu code)": "result.ref_desc",
+      "NỘI DUNG MỚI (dán vào code)": "ແບ່ງປັນລະຫັດສະເພາະນີ້ໃຫ້ເພື່ອນຮ່ວມອາຊີບທີ່ມີຮ້ານຢາ/ຄລີນິກ. ເມື່ອເຂົາເຈົ້າສະຫຼຸບບິນທຳອິດກັບ NNC, 5% ຂອງມູນຄ່າບິນຈະຫັກໂດຍກົງໃນບິນຄັ້ງຕໍ່ໄປຂອງທ່ານ. ຕົວຢ່າງ: ບິນ 10 ລ້ານກີບ — ທ່ານຮັບ 500.000 ກີບ.",
+      "Nội dung cũ": "ແຊຣ໌ລິ້ງນີ້ໃຫ້ໝູ່ ຮັບສ່ວນຫຼຸດເພີ່ມອີກ 0.5% ເມື່ອໝູ່ມີຍອດຊື້.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Thêm ví dụ tiền thật (10tr → trừ 500k) — con số cụ thể kích thích chia sẻ mạnh hơn mọi lời mô tả. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 66,
+      "Màn Hình / Vị Trí": "17. Banner Mời Đồng Nghiệp (Referral CTA)",
+      "Key Code (Tham chiếu code)": "referral_cta.title",
+      "NỘI DUNG MỚI (dán vào code)": "ຂະຫຍາຍເຄືອຂ່າຍຄູ່ຮ່ວມທຸລະກິດ — ຮັບທັນທີ 5% ຂອງມູນຄ່າບິນທຳອິດ",
+      "Nội dung cũ": "ແນະນຳຄູ່ຮ່ວມງານ: ຮັບເງິນຄອມມິດຊັນ 5% & ສ່ວນຫຼຸດ 0.5%!",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Nêu thẳng công thức quyền lợi ngay tiêu đề: ai giới thiệu, nhận gì, tính trên đơn nào. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 67,
+      "Màn Hình / Vị Trí": "17. Banner Mời Đồng Nghiệp (Referral CTA)",
+      "Key Code (Tham chiếu code)": "referral_cta.desc",
+      "NỘI DUNG MỚI (dán vào code)": "ທຸກຄູ່ຮ່ວມທຸລະກິດໃໝ່ທີ່ທ່ານແນະນຳ, 5% ຂອງມູນຄ່າບິນທຳອິດຂອງເຂົາເຈົ້າຈະຫັກໂດຍກົງໃນບິນສັ່ງຊື້ຄັ້ງຕໍ່ໄປຂອງທ່ານ. ຄູ່ຮ່ວມໃໝ່ຍັງໄດ້ຮັບນະໂຍບາຍສະສົມເຕັມສ່ວນ — ຜົນປະໂຫຍດຄົບຖ້ວນທັງສອງຝ່າຍ.",
+      "Nội dung cũ": "ໄດ້ປະໂຫຍດທັງຄົນແນະນຳ ແລະ ຄົນຖືກແນະນຳ!",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Trả lời 2 câu hỏi khách chắc chắn sẽ hỏi: nhận bằng cách nào (trừ vào đơn kế tiếp) và khách mới có bị thiệt không (không) — gỡ rào cản tâm lý khi giới thiệu đồng nghiệp. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 68,
+      "Màn Hình / Vị Trí": "17. Banner Mời Đồng Nghiệp (Referral CTA)",
+      "Key Code (Tham chiếu code)": "referral_cta.tag",
+      "NỘI DUNG MỚI (dán vào code)": "ຄ່າຄອມມິດຊັນແນະນຳ 5%",
+      "Nội dung cũ": "🔥 ແນະນຳໝູ່ ຮັບ 5%",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Cơ chế chốt cùng anh Sơn: người giới thiệu nhận 5% giá trị ĐƠN ĐẦU TIÊN của khách mới. Gọi đúng tên \"hoa hồng\" — mạnh và rõ hơn \"thưởng\"."
+    },
+    {
+      "STT": 69,
+      "Màn Hình / Vị Trí": "18. Màn Hình Hoàn Tất (Completion Screen)",
+      "Key Code (Tham chiếu code)": "completion.title",
+      "NỘI DUNG MỚI (dán vào code)": "ສຳເລັດ! ຜົນປະໂຫຍດຂອງທ່ານຖືກບັນທຶກແລ້ວ",
+      "Nội dung cũ": "ສົ່ງບິນສຳເລັດ!",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Xác nhận trạng thái cụ thể thay vì hô \"thành công\". (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 70,
+      "Màn Hình / Vị Trí": "18. Màn Hình Hoàn Tất (Completion Screen)",
+      "Key Code (Tham chiếu code)": "completion.wa_btn",
+      "NỘI DUNG MỚI (dán vào code)": "ເຊື່ອມຕໍ່ WHATSAPP ດຽວນີ້",
+      "Nội dung cũ": "ສົນທະນາ WhatsApp",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Đảo thế chủ động cho khách nóng lòng — thêm một đường kết nối WhatsApp. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 71,
+      "Màn Hình / Vị Trí": "18. Màn Hình Hoàn Tất (Completion Screen)",
+      "Key Code (Tham chiếu code)": "completion.desc",
+      "NỘI DUNG MỚI (dán vào code)": "ຜູ້ຊ່ຽວຊານ NNC ຈະຕິດຕໍ່ຫາທ່ານທາງ WhatsApp ໃນໂມງເຮັດວຽກ ເພື່ອມອບຂອງຂວັນ ແລະ ສຳເລັດບິນທາງການ. ກະລຸນາບັນທຶກເບີ 020 9980 6327 ເພື່ອບໍ່ພາດຜົນປະໂຫຍດ.",
+      "Nội dung cũ": "ທີມງານ NNC ຈະຕິດຕໍ່ຫາທາງ WhatsApp ທັນທີ ເພື່ອຢືນຢັນບິນ.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Nêu đích danh số WhatsApp — khách lưu số, không bỏ lỡ tin nhắn sale (mục tiêu 1 trọn vẹn). \"Ngay lập tức\" cũ dễ thất hứa ngoài giờ. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 72,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.tbl_quarter",
+      "NỘI DUNG MỚI (dán vào code)": "ໂບນັດໄຕມາດ",
+      "Nội dung cũ": "ໂບນັດໄຕມາດ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 73,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.tbl_max",
+      "NỘI DUNG MỚI (dán vào code)": "ກຳໄລສູງສຸດ",
+      "Nội dung cũ": "ກຳໄລສູງສຸດ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 74,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.title",
+      "NỘI DUNG MỚI (dán vào code)": "ຕາຕະລາງຜົນປະໂຫຍດ Q3/2026",
+      "Nội dung cũ": "ຕາຕະລາງຜົນປະໂຫຍດ Q3/2026",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 75,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.subtitle",
+      "NỘI DUNG MỚI (dán vào code)": "ສຳລັບຮ້ານຢາ ແລະ ຄລີນິກ",
+      "Nội dung cũ": "ສຳລັບຮ້ານຢາ ແລະ ຄລີນິກ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 76,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.valid_until",
+      "NỘI DUNG MỚI (dán vào code)": "ໃຊ້ໄດ້ຮອດ",
+      "Nội dung cũ": "ໃຊ້ໄດ້ຮອດ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 77,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.tbl_total",
+      "NỘI DUNG MỚI (dán vào code)": "ລວມ",
+      "Nội dung cũ": "ລວມ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 78,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.products_note",
+      "NỘI DUNG MỚI (dán vào code)": "ຍອດຂາຍຂອງ 7 ໄອເທັມນີ້ ແມ່ນລວມກັນທັງໝົດ.",
+      "Nội dung cũ": "ຍອດຂາຍຂອງ 7 ໄອເທັມນີ້ ແມ່ນລວມກັນທັງໝົດ.",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 79,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.table_title",
+      "NỘI DUNG MỚI (dán vào code)": "ໂບນັດແບບຂັ້ນໄດ",
+      "Nội dung cũ": "ໂບນັດແບບຂັ້ນໄດ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 80,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.tbl_tier",
+      "NỘI DUNG MỚI (dán vào code)": "ຂັ້ນ",
+      "Nội dung cũ": "ຂັ້ນ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 81,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.tbl_range",
+      "NỘI DUNG MỚI (dán vào code)": "ຍອດຂາຍໄຕມາດ",
+      "Nội dung cũ": "ຍອດຂາຍໄຕມາດ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 82,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.products_title",
+      "NỘI DUNG MỚI (dán vào code)": "7 ໄອເທັມ ສະສົມຍອດ",
+      "Nội dung cũ": "7 ໄອເທັມ ສະສົມຍອດ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 83,
+      "Màn Hình / Vị Trí": "19. PDF Chi Tiết (PDF Brochure)",
+      "Key Code (Tham chiếu code)": "pdf.tbl_direct",
+      "NỘI DUNG MỚI (dán vào code)": "ຫຼຸດທັນທີ",
+      "Nội dung cũ": "ຫຼຸດທັນທີ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 84,
+      "Màn Hình / Vị Trí": "2. Màn Hình Chính (Hero Section)",
+      "Key Code (Tham chiếu code)": "hero.subtitle",
+      "NỘI DUNG MỚI (dán vào code)": "ສິດທິພິເສດສະເພາະຮ້ານຢາ & ຄລີນິກ ຢູ່ ລາວ: ໝູນຮັບຂອງຂວັນ, ຢືນຢັນຜ່ານ WhatsApp ພຽງ 1 ນາທີ, ແລະ ຄົ້ນພົບນະໂຍບາຍສ່ວນຫຼຸດສະສົມທີ່ໂປ່ງໃສຕາມແຕ່ລະຂັ້ນຍອດຂາຍ.",
+      "Nội dung cũ": "ສິດພິເສດສະເພາະຮ້ານຢາ ແລະ ຄລີນິກໃນລາວ! ປົດລັອກສິດໝູນຮັບໂຊກ ຮັບປະກັນໄດ້ຂອງລາງວັນແທ້ 100% ບໍ່ມີຕວົະ.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Quét sạch quà khủng, chốt sỉ lời to\" phá uy tín với người mua lý trí. Câu mới cài đúng 2 mục tiêu: WhatsApp 1 phút + bảng chiết khấu minh bạch. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 85,
+      "Màn Hình / Vị Trí": "2. Màn Hình Chính (Hero Section)",
+      "Key Code (Tham chiếu code)": "hero.cta_secondary",
+      "NỘI DUNG MỚI (dán vào code)": "ຄົ້ນພົບນະໂຍບາຍສ່ວນຫຼຸດ",
+      "Nội dung cũ": "ລອງໄລ່ກຳໄລເບິ່ງ",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Đổi từ \"DỰ TOÁN LÃI GỘP\" — CTA phụ phải phục vụ trực tiếp mục tiêu 2: kéo khách vào chương trình tích lũy. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 86,
+      "Màn Hình / Vị Trí": "2. Màn Hình Chính (Hero Section)",
+      "Key Code (Tham chiếu code)": "hero.cta_main",
+      "NỘI DUNG MỚI (dán vào code)": "ຮັບສິດໝູນພິເສດ",
+      "Nội dung cũ": "ລຸຍ! ໝູນຮັບໂຊກເລີຍ",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"CHƠI NGAY - TRÚNG THẬT\" nghe như game bài. \"Của tôi\" tạo cảm giác sở hữu suất riêng — tăng click mà vẫn sang. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 87,
+      "Màn Hình / Vị Trí": "2. Màn Hình Chính (Hero Section)",
+      "Key Code (Tham chiếu code)": "hero.eyebrow",
+      "NỘI DUNG MỚI (dán vào code)": "NNC PHARMA · ໂຄງການຂອບໃຈຄູ່ຮ່ວມທຸລະກິດຍຸດທະສາດ · ໄຕມາດ 3/2026",
+      "Nội dung cũ": "NNC PHARMA · ແຄມເປນພິເສດ B2B Q3/2026",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Đại tiệc\" nghe như hội chợ tiêu dùng; khách dược sĩ cần cảm giác chương trình đối tác nghiêm túc. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 88,
+      "Màn Hình / Vị Trí": "2. Màn Hình Chính (Hero Section)",
+      "Key Code (Tham chiếu code)": "hero.title_part1",
+      "NỘI DUNG MỚI (dán vào code)": "ໝູນແມ່ນໄດ້ຂອງຂວັນ 100%",
+      "Nội dung cũ": "ໝູນປຸບ ຮັບປັບ 100%",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Giữ hook chủ đạo, bỏ chữ \"TRÚNG\" lặp — gọn và chắc chắn hơn."
+    },
+    {
+      "STT": 89,
+      "Màn Hình / Vị Trí": "2. Màn Hình Chính (Hero Section)",
+      "Key Code (Tham chiếu code)": "hero.title_part2",
+      "NỘI DUNG MỚI (dán vào code)": "ສ່ວນຫຼຸດສະສົມສູງສຸດ 10%",
+      "Nội dung cũ": "ສ່ວນຫຼຸດສະສົມຈຸກໆ ຮອດ 10%",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"ĐỤNG TRẦN\" là khẩu ngữ chợ; \"tích lũy đến 10%\" đúng thuật ngữ chương trình, dẫn khách tò mò xem bảng bậc (mục tiêu 2)."
+    },
+    {
+      "STT": 90,
+      "Màn Hình / Vị Trí": "20. Thể Lệ Chương Trình (Rules Modal)",
+      "Key Code (Tham chiếu code)": "rules.title",
+      "NỘI DUNG MỚI (dán vào code)": "ນະໂຍບາຍສະສົມ",
+      "Nội dung cũ": "ນະໂຍບາຍສະສົມ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 91,
+      "Màn Hình / Vị Trí": "20. Thể Lệ Chương Trình (Rules Modal)",
+      "Key Code (Tham chiếu code)": "rules.close",
+      "NỘI DUNG MỚI (dán vào code)": "ປິດ",
+      "Nội dung cũ": "ປິດ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 92,
+      "Màn Hình / Vị Trí": "20. Thể Lệ Chương Trình (Rules Modal)",
+      "Key Code (Tham chiếu code)": "rules.download",
+      "NỘI DUNG MỚI (dán vào code)": "ດາວໂຫຼດຮູບ",
+      "Nội dung cũ": "ດາວໂຫຼດຮູບ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 93,
+      "Màn Hình / Vị Trí": "3. Thanh Tiến Độ Bước (Stepper)",
+      "Key Code (Tham chiếu code)": "stepper.step2",
+      "NỘI DUNG MỚI (dán vào code)": "ນະໂຍບາຍ",
+      "Nội dung cũ": "ນະໂຍບາຍ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 94,
+      "Màn Hình / Vị Trí": "3. Thanh Tiến Độ Bước (Stepper)",
+      "Key Code (Tham chiếu code)": "stepper.step5",
+      "NỘI DUNG MỚI (dán vào code)": "ສຳເລັດ",
+      "Nội dung cũ": "ສຳເລັດ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 95,
+      "Màn Hình / Vị Trí": "3. Thanh Tiến Độ Bước (Stepper)",
+      "Key Code (Tham chiếu code)": "stepper.step1",
+      "NỘI DUNG MỚI (dán vào code)": "ລົງທະບຽນ",
+      "Nội dung cũ": "ລົງທະບຽນ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 96,
+      "Màn Hình / Vị Trí": "3. Thanh Tiến Độ Bước (Stepper)",
+      "Key Code (Tham chiếu code)": "stepper.step4",
+      "NỘI DUNG MỚI (dán vào code)": "ຈັດບິນ",
+      "Nội dung cũ": "ຈັດບິນ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 97,
+      "Màn Hình / Vị Trí": "3. Thanh Tiến Độ Bước (Stepper)",
+      "Key Code (Tham chiếu code)": "stepper.step3",
+      "NỘI DUNG MỚI (dán vào code)": "ໝູນຂອງຂວັນ",
+      "Nội dung cũ": "ໝູນວົງລໍ້",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Giữ nguyên."
+    },
+    {
+      "STT": 98,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.choose_prompt",
+      "NỘI DUNG MỚI (dán vào code)": "ເລືອກ <strong>ເປົ້າໝາຍຍອດຂາຍໄຕມາດ 3</strong> ຂອງທ່ານ — NNC ໝັ້ນສັນຍາຕິດຕາມສະໜັບສະໜູນໃຫ້ທ່ານບັນລຸເປົ້າ:",
+      "Nội dung cũ": "ແຕະເລືອກ <strong>ເປົ້າໝາຍຍອດຂາຍ</strong> ທີ່ຢາກໄດ້ໃນໄຕມາດນີ້:",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Thêm vế \"NNC đồng hành\" — biến việc chọn bậc thành cam kết 2 chiều, khách chọn nghiêm túc hơn. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 99,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.ack",
+      "NỘI DUNG MỚI (dán vào code)": "ຂ້ອຍໄດ້ອ່ານ ແລະ ເຂົ້າໃຈນະໂຍບາຍສະສົມ ໄຕມາດ 3/2026 ແລ້ວ.",
+      "Nội dung cũ": "ເຂົ້າໃຈກ່ຽວກັບນະໂຍບາຍ Q3/2026 ແລ້ວ.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Đồng bộ chữ \"chính sách\" với tiêu đề."
+    },
+    {
+      "STT": 100,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.point3",
+      "NỘI DUNG MỚI (dán vào code)": "ໝາຍເຫດ: ບໍ່ນຳໃຊ້ພ້ອມກັນກັບໂຄງການແຖມ 30+1.",
+      "Nội dung cũ": "ໝາຍເຫດ: ບໍ່ສາມາດໃຊ້ຮ່ວມກັບໂປຣ 30 ແຖມ 1.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Giữ — minh bạch điều kiện tăng uy tín."
+    },
+    {
+      "STT": 101,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.point2",
+      "NỘI DUNG MỚI (dán vào code)": "ທ້າຍໄຕມາດ, ຮັບເພີ່ມ 2% → 5% ຄິດຈາກຍອດສະສົມ ທັງໝົດ — ຍິ່ງໃກ້ທ້າຍໄຕມາດ, ແຕ່ລະບິນຍິ່ງມີຄ່າ.",
+      "Nội dung cũ": "ໂບນັດທ້າຍໄຕມາດ 2% → 5% ຂອງຍອດລວມ.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Nhấn \"TỔNG\" — điểm ăn tiền nhất của cơ chế mà khách hay hiểu nhầm là chỉ tính phần vượt. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 102,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.point1",
+      "NỘI DUNG MỚI (dán vào code)": "ຫຼຸດທັນທີ 5% ໃນທຸກໃບບິນສັ່ງຊື້.",
+      "Nội dung cũ": "ຫຼຸດທັນທີ 5% ທຸກບິນ.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Giữ nguyên."
+    },
+    {
+      "STT": 103,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.desc",
+      "NỘI DUNG MỚI (dán vào code)": "ສະເພາະຮ້ານຢາ & ຄລີນິກ. ຍອດຂາຍ 7 ຜະລິດຕະພັນນັບຮວມກັນ, ແຕ່ 01/08 ຫາ 30/09/2026.",
+      "Nội dung cũ": "ສະເພາະ B2B! ນັບຍອດລວມທັງ 7 ໄອເທັມ (01/08 - 30/09/2026).",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Nêu rõ đối tượng thay vì \"B2B\" khô khan."
+    },
+    {
+      "STT": 104,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.title",
+      "NỘI DUNG MỚI (dán vào code)": "ນະໂຍບາຍສະສົມຍອດຂາຍ ໄຕມາດ 3/2026",
+      "Nội dung cũ": "ແຄມເປນສະສົມຍອດ Q3/2026",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Chiến Dịch Lũy Tiến\" là ngôn ngữ nội bộ marketing; \"Chính sách\" là chữ khách B2B tin và muốn đọc."
+    },
+    {
+      "STT": 105,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.badge",
+      "NỘI DUNG MỚI (dán vào code)": "ຂັ້ນຕອນ 2/2 — ປົດລັອກວົງລໍ້",
+      "Nội dung cũ": "ຂັ້ນຕອນ 2/2 ປົດລັອກວົງລໍ້",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Giữ cấu trúc, gọn dấu câu."
+    },
+    {
+      "STT": 106,
+      "Màn Hình / Vị Trí": "5. Modal Xác Nhận Chính Sách (Gate)",
+      "Key Code (Tham chiếu code)": "program.unlock_btn",
+      "NỘI DUNG MỚI (dán vào code)": "ປົດລັອກວົງລໍ້ຂອງຂວັນ",
+      "Nội dung cũ": "ປົດລັອກວົງລໍ້ເລີຍ",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Thêm \"quà tặng\" — nhắc lại phần thưởng ngay tại nút, đẩy động lực hoàn thành gate."
+    },
+    {
+      "STT": 107,
+      "Màn Hình / Vị Trí": "6. Danh Mục Sản Phẩm (Catalog)",
+      "Key Code (Tham chiếu code)": "products.title",
+      "NỘI DUNG MỚI (dán vào code)": "7 ຜະລິດຕະພັນນັບຍອດຮວມກັນ",
+      "Nội dung cũ": "7 ໄອເທັມ ເດັດ ສະສົມຍອດຂາຍ Q3",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Siêu Tốc\" vô nghĩa với danh mục thuốc. Ngắn, đúng cơ chế."
+    },
+    {
+      "STT": 108,
+      "Màn Hình / Vị Trí": "6. Danh Mục Sản Phẩm (Catalog)",
+      "Key Code (Tham chiếu code)": "products.desc",
+      "NỘI DUNG MỚI (dán vào code)": "ຍອດຂາຍທັງ 7 ຜະລິດຕະພັນຮວມເປັນຍອດສະສົມດຽວ — ແຕ່ລະບິນ, ບໍ່ວ່າລາຍການໃດ, ພາທ່ານເຂົ້າໃກ້ຂັ້ນສ່ວນຫຼຸດສູງຂຶ້ນ.",
+      "Nội dung cũ": "ທັງ 7 ໄອເທັມນີ້ ສາມາດນັບຍອດລວມກັນໄດ້ເລີຍ! ຍິ່ງຊື້ຫຼາຍ ຍິ່ງໄດ້ສ່ວນຫຼຸດຫຼາຍ.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Diễn giải lợi ích cơ chế gộp thay vì hô khẩu hiệu \"nhập càng nhiều\". (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 109,
+      "Màn Hình / Vị Trí": "6. Danh Mục Sản Phẩm (Catalog)",
+      "Key Code (Tham chiếu code)": "products.flagships_title",
+      "NỘI DUNG MỚI (dán vào code)": "ກຸ່ມຢາຕ້ານເຊື້ອຕາມໃບສັ່ງແພດ ຫຼັກ",
+      "Nội dung cũ": "TOP 3 ໄອເທັມຫຼັກ ປິ່ນປົວ",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"TOP 3 HÀNG CHỦ LỰC\" mơ hồ — gọi đúng nhóm dược lý, dược sĩ đọc là hiểu ngay."
+    },
+    {
+      "STT": 110,
+      "Màn Hình / Vị Trí": "6. Danh Mục Sản Phẩm (Catalog)",
+      "Key Code (Tham chiếu code)": "products.support_title",
+      "NỘI DUNG MỚI (dán vào code)": "ກຸ່ມສະໝຸນໄພ & ເດັກນ້ອຍ",
+      "Nội dung cũ": "TOP 4 ໄອເທັມ ເສີມ & ເດັກນ້ອຍ",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"PEDIATRIC\" tiếng Anh lẫn tiếng Việt — dịch hẳn \"Nhi khoa\"."
+    },
+    {
+      "STT": 111,
+      "Màn Hình / Vị Trí": "6. Danh Mục Sản Phẩm (Catalog)",
+      "Key Code (Tham chiếu code)": "products.eyebrow",
+      "NỘI DUNG MỚI (dán vào code)": "ໝວດຜະລິດຕະພັນ",
+      "Nội dung cũ": "ສິນຄ້າຮ່ວມລາຍການ",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Giữ nguyên."
+    },
+    {
+      "STT": 112,
+      "Màn Hình / Vị Trí": "7. Khảo Sát Nhu Cầu (Survey)",
+      "Key Code (Tham chiếu code)": "survey.hint",
+      "NỘI DUNG MỚI (dán vào code)": "ແຕະເລືອກ (ບໍ່ຈຳກັດຈຳນວນ). ຜູ້ຊ່ຽວຊານຈະສົ່ງໃບສະເໜີລາຄາຂາຍສົ່ງລະອຽດຜ່ານ WhatsApp ສະເພາະທ່ານ.",
+      "Nội dung cũ": "ເລືອກໄອເທັມທີ່ຢາກໃຫ້ NNC ໃຫ້ຄຳປຶກສາ.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Hứa hẹn cụ thể \"gửi giá sỉ qua WhatsApp\" — vừa tăng tick, vừa tạo lý do khách chờ tin nhắn (mục tiêu 1). (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 113,
+      "Màn Hình / Vị Trí": "7. Khảo Sát Nhu Cầu (Survey)",
+      "Key Code (Tham chiếu code)": "survey.title",
+      "NỘI DUNG MỚI (dán vào code)": "ເລືອກຜະລິດຕະພັນທີ່ທ່ານຢາກຮັບໃບສະເໜີລາຄາຂາຍສົ່ງພິເສດ",
+      "Nội dung cũ": "ເລືອກສິນຄ້າທີ່ສົນໃຈ",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Chọn Hàng Quan Tâm\" chung chung. \"Nhận báo giá sỉ\" cho khách lý do thực dụng để tick — tăng chất lượng data. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 114,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.eyebrow",
+      "NỘI DUNG MỚI (dán vào code)": "ຕາຕະລາງຜົນປະໂຫຍດ",
+      "Nội dung cũ": "ຕາຕະລາງຜົນປະໂຫຍດ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 115,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.note",
+      "NỘI DUNG MỚI (dán vào code)": "ໂປຣນີ້ ບໍ່ສາມາດໃຊ້ຮ່ວມກັບໂປຣ 30 ແຖມ 1 ເດີ້.",
+      "Nội dung cũ": "ໂປຣນີ້ ບໍ່ສາມາດໃຊ້ຮ່ວມກັບໂປຣ 30 ແຖມ 1 ເດີ້.",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 116,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.tbl_total",
+      "NỘI DUNG MỚI (dán vào code)": "ລວມຜົນປະໂຫຍດ",
+      "Nội dung cũ": "ລວມຜົນປະໂຫຍດ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 117,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.tbl_quarter",
+      "NỘI DUNG MỚI (dán vào code)": "ໂບນັດໄຕມາດ",
+      "Nội dung cũ": "ໂບນັດໄຕມາດ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 118,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.title",
+      "NỘI DUNG MỚI (dán vào code)": "ກົນໄກສ່ວນຫຼຸດສະສົມ 4 ຂັ້ນ",
+      "Nội dung cũ": "ຍອດຂາຍລວມ ແບບຂັ້ນໄດ",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Nêu con số \"4 bậc\" — cụ thể luôn thắng trừu tượng."
+    },
+    {
+      "STT": 119,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.tbl_range",
+      "NỘI DUNG MỚI (dán vào code)": "ຍອດຂາຍໄຕມາດ",
+      "Nội dung cũ": "ຍອດຂາຍໄຕມາດ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 120,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.tbl_tier",
+      "NỘI DUNG MỚI (dán vào code)": "ຂັ້ນ",
+      "Nội dung cũ": "ຂັ້ນ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 121,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.desc",
+      "NỘI DUNG MỚI (dán vào code)": "ສ່ວນຫຼຸດ 5% ຫັກທັນທີໃນແຕ່ລະໃບບິນ. ທ້າຍໄຕມາດ, NNC ຂອບໃຈເພີ່ມ 2–5% ຄິດຈາກຍອດສະສົມລວມ — ຍອດຍິ່ງສູງ, ຜົນປະໂຫຍດຍິ່ງເລິກ.",
+      "Nội dung cũ": "ສັ່ງຊື້ສິນຄ້າ NNC, ຮັບສ່ວນຫຼຸດທັນທີ ແລະ ໂບນັດສະສົມທ້າຍໄຕມາດແນ້ນໆ.",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Tách rõ 2 dòng tiền (ngay + cuối quý) — cách khách B2B tư duy dòng tiền. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 122,
+      "Màn Hình / Vị Trí": "8. Bảng Quyền Lợi (Accumulation Policy)",
+      "Key Code (Tham chiếu code)": "acc.tbl_direct",
+      "NỘI DUNG MỚI (dán vào code)": "ຫຼຸດທັນທີ",
+      "Nội dung cũ": "ຫຼຸດທັນທີ",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 123,
+      "Màn Hình / Vị Trí": "9. Bảng Tính Lợi Nhuận (Calculator)",
+      "Key Code (Tham chiếu code)": "calc.subtitle",
+      "NỘI DUNG MỚI (dán vào code)": "ລາກແຖບເລື່ອນຕາມຍອດຂາຍຄາດໝາຍ — ຜົນປະໂຫຍດຂອງທ່ານສະແດງທັນທີ.",
+      "Nội dung cũ": "ເລື່ອນເບິ່ງເລີຍ ວ່າຈະໄດ້ກຳໄລເຂົ້າຖົງເທົ່າໃດ!",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Hướng dẫn thao tác rõ. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 124,
+      "Màn Hình / Vị Trí": "9. Bảng Tính Lợi Nhuận (Calculator)",
+      "Key Code (Tham chiếu code)": "calc.revenue_label",
+      "NỘI DUNG MỚI (dán vào code)": "ຍອດສັ່ງຊື້ຄາດໄວ້:",
+      "Nội dung cũ": "ຍອດສັ່ງຊື້ຄາດໄວ້:",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 125,
+      "Màn Hình / Vị Trí": "9. Bảng Tính Lợi Nhuận (Calculator)",
+      "Key Code (Tham chiếu code)": "calc.immediate_label",
+      "NỘI DUNG MỚI (dán vào code)": "ຫຼຸດທັນທີ (5%):",
+      "Nội dung cũ": "ຫຼຸດທັນທີ (5%):",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 126,
+      "Màn Hình / Vị Trí": "9. Bảng Tính Lợi Nhuận (Calculator)",
+      "Key Code (Tham chiếu code)": "calc.quarter_label",
+      "NỘI DUNG MỚI (dán vào code)": "ໂບນັດທ້າຍໄຕມາດ:",
+      "Nội dung cũ": "ໂບນັດທ້າຍໄຕມາດ:",
+      "Trạng thái": "GIỮ",
+      "Lý do thay đổi": ""
+    },
+    {
+      "STT": 127,
+      "Màn Hình / Vị Trí": "9. Bảng Tính Lợi Nhuận (Calculator)",
+      "Key Code (Tham chiếu code)": "calc.total_label",
+      "NỘI DUNG MỚI (dán vào code)": "ຜົນປະໂຫຍດລວມຕົວຈິງ:",
+      "Nội dung cũ": "ລວມກຳໄລເຂົ້າຖົງ:",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Tiền lời bỏ túi\" hơi chợ; \"quyền lợi nhận về\" giữ sức nặng mà vẫn sang. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 128,
+      "Màn Hình / Vị Trí": "9. Bảng Tính Lợi Nhuận (Calculator)",
+      "Key Code (Tham chiếu code)": "calc.view_pdf",
+      "NỘI DUNG MỚI (dán vào code)": "ເບິ່ງນະໂຍບາຍສະບັບເຕັມ (PDF)",
+      "Nội dung cũ": "ເບິ່ງລາຍລະອຽດ (PDF)",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "Đồng bộ chữ \"chính sách\"."
+    },
+    {
+      "STT": 129,
+      "Màn Hình / Vị Trí": "9. Bảng Tính Lợi Nhuận (Calculator)",
+      "Key Code (Tham chiếu code)": "calc.title",
+      "NỘI DUNG MỚI (dán vào code)": "ຕາຕະລາງຄິດໄລ່ຜົນປະໂຫຍດຕົວຈິງ",
+      "Nội dung cũ": "ລອງໄລ່ກຳໄລ ຮັບເງິນສົດ",
+      "Trạng thái": "ĐỔI",
+      "Lý do thay đổi": "\"Bảng Dự Toán Lãi Tiền Mặt\" khô cứng; câu mới mời tương tác trực tiếp. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    },
+    {
+      "STT": 130,
+      "Màn Hình / Vị Trí": "21. Chân Trang (Footer)",
+      "Key Code (Tham chiếu code)": "footer.desc",
+      "NỘI DUNG MỚI (dán vào code)": "ໂຄງການຂອບໃຈຄູ່ຮ່ວມທຸລະກິດ ໄຕມາດ 3/2026 — NNC Pharma ຄຽງຄູ່ຮ້ານຢາ & ຄລີນິກ ຢູ່ ລາວ. ທຸກຂອງຂວັນ ແລະ ສ່ວນຫຼຸດ ຢືນຢັນຜ່ານຊ່ອງທາງ WhatsApp ທາງການ: 020 9980 6327.",
+      "Nội dung cũ": "(chưa có trong file LO)",
+      "Trạng thái": "THÊM MỚI",
+      "Lý do thay đổi": "Chốt trang bằng số WhatsApp chính thức — vừa tăng uy tín vừa thêm điểm chạm mục tiêu 1. (Key này chưa có bản LO — đề nghị IT bổ sung.) (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+    }
+  ],
+  "QUA_TANG": [
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "CƠ CẤU 6 QUÀ TẶNG VÒNG QUAY — ĐỀ XUẤT CHỐT CHO Q3/2026",
+      "Unnamed: 2": "",
+      "Unnamed: 3": "",
+      "Unnamed: 4": "",
+      "Unnamed: 5": "",
+      "Unnamed: 6": "",
+      "Unnamed: 7": "",
+      "Unnamed: 8": "",
+      "Unnamed: 9": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "Nguyên tắc thiết kế: quà nào cũng chỉ TRAO QUA WHATSAPP (mục tiêu 1) và gắn với đơn hàng/chương trình tích lũy (mục tiêu 2). Tổng tỷ lệ = 100%.",
+      "Unnamed: 2": "",
+      "Unnamed: 3": "",
+      "Unnamed: 4": "",
+      "Unnamed: 5": "",
+      "Unnamed: 6": "",
+      "Unnamed: 7": "",
+      "Unnamed: 8": "",
+      "Unnamed: 9": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "",
+      "Unnamed: 2": "",
+      "Unnamed: 3": "",
+      "Unnamed: 4": "",
+      "Unnamed: 5": "",
+      "Unnamed: 6": "",
+      "Unnamed: 7": "",
+      "Unnamed: 8": "",
+      "Unnamed: 9": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "#",
+      "Unnamed: 2": "Key code (reward.*)",
+      "Unnamed: 3": "Tên hiển thị trên vòng (VI)",
+      "Unnamed: 4": "Tên hiển thị (LO)",
+      "Unnamed: 5": "Mô tả ngắn dưới quà (VI)",
+      "Unnamed: 6": "Điều kiện áp dụng (VI)",
+      "Unnamed: 7": "Tỷ lệ trúng",
+      "Unnamed: 8": "Chi phí ước tính / lượt trúng",
+      "Unnamed: 9": "Vì sao quà này phục vụ mục tiêu"
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": 1,
+      "Unnamed: 2": "kit",
+      "Unnamed: 3": "Bộ quà tác nghiệp NNC",
+      "Unnamed: 4": "ຊຸດເຄື່ອງມືເຮັດວຽກ NNC",
+      "Unnamed: 5": "Khay đếm thuốc + sổ ghi toa + bút NNC",
+      "Unnamed: 6": "Tư vấn viên giao tận quầy kèm đơn hàng đầu tiên (mọi giá trị đơn).",
+      "Unnamed: 7": "25%",
+      "Unnamed: 8": "~80.000–120.000 KIP",
+      "Unnamed: 9": "NÂNG CẤP so với \"sổ+bút+ô\": KHAY ĐẾM THUỐC là vật dược sĩ dùng mỗi ngày ngay trên quầy — logo NNC nằm trước mắt khách suốt quý. Điều kiện \"giao kèm đơn đầu\" ép phát sinh đơn."
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": 2,
+      "Unnamed: 2": "v100",
+      "Unnamed: 3": "Voucher 100.000 KIP",
+      "Unnamed: 4": "ຄູປ໋ອງ 100.000 ກີບ",
+      "Unnamed: 5": "Trừ thẳng vào đơn từ 2 triệu KIP",
+      "Unnamed: 6": "Áp dụng 1 lần cho hóa đơn từ 2.000.000 KIP trong Q3/2026. Xác nhận mã voucher qua WhatsApp.",
+      "Unnamed: 7": "22%",
+      "Unnamed: 8": "100.000 KIP (tự bù bằng đơn ≥2tr)",
+      "Unnamed: 9": "Mức đơn 2tr trùng khít mốc Bậc 1 của chương trình tích lũy — nhận voucher là tự động đặt chân vào bậc, khách buộc phải hiểu bảng bậc."
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": 3,
+      "Unnamed: 2": "ship",
+      "Unnamed: 3": "Miễn phí vận chuyển 2 đơn",
+      "Unnamed: 4": "ສົ່ງຟຣີ 2 ບິນ",
+      "Unnamed: 5": "NNC chịu 100% phí giao 2 đơn đầu",
+      "Unnamed: 6": "Áp dụng cho 2 đơn hàng đầu tiên phát sinh trong Q3/2026, mọi giá trị đơn.",
+      "Unnamed: 7": "20%",
+      "Unnamed: 8": "Thấp–vừa (theo tuyến giao)",
+      "Unnamed: 9": "\"2 đơn\" cài sẵn hành vi mua LẶP LẠI — khách quay lại lần 2 là lúc chương trình tích lũy phát huy, sale có 2 lần chạm WhatsApp tự nhiên."
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": 4,
+      "Unnamed: 2": "tadi",
+      "Unnamed: 3": "Tặng 1 hộp Tadimax",
+      "Unnamed: 4": "ແຖມ ຕາດິແມ໋ກ 1 ກັບ",
+      "Unnamed: 5": "Kèm đơn hàng từ 3 triệu KIP",
+      "Unnamed: 6": "Tặng 1 hộp Tadimax (21 viên x 2 vỉ) kèm đơn đầu tiên từ 3.000.000 KIP trong Q3/2026.",
+      "Unnamed: 7": "15%",
+      "Unnamed: 8": "~193.000 KIP (giá vốn thấp hơn)",
+      "Unnamed: 9": "Quà bằng chính hàng bán chạy nhất: khách bán thử — thấy quay vòng tốt — tự nhập thêm. Vừa là quà vừa là sampling B2B."
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": 5,
+      "Unnamed: 2": "disc",
+      "Unnamed: 3": "Cộng thêm 1% chiết khấu",
+      "Unnamed: 4": "ເພີ່ມສ່ວນຫຼຸດ 1%",
+      "Unnamed: 5": "Cộng ngoài mức 5% chuẩn, đơn đầu tiên",
+      "Unnamed: 6": "Cộng 1% chiết khấu trực tiếp cho hóa đơn đầu tiên trong Q3/2026, giá trị cộng tối đa 300.000 KIP.",
+      "Unnamed: 7": "12%",
+      "Unnamed: 8": "≤300.000 KIP (có trần)",
+      "Unnamed: 9": "Quà \"phóng đại\" đúng ngôn ngữ của chương trình tích lũy (%) — khách trúng quà này là hiểu ngay cơ chế chiết khấu. Trần 300k chống vỡ ngân sách đơn lớn."
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": 6,
+      "Unnamed: 2": "v200",
+      "Unnamed: 3": "Voucher 200.000 KIP",
+      "Unnamed: 4": "ຄູປ໋ອງ 200.000 ກີບ",
+      "Unnamed: 5": "Trừ thẳng vào đơn từ 5 triệu KIP",
+      "Unnamed: 6": "Áp dụng 1 lần cho hóa đơn từ 5.000.000 KIP trong Q3/2026. Xác nhận mã voucher qua WhatsApp.",
+      "Unnamed: 7": "6%",
+      "Unnamed: 8": "200.000 KIP (tự bù bằng đơn ≥5tr)",
+      "Unnamed: 9": "Quà \"đỉnh vòng quay\" tạo độ hot khi truyền miệng; tỷ lệ 6% giữ hiếm. Mốc 5tr kéo khách nhảy cóc gần Bậc 2 (6tr)."
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "",
+      "Unnamed: 2": "",
+      "Unnamed: 3": "",
+      "Unnamed: 4": "",
+      "Unnamed: 5": "",
+      "Unnamed: 6": "",
+      "Unnamed: 7": "",
+      "Unnamed: 8": "",
+      "Unnamed: 9": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "QUÀ THAY THẾ DỰ PHÒNG (nếu công ty muốn đổi món, giữ nguyên tỷ lệ ô tương ứng)",
+      "Unnamed: 2": "",
+      "Unnamed: 3": "",
+      "Unnamed: 4": "",
+      "Unnamed: 5": "",
+      "Unnamed: 6": "",
+      "Unnamed: 7": "",
+      "Unnamed: 8": "",
+      "Unnamed: 9": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "#",
+      "Unnamed: 2": "Quà thay thế",
+      "Unnamed: 3": "Chi phí ước tính",
+      "Unnamed: 4": "Thay cho ô nào",
+      "Unnamed: 5": "Vì sao đáng cân nhắc",
+      "Unnamed: 6": "",
+      "Unnamed: 7": "",
+      "Unnamed: 8": "",
+      "Unnamed: 9": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": 1,
+      "Unnamed: 2": "Áo blouse trắng thêu tên nhà thuốc + logo NNC nhỏ",
+      "Unnamed: 3": "~150.000–200.000 KIP",
+      "Unnamed: 4": "Bộ quà tác nghiệp",
+      "Unnamed: 5": "Cá nhân hóa tên quầy — món quà dược sĩ khoe được; logo NNC hiện diện mỗi ngày. Cần thu size + tên qua WhatsApp → thêm 1 lý do nhắn tin.",
+      "Unnamed: 6": "",
+      "Unnamed: 7": "",
+      "Unnamed: 8": "",
+      "Unnamed: 9": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": 2,
+      "Unnamed: 2": "Cân sức khỏe điện tử đặt tại quầy",
+      "Unnamed: 3": "~180.000–250.000 KIP",
+      "Unnamed: 4": "Voucher 200k (ô hiếm)",
+      "Unnamed: 5": "Vật hữu hình giá trị cảm nhận cao, kéo khách lẻ đến quầy thuốc — quà giúp KHÁCH CỦA KHÁCH, dược sĩ rất thích.",
+      "Unnamed: 6": "",
+      "Unnamed: 7": "",
+      "Unnamed: 8": "",
+      "Unnamed: 9": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": 3,
+      "Unnamed: 2": "Nhiệt kế hồng ngoại NNC",
+      "Unnamed: 3": "~120.000–180.000 KIP",
+      "Unnamed: 4": "Tặng Tadimax",
+      "Unnamed: 5": "Dụng cụ quầy thuốc dùng hằng ngày, hợp nhóm hàng nhi khoa (AZIHADI, Cefixad).",
+      "Unnamed: 6": "",
+      "Unnamed: 7": "",
+      "Unnamed: 8": "",
+      "Unnamed: 9": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": 4,
+      "Unnamed: 2": "Voucher 50.000 KIP không điều kiện đơn tối thiểu",
+      "Unnamed: 3": "50.000 KIP",
+      "Unnamed: 4": "Freeship 2 đơn",
+      "Unnamed: 5": "Nếu vận hành freeship phức tạp theo tuyến giao thì thay bằng voucher nhỏ không điều kiện — dễ quản, vẫn ép dùng qua đơn.",
+      "Unnamed: 6": "",
+      "Unnamed: 7": "",
+      "Unnamed: 8": "",
+      "Unnamed: 9": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "",
+      "Unnamed: 2": "",
+      "Unnamed: 3": "",
+      "Unnamed: 4": "",
+      "Unnamed: 5": "",
+      "Unnamed: 6": "",
+      "Unnamed: 7": "",
+      "Unnamed: 8": "",
+      "Unnamed: 9": ""
+    },
+    {
+      "Unnamed: 0": "",
+      "Unnamed: 1": "Ghi chú vận hành: mọi quà đều yêu cầu khách bấm \"Xác nhận quà qua WhatsApp\" — sale đối soát SĐT với Google Sheet trước khi trao; 1 SĐT chỉ nhận 1 lượt quà.",
+      "Unnamed: 2": "",
+      "Unnamed: 3": "",
+      "Unnamed: 4": "",
+      "Unnamed: 5": "",
+      "Unnamed: 6": "",
+      "Unnamed: 7": "",
+      "Unnamed: 8": "",
+      "Unnamed: 9": ""
+    }
+  ]
+}

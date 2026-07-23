@@ -21,252 +21,280 @@ let isSpinning = false;
 let wheelRotation = 0;
 let selectedModalProductId = '';
 let interestedProductsSet = new Set();
-let quantities = {}; // holds ordering quantity of 7 products
+let quantities = {}; // holds ordering quantity of 6 products
 let rewardResult = null; // won wheel segment object
 let participantId = '';
 let referralLocked = false;
 
 // Translation Dictionaries (Vietnamese & Lao)
 const TRANSLATIONS = {
-  vi: {
-    // Nav
-    'nav.products': 'Sản phẩm',
-    'nav.accumulation': 'Tích lũy',
-    'nav.wheel': 'Vòng quay',
-    // Hero
-    'hero.eyebrow': 'NNC PHARMA · CHƯƠNG TRÌNH TRI ÂN ĐỐI TÁC B2B Q3/2026',
-    'hero.title_part1': '100% QUAY LÀ TRÚNG QUÀ',
-    'hero.title_part2': 'CHIẾT KHẤU TÍCH LŨY ĐẾN 10%',
-    'hero.subtitle': 'Dành riêng Nhà thuốc & Phòng khám tại Lào. Hoàn thành 2 bước để mở khóa lượt quay — mọi lượt quay đều có quà.',
-    'hero.cta_main': 'MỞ KHÓA LƯỢT QUAY NGAY',
-    'hero.cta_secondary': 'THỬ TÍNH CHIẾT KHẤU ĐƠN HÀNG',
-    // Products
-    'products.eyebrow': 'DANH MỤC CHÍNH THỨC',
-    'products.title': '7 Dòng Sản Phẩm Tích Lũy Doanh Số Q3',
-    'products.desc': 'Xem thông tin sản phẩm và chính sách kinh doanh sỉ. Cả 7 sản phẩm đều cộng dồn chung doanh số lũy tiến.',
-    'products.flagships_title': 'DÒNG SẢN PHẨM CHỦ LỰC KÊ ĐƠN (3 SẢN PHẨM CHÍNH)',
-    'products.support_title': 'DANH MỤC THẢO DƯỢC & KHÁNG SINH PEDIATRIC BỔ TRỢ (4 SẢN PHẨM)',
-    // Calculator
-    'acc.eyebrow': 'BẢNG QUYỀN LỢI TÍCH LŨY',
-    'acc.title': 'Cơ chế Doanh số gộp Lũy tiến',
-    'acc.desc': 'Nhập sỉ gộp đơn 7 dòng sản phẩm NNC, nhận chiết khấu trực tiếp trên đơn và thưởng cộng dồn suốt quý.',
-    'acc.tbl_tier': 'Bậc tích lũy',
-    'acc.tbl_range': 'Doanh số Quý (KIP)',
-    'acc.tbl_direct': 'Chiết khấu trực tiếp',
-    'acc.tbl_quarter': 'Thưởng cuối Quý',
-    'acc.tbl_total': 'Tổng lợi ích',
-    'acc.note': 'Chương trình bán lẻ KHÔNG áp dụng đồng thời chương trình hàng tặng 30+1.',
-    'calc.title': 'Bảng tính Bài toán Kinh tế giả lập',
-    'calc.subtitle': 'Kéo thanh trượt để giả lập doanh số nhập sỉ và dòng tiền tiết kiệm được.',
-    'calc.revenue_label': 'Doanh số đặt hàng dự kiến:',
-    'calc.immediate_label': 'Giảm giá trực tiếp (5%):',
-    'calc.quarter_label': 'Thưởng cuối Quý tích lũy:',
-    'calc.total_label': 'Tổng tiền sỉ tiết kiệm được:',
-    'calc.view_pdf': 'Xem chi tiết chương trình (PDF)',
-    // Form
-    'form.title': 'Thông tin Đăng ký Đối tác B2B',
-    'form.desc': 'Cung cấp thông tin cơ sở để nhận kết quả khảo sát và nhận quà chính thức.',
-    'form.fullname': 'Họ và tên người phụ trách',
-    'form.phone': 'Số điện thoại liên hệ',
-    'form.business': 'Tên Nhà thuốc / Phòng khám',
-    'form.province': 'Tỉnh / Thành phố tại Lào',
-    'form.ref_code': 'Mã giới thiệu (nếu có)',
-    'form.contact_pref': 'KÊNH LIÊN HỆ ƯU TIÊN',
-    'form.call': 'Gọi điện',
-    'form.other': 'Khác',
-    'form.consent': 'Tôi đồng ý để NNC ghi nhận thông tin tham gia, nhu cầu sản phẩm, mã giới thiệu và nhóm quyền lợi; đồng thời liên hệ theo kênh tôi chọn để tư vấn sản phẩm, chính sách sỉ và hỗ trợ đặt hàng.',
-    'form.submit_btn': 'LƯU THÔNG TIN & TIẾP TỤC',
-    'form.validate_btn': 'Kiểm tra',
-    'form.referral_valid': '✓ Mã giới thiệu hợp lệ và đã khóa',
-    'form.referral_invalid': 'Mã không hợp lệ (tối thiểu 4 ký tự)',
-    // Wheel
-    'wheel.eyebrow': 'VÒNG QUAY MAY MẮN B2B',
-    'wheel.title': 'Mở khóa Hộp Quà Quyền Lợi Q3',
-    'wheel.desc': 'Bạn đã mở khóa thành công lượt quay quyền lợi sỉ. 100% cơ hội trúng quà tặng thực tế hoặc chiết khấu ưu đãi từ NNC Pharma.',
-    'wheel.spin_btn': 'QUAY NGAY',
-    // Modal
-    'modal.formulation': 'Hoạt chất & Hàm lượng:',
-    'modal.pack_size': 'Quy cách đóng gói:',
-    'modal.price': 'Giá sỉ đề xuất tại Vientiane:',
-    'modal.wa_btn': 'Tư vấn sỉ qua WhatsApp',
-    'modal.interest_yes': '✓ Đang quan tâm sản phẩm này',
-    'modal.interest_no': 'Tôi quan tâm sản phẩm này',
-    // Results
-    'result.congrats': 'Chúc mừng anh/chị!',
-    'result.win_intro': 'Quyền lợi sỉ Q3 đã được ghi nhận thành công. Anh/chị đã trúng:',
-    'result.condition': 'Điều kiện áp dụng:',
-    'result.ref_title': 'Giới thiệu Đồng nghiệp - Nhận thêm 0.5% chiết khấu',
-    'result.ref_desc': 'Chia sẻ chương trình này tới đồng nghiệp. Anh/chị sẽ nhận thêm 0.5% chiết khấu tích lũy đơn sỉ gộp khi người được giới thiệu phát sinh doanh số đơn hàng đầu tiên.',
-    'result.ref_code': 'Mã giới thiệu của bạn:',
-    'result.ref_link': 'Link chia sẻ nhanh:',
-    'result.wa_claim_btn': 'Nhận quà qua WhatsApp B2B',
-    'result.cta_next': 'Tiếp tục nhận quà',
-    // Stepper
-    'stepper.step1': 'Đăng ký & Khảo sát',
-    'stepper.step2': 'Xem chương trình',
-    'stepper.step3': 'Quay thưởng',
-    'stepper.step4': 'Đơn hàng',
-    'stepper.step5': 'Hoàn tất',
-    // Survey
-    'survey.title': 'KHẢO SÁT NHANH: SẢN PHẨM ANH/CHỊ ĐANG QUAN TÂM',
-    'survey.hint': 'Chạm chọn nhanh (có thể chọn nhiều). Thông tin giúp NNC tư vấn đúng nhu cầu.',
-    // Program review gate
-    'program.badge': 'BƯỚC 2/2 ĐỂ MỞ KHÓA VÒNG QUAY',
-    'program.title': 'Chương trình Tích lũy Doanh số Q3/2026',
-    'program.desc': 'Dành cho Nhà thuốc & Phòng khám. Áp dụng gộp doanh số cả 7 sản phẩm, từ 01/08 đến 30/09/2026.',
-    'program.point1': 'Giảm ngay 5% trực tiếp trên mọi hóa đơn nhập hàng.',
-    'program.point2': 'Thưởng cuối quý 2% → 5% tính trên tổng doanh số tích lũy cả quý.',
-    'program.point3': 'Lưu ý: Chương trình khách lẻ KHÔNG áp dụng đồng thời với chương trình hàng tặng 30+1.',
-    'program.ack': 'Tôi đã xem và hiểu chính sách tích lũy Q3/2026 của NNC Pharma.',
-    'program.choose_prompt': 'Chạm chọn <strong>bậc mục tiêu doanh số</strong> anh/chị nhắm tới trong Quý 3 để mở khóa vòng quay:',
-    'program.unlock_btn': 'MỞ KHÓA VÒNG QUAY QUÀ TẶNG',
-    // Wheel lock
-    'wheel.locked_hint': 'Hoàn thành 2 bước để mở khóa lượt quay 100% trúng quà',
-    'wheel.locked_cta': 'Bấm để bắt đầu →',
-    // Cart/Order Form
-    'cart.eyebrow': 'ĐƠN HÀNG THAM KHẢO',
-    'cart.title': 'Lên thử đơn hàng của bạn',
-    'cart.subtitle': 'Chọn số lượng để xem tổng tiền và bậc tích lũy. NNC sẽ tư vấn chính xác hơn khi bạn gửi thông tin này qua WhatsApp.',
-    'cart.summary_title': 'Tổng quan đơn hàng',
-    'cart.preview_invoice': 'Xem PDF Đặt hàng',
-    'cart.send_whatsapp': 'Gửi qua WhatsApp',
-    'cart.skip': 'Bỏ qua bước này',
-    // Rules / Invoice Modals
-    'rules.title': 'Chi tiết chương trình',
-    'rules.close': 'Đóng',
-    'rules.download': 'Tải xuống hình ảnh',
-    'invoice.title': 'Xem trước bản PDF',
-    'invoice.close': 'Đóng',
-    'invoice.download': 'Tải xuống hình ảnh',
-    // Completion
-    'completion.title': 'Cảm ơn bạn đã lên đơn!',
-    'completion.desc': 'Đơn hàng tham khảo của bạn đã được ghi nhận. Đội ngũ NNC sẽ liên hệ qua WhatsApp sớm nhất để hỗ trợ.',
-    'completion.wa_btn': 'Nhắn tin qua WhatsApp',
-    // Footer
-    'footer.desc': 'Chương trình B2B Q3/2026 dành riêng cho bác sĩ, phòng khám, nhà thuốc và đối tác sỉ chính hãng của NNC Pharma tại Lào.'
+  "vi": {
+    "nav.products": "Sản phẩm",
+    "nav.accumulation": "Tích lũy",
+    "nav.wheel": "Vòng quay",
+    "hero.eyebrow": "NNC PHARMA · CHƯƠNG TRÌNH TRI ÂN ĐỐI TÁC CHIẾN LƯỢC · QUÝ 3/2026",
+    "hero.title_part1": "100% QUAY LÀ CÓ QUÀ",
+    "hero.title_part2": "CHIẾT KHẤU TÍCH LŨY ĐẾN 10%",
+    "hero.subtitle": "Đặc quyền dành riêng Nhà thuốc & Phòng khám tại Lào: quay nhận quà tri ân, xác nhận qua WhatsApp chỉ trong 1 phút, và khám phá chính sách chiết khấu tích lũy minh bạch theo từng bậc doanh số.",
+    "hero.cta_main": "NHẬN LƯỢT QUAY ĐẶC QUYỀN",
+    "hero.cta_secondary": "KHÁM PHÁ CHÍNH SÁCH CHIẾT KHẤU",
+    "products.eyebrow": "DANH MỤC SẢN PHẨM",
+    "products.title": "6 sản phẩm cộng dồn doanh số",
+    "products.desc": "Doanh số của cả 7 sản phẩm được hợp nhất vào một mức tích lũy duy nhất — mỗi đơn hàng, dù mã nào, đều đưa anh/chị tiến gần bậc chiết khấu cao hơn.",
+    "products.flagships_title": "NHÓM KHÁNG SINH KÊ ĐƠN CHỦ LỰC",
+    "products.support_title": "NHÓM THẢO DƯỢC & NHI KHOA",
+    "acc.eyebrow": "BẢNG QUYỀN LỢI TÍCH LŨY",
+    "acc.title": "Cơ chế chiết khấu tích lũy 4 bậc",
+    "acc.desc": "Chiết khấu 5% khấu trừ ngay trên từng hóa đơn. Cuối quý, NNC tri ân thêm 2–5% tính trên tổng doanh số tích lũy — doanh số càng cao, quyền lợi càng sâu.",
+    "acc.tbl_tier": "Bậc",
+    "acc.tbl_range": "Doanh số Quý (KIP)",
+    "acc.tbl_direct": "Giảm trực tiếp",
+    "acc.tbl_quarter": "Thưởng cuối Quý",
+    "acc.tbl_total": "Tổng lợi ích",
+    "acc.note": "Không áp dụng đồng thời với chương trình mua 30 tặng 1.",
+    "calc.title": "Bảng tính quyền lợi thực nhận",
+    "calc.subtitle": "Kéo thanh trượt theo doanh số dự kiến — quyền lợi của anh/chị hiển thị tức thì.",
+    "calc.revenue_label": "Doanh số dự kiến:",
+    "calc.immediate_label": "Giảm giá trực tiếp (5%):",
+    "calc.quarter_label": "Thưởng cuối Quý tích lũy:",
+    "calc.total_label": "Tổng quyền lợi thực nhận:",
+    "calc.view_pdf": "Xem chính sách đầy đủ (PDF)",
+    "form.title": "Xác nhận tham gia — chỉ 30 giây",
+    "form.desc": "Thông tin giúp NNC trao quà đúng người, đúng quầy — và để chuyên viên tư vấn đồng hành cùng anh/chị qua WhatsApp một cách chu đáo nhất.",
+    "form.fullname": "Họ tên người phụ trách",
+    "form.phone": "Số điện thoại",
+    "form.business": "Tên Quầy / Phòng khám",
+    "form.province": "Tỉnh / Thành phố",
+    "form.ref_code": "Mã giới thiệu (nếu có)",
+    "form.contact_pref": "Kênh liên hệ ưu tiên",
+    "form.call": "Gọi điện",
+    "form.other": "Khác",
+    "form.consent": "Tôi đồng ý để NNC Pharma lưu thông tin và tư vấn qua kênh liên hệ đã chọn.",
+    "form.submit_btn": "XÁC NHẬN THAM GIA NGAY",
+    "form.validate_btn": "Kiểm tra",
+    "form.referral_valid": "✓ Mã giới thiệu hợp lệ và đã khóa",
+    "form.referral_invalid": "Mã không hợp lệ (tối thiểu 4 ký tự)",
+    "wheel.eyebrow": "VÒNG QUAY TRI ÂN ĐỐI TÁC",
+    "wheel.title": "Lượt quay đặc quyền Quý 3 của anh/chị đã sẵn sàng",
+    "wheel.desc": "100% lượt quay đều mang về quà tặng. Mọi phần quà được chuyên viên phụ trách khu vực xác nhận và trao qua WhatsApp — nhanh chóng, minh bạch, đúng cam kết.",
+    "wheel.spin_btn": "QUAY NHẬN QUÀ NGAY",
+    "modal.formulation": "Hoạt chất:",
+    "modal.pack_size": "Quy cách:",
+    "modal.price": "Giá sỉ Vientiane:",
+    "modal.wa_btn": "Chat sỉ qua WhatsApp",
+    "modal.interest_yes": "✓ Đã chọn quan tâm",
+    "modal.interest_no": "Tôi quan tâm sản phẩm này",
+    "result.congrats": "Chúc mừng anh/chị!",
+    "result.win_intro": "Phần quà tri ân dành riêng cho anh/chị:",
+    "result.condition": "Điều kiện áp dụng:",
+    "result.ref_title": "Giới thiệu đồng nghiệp — nhận 5% giá trị đơn đầu của họ",
+    "result.ref_desc": "Chia sẻ mã dành riêng này tới đồng nghiệp sở hữu quầy thuốc/phòng khám. Khi họ chốt đơn đầu tiên cùng NNC, 5% giá trị đơn được khấu trừ trực tiếp vào đơn nhập kế tiếp của anh/chị. Đơn cử: đơn 10 triệu KIP — anh/chị nhận về 500.000 KIP.",
+    "result.ref_code": "Mã giới thiệu của bạn:",
+    "result.ref_link": "Copy link chia sẻ:",
+    "result.wa_claim_btn": "XÁC NHẬN QUÀ QUA WHATSAPP — CHỈ 1 CHẠM",
+    "result.cta_next": "Trải nghiệm lên đơn đầu tiên",
+    "stepper.step1": "Đăng ký",
+    "stepper.step2": "Chính sách",
+    "stepper.step3": "Quay quà",
+    "stepper.step4": "Lên đơn",
+    "stepper.step5": "Hoàn tất",
+    "survey.title": "Chọn sản phẩm anh/chị muốn nhận báo giá sỉ ưu đãi",
+    "survey.hint": "Chạm chọn (không giới hạn số mã). Chuyên viên sẽ gửi báo giá sỉ chi tiết qua WhatsApp dành riêng cho anh/chị.",
+    "program.badge": "BƯỚC 2/2 — MỞ KHÓA VÒNG QUAY",
+    "program.title": "Chính sách Tích lũy Doanh số Q3/2026",
+    "program.desc": "Dành riêng Nhà thuốc & Phòng khám. Doanh số 7 sản phẩm được cộng gộp chung, từ 01/08 đến 30/09/2026.",
+    "program.point1": "Giảm ngay 5% trực tiếp trên mọi hóa đơn nhập hàng.",
+    "program.point2": "Cuối quý, nhận thêm 2% → 5% thưởng tính trên TOÀN BỘ doanh số tích lũy — càng về cuối quý, mỗi đơn hàng càng giá trị.",
+    "program.point3": "Lưu ý: không áp dụng đồng thời với chương trình hàng tặng 30+1.",
+    "program.ack": "Tôi đã đọc và nắm rõ chính sách tích lũy Q3/2026.",
+    "program.choose_prompt": "Chọn <strong>mục tiêu doanh số Quý 3</strong> của anh/chị — NNC cam kết đồng hành để anh/chị chạm mốc:",
+    "program.unlock_btn": "MỞ KHÓA VÒNG QUAY QUÀ TẶNG",
+    "referral_cta.tag": "HOA HỒNG GIỚI THIỆU 5%",
+    "referral_cta.title": "Mở rộng mạng lưới đối tác — nhận ngay 5% giá trị đơn đầu tiên",
+    "referral_cta.desc": "Với mỗi đối tác mới do anh/chị giới thiệu, 5% giá trị đơn hàng đầu tiên của họ được khấu trừ trực tiếp vào đơn nhập kế tiếp của anh/chị. Đối tác mới vẫn hưởng trọn chính sách tích lũy — quyền lợi trọn vẹn cho cả đôi bên.",
+    "wheel.locked_hint": "Hoàn thành 2 bước đăng ký để kích hoạt lượt quay 100% có quà",
+    "wheel.locked_cta": "Bắt đầu ngay →",
+    "wheel.showcase_tag": "100% QUAY LÀ CÓ QUÀ",
+    "wheel.showcase_title": "Cơ cấu 6 phần quà Quý 3",
+    "wheel.showcase_sub": "Toàn bộ quà tặng được cộng hưởng cùng chiết khấu tích lũy — quyền lợi song hành, không loại trừ:",
+    "wheel.proceed_cart_btn": "LÊN THỬ ĐƠN HÀNG NGAY →",
+    "reward.kit_title": "Bộ quà tác nghiệp NNC",
+    "reward.kit_desc": "Khay đếm thuốc + sổ ghi toa + bút NNC",
+    "reward.v200_title": "Voucher 200.000 KIP",
+    "reward.v200_desc": "Trừ thẳng vào đơn từ 5tr KIP",
+    "reward.ship_title": "Freeship 2 Đơn",
+    "reward.ship_desc": "NNC lo 100% phí ship 2 đơn đầu",
+    "reward.tadi_title": "Tặng 1 hộp Tadimax",
+    "reward.tadi_desc": "Áp dụng cho đơn từ 3tr KIP",
+    "reward.disc_title": "Thêm 1% Chiết Khấu",
+    "reward.disc_desc": "Cộng thêm ngoài mức 5% chuẩn",
+    "reward.v100_title": "Voucher 100.000 KIP",
+    "reward.v100_desc": "Trừ thẳng vào đơn từ 2tr KIP",
+    "pdf.title": "BẢNG QUYỀN LỢI TÍCH LŨY QUÝ 3/2026",
+    "pdf.subtitle": "Bản tóm tắt dành cho Nhà Thuốc & Phòng Khám",
+    "pdf.valid_until": "Áp dụng đến",
+    "pdf.products_title": "6 MÃ HÀNG TÍCH LŨY",
+    "pdf.products_note": "Doanh số của 6 mã hàng này được cộng dồn chung.",
+    "pdf.table_title": "CƠ CHẾ THƯỞNG LŨY TIẾN",
+    "pdf.tbl_tier": "Bậc",
+    "pdf.tbl_range": "Doanh số Quý",
+    "pdf.tbl_direct": "CK Trực tiếp",
+    "pdf.tbl_quarter": "Thưởng Quý",
+    "pdf.tbl_total": "Tổng",
+    "pdf.tbl_max": "Tiền lời tối đa",
+    "cart.eyebrow": "ĐƠN HÀNG NHÁP",
+    "cart.title": "Thiết kế đơn hàng đầu tiên của anh/chị",
+    "cart.subtitle": "Nhập số lượng — hệ thống tính chiết khấu theo thời gian thực. Đơn nháp được gửi qua WhatsApp để chuyên viên tư vấn mức giá và lịch giao tối ưu; hoàn toàn chưa phát sinh thanh toán.",
+    "cart.summary_title": "Tổng quan lợi nhuận",
+    "cart.preview_invoice": "Xem PDF Đơn Hàng",
+    "cart.send_whatsapp": "GỬI ĐƠN NHÁP QUA WHATSAPP",
+    "cart.skip": "Để sau — tôi muốn nhận quà trước",
+    "rules.title": "Cơ chế tích lũy",
+    "rules.close": "Đóng",
+    "rules.download": "Tải ảnh",
+    "invoice.title": "PDF Đơn Nháp",
+    "invoice.close": "Đóng",
+    "invoice.download": "Tải ảnh",
+    "completion.title": "Hoàn tất! Quyền lợi của anh/chị đã được ghi nhận",
+    "completion.desc": "Chuyên viên NNC sẽ chủ động kết nối WhatsApp trong giờ làm việc để trao quà và hoàn tất đơn chính thức. Anh/chị vui lòng lưu số 020 9980 6327 để không bỏ lỡ quyền lợi.",
+    "completion.wa_btn": "KẾT NỐI WHATSAPP NGAY",
+    "footer.desc": "Chương trình tri ân đối tác Quý 3/2026 — NNC Pharma đồng hành cùng Nhà thuốc & Phòng khám tại Lào. Mọi quà tặng và chiết khấu được xác nhận qua kênh WhatsApp chính thức: 020 9980 6327."
   },
-  lo: {
-    // Nav
-    'nav.products': 'ຜະລິດຕະພັນ',
-    'nav.accumulation': 'ສະສົມຍອດ',
-    'nav.wheel': 'ວົງລໍ້ລາງວັນ',
-    // Hero
-    'hero.eyebrow': 'ສຳລັບ ທ່ານໝໍ · ຄລີນິກ · ຮ້ានຂາຍຢາ · ຄູ່ຮ່ວມງານ B2B',
-    'hero.title_part1': 'ໝູນແມ່ນໄດ້ຂອງຂວັນ 100%',
-    'hero.title_part2': 'ສ່ວນຫຼຸດສະສົມສູງສຸດ 10%',
-    'hero.subtitle': 'ສະເພາະຮ້ານຢາ & ຄລີນິກ ຢູ່ ລາວ. ສຳເລັດ 2 ຂັ້ນຕອນເພື່ອປົດລັອກການໝູນ — ທຸກການໝູນມີຂອງຂວັນ.',
-    'hero.cta_main': 'ປົດລັອກການໝູນດຽວນີ້',
-    'hero.cta_secondary': 'ທົດລອງຄິດໄລ່ສ່ວນຫຼຸດ',
-    // Products
-    'products.eyebrow': 'ລາຍການຜະລິດຕະພັນທາງການ',
-    'products.title': '7 ຜະລິດຕະພັນສະສົມຍອດຂາຍໄຕມາດ 3',
-    'products.desc': 'ເບິ່ງຂໍ້ມູນຜະລິດຕະພັນ ແລະ ນະໂຍບາຍຂາຍສົ່ງ. ຍອດຊື້ຜະລິດຕະພັນທັງ 7 ຈະຖືກສະສົມລວມກັນ.',
-    'products.flagships_title': 'ກຸ່ມຜະລິດຕະພັນຫຼັກປິ່ນປົວ (3 ຜະລິດຕະພັນຫຼັກ)',
-    'products.support_title': 'ກຸ່ມສະໝຸນໄພ & ຢາຕ້ານເຊື້ອເດັກນ້ອຍບຳລຸງ (4 ຜະລິດຕະພັນ)',
-    // Calculator
-    'acc.eyebrow': 'ຕາຕະລາງຜົນປະໂຫຍດສະສົມ',
-    'acc.title': 'ນະໂຍບາຍຍອດຂາຍສະສົມແບບຂັ້ນໄດ',
-    'acc.desc': 'ສັ່ງຊື້ຜະລິດຕະພັນທັງ 7 ຂອງ NNC, ຮັບສ່ວນຫຼຸດໂດຍກົງໃນບິນ ແລະ ໂບນັດສະສົມທ້າຍໄຕມາດ.',
-    'acc.tbl_tier': 'ຂັ້ນສະສົມ',
-    'acc.tbl_range': 'ຍອດຂາຍໄຕມາດ (KIP)',
-    'acc.tbl_direct': 'ສ່ວນຫຼຸດໂດຍກົງ',
-    'acc.tbl_quarter': 'ໂບນັດທ້າຍໄຕມາດ',
-    'acc.tbl_total': 'ຜົນປະໂຫຍດລວມ',
-    'acc.note': 'ໂຄງການຂາຍຍ່ອຍ ບໍ່ສາມາດໃຊ້ຮ່ວມກັບໂຄງການແຖມສິນຄ້າ 30+1 ໄດ້.',
-    'calc.title': 'ເຄື່ອງຄິດໄລ່ຜົນປະໂຫຍດຈຳລອງ',
-    'calc.subtitle': 'ເລື່ອນແຖບເພື່ອຈຳລອງຍອດຊື້ ແລະ ເບິ່ງສ່ວນຫຼຸດທີ່ຈະໄດ້ຮັບ.',
-    'calc.revenue_label': 'ຍອດຊື້ທີ່ຄາດໄວ້:',
-    'calc.immediate_label': 'ສ່ວນຫຼຸດໂດຍກົງ (5%):',
-    'calc.quarter_label': 'ໂບນັດທ້າຍໄຕມາດ:',
-    'calc.total_label': 'ຍອດປະຢັດລວມທັງໝົດ:',
-    'calc.view_pdf': 'ເບິ່ງລາຍລະອຽດໂຄງການ (PDF)',
-    // Form
-    'form.title': 'ຂໍ້ມູນລົງທະບຽນຄູ່ຮ່ວມ B2B',
-    'form.desc': 'ກະລຸນາປ້ອນຂໍ້ມູນເພື່ອບັນທຶກຜົນການສຳຫຼວດ ແລະ ຮັບຂອງຂວັນ.',
-    'form.fullname': 'ຊື່ ແລະ ນາມສະກຸນ ຜູ້ຮັບຜິດຊອບ',
-    'form.phone': 'ເບີໂທລະສັບຕິດຕໍ່',
-    'form.business': 'ຊື່ຮ້ានຢາ / ຄລີນິກ',
-    'form.province': 'ແຂວງ / ນະຄອນ (ລາວ)',
-    'form.ref_code': 'ລະຫັດຜູ້ແນະນຳ (ຖ້າມີ)',
-    'form.contact_pref': 'ຊ່ອງທາງຕິດຕໍ່ທີ່ສະດວກ',
-    'form.call': 'ໂທ',
-    'form.other': 'ອື່ນໆ',
-    'form.consent': 'ຂ້າພະເຈົ້າຕົກລົງບັນທຶກຂໍ້ມູນເພື່ອຮັບຄຳປຶກສາຈາກ NNC, ຄວາມຕ້ອງການສິນຄ້າ, ລະຫັດແນະນຳ ແລະ ຮັບສິດທິຕ່າງໆ.',
-    'form.submit_btn': 'ບັນທຶກຂໍ້ມູນ & ຕໍ່ໄປ',
-    'form.validate_btn': 'ກວດສອບ',
-    'form.referral_valid': '✓ ລະຫັດແນະນຳຖືກຕ້ອງ ແລະ ຖືກລັອກ',
-    'form.referral_invalid': 'ລະຫັດບໍ່ຖືກຕ້ອງ (ຢ່າງຕ່ຳ 4 ຕົວອັກສອນ)',
-    // Wheel
-    'wheel.eyebrow': 'ວົງລໍ້ລາງວັນ B2B',
-    'wheel.title': 'ປົດລັອກກ່ອງຂອງຂວັນໄຕມາດ 3',
-    'wheel.desc': 'ທ່ານໄດ້ປົດລັອກວົງລໍ້ລາງວັນສຳເລັດແລ້ວ. ໂອກາດ 100% ທີ່ຈະໄດ້ຮັບຂອງຂວັນຕົວຈິງ ຫຼື ສ່ວນຫຼຸດພິເສດຈາກ NNC Pharma.',
-    'wheel.stock_pre': 'ເຫຼືອພຽງແຕ່',
-    'wheel.stock_post': 'ຂອງຂວັນໃນສາງມື້ນີ້! ໝູນເລີຍກ່ອນໝົດ.',
-    'wheel.spin_btn': 'ໝູນວົງລໍ້',
-    // Modal
-    'modal.formulation': 'ສ່ວນປະກອບ & ປະລິມານ:',
-    'modal.pack_size': 'ຂະໜາດບັນຈຸ:',
-    'modal.price': 'ລາຄາແນະນຳຢູ່ ວຽງຈັນ:',
-    'modal.wa_btn': 'ຂໍຄຳປຶກສາຜ່ານ WhatsApp',
-    'modal.interest_yes': '✓ ສົນໃຈຜະລິດຕະພັນນີ້ແລ້ວ',
-    'modal.interest_no': 'ຂ້ອຍສົນໃຈຜະລິດຕະພັນນີ້',
-    // Results
-    'result.congrats': 'ຂໍສະແດງຄວາມຍິນດີ!',
-    'result.win_intro': 'ຜົນປະໂຫຍດຂາຍສົ່ງໄຕມາດ 3 ຖືກບັນທຶກແລ້ວ. ທ່ານໄດ້ຮັບ:',
-    'result.condition': 'ເງື່ອນໄຂການນຳໃຊ້:',
-    'result.ref_title': 'ແນະນຳເພື່ອນຮ່ວມງານ - ຮັບສ່ວນຫຼຸດເພີ່ມ 0.5%',
-    'result.ref_desc': 'ແບ່ງປັນໂຄງການນີ້ໃຫ້ເພື່ອນຮ່ວມງານ. ທ່ານຈະໄດ້ຮັບສ່ວນຫຼຸດເພີ່ມ 0.5% ເມື່ອຜູ້ທີ່ຖືກແນະນຳມີຍອດຊື້ບິນທຳອິດ.',
-    'result.ref_code': 'ລະຫັດແນະນຳຂອງທ່ານ:',
-    'result.ref_link': 'ລິ້ງແບ່ງປັນດ່ວນ:',
-    'result.wa_claim_btn': 'ຢືນຢັນ & ຮັບຂອງຂວັນຜ່ານ WhatsApp B2B',
-    'result.cta_next': 'ສືບຕໍ່ຮັບຂອງຂວັນ',
-    // Stepper
-    'stepper.step1': 'ລົງທະບຽນ & ສຳຫຼວດ',
-    'stepper.step2': 'ເບິ່ງໂຄງການ',
-    'stepper.step3': 'ໝູນວົງລໍ້',
-    'stepper.step4': 'ໃບສັ່ງຊື້',
-    'stepper.step5': 'ສຳເລັດ',
-    // Survey
-    'survey.title': 'ສຳຫຼວດດ່ວນ: ຜະລິດຕະພັນທີ່ທ່ານສົນໃຈ',
-    'survey.hint': 'ແຕະເລືອກໄດ້ຫຼາຍລາຍການ. ຂໍ້ມູນຊ່ວຍໃຫ້ NNC ໃຫ້ຄຳປຶກສາຖືກຕາມຄວາມຕ້ອງການ.',
-    // Program review gate
-    'program.badge': 'ຂັ້ນຕອນ 2/2 ເພື່ອປົດລັອກວົງລໍ້',
-    'program.title': 'ໂຄງການສະສົມຍອດຂາຍ ໄຕມາດ 3/2026',
-    'program.desc': 'ສຳລັບຮ້ານຢາ & ຄລີນິກ. ນັບຍອດຮວມທັງ 7 ຜະລິດຕະພັນ, ຕັ້ງແຕ່ 01/08 ຫາ 30/09/2026.',
-    'program.point1': 'ຫຼຸດທັນທີ 5% ໃນທຸກໃບບິນສັ່ງຊື້.',
-    'program.point2': 'ໂບນັດທ້າຍໄຕມາດ 2% → 5% ຄິດຈາກຍອດສະສົມລວມທັງໄຕມາດ.',
-    'program.point3': 'ໝາຍເຫດ: ໂຄງການຜູ້ຂາຍຍ່ອຍ ບໍ່ສາມາດນຳໃຊ້ພ້ອມກັນກັບໂຄງການແຖມ 30+1 ໄດ້.',
-    'program.ack': 'ຂ້ອຍໄດ້ອ່ານ ແລະ ເຂົ້າໃຈນະໂຍບາຍສະສົມ ໄຕມາດ 3/2026 ຂອງ NNC Pharma ແລ້ວ.',
-    'program.choose_prompt': 'ແຕະເລືອກ <strong>ຂັ້ນເປົ້າໝາຍຍອດຂາຍ</strong> ທີ່ທ່ານຕັ້ງໃຈໃນໄຕມາດ 3 ເພື່ອປົດລັອກວົງລໍ້:',
-    'program.unlock_btn': 'ປົດລັອກວົງລໍ້ຂອງຂວັນ',
-    // Wheel lock
-    'wheel.locked_hint': 'ສຳເລັດ 2 ຂັ້ນຕອນ ເພື່ອປົດລັອກການໝູນ 100% ໄດ້ຂອງຂວັນ',
-    'wheel.locked_cta': 'ແຕະເພື່ອເລີ່ມ →',
-    // Cart/Order Form
-    'cart.eyebrow': 'ໃບສັ່ງຊື້ອ້າງອີງ',
-    'cart.title': 'ລອງຈັດໃບສັ່ງຊື້ຂອງເຈົ້າ',
-    'cart.subtitle': 'ເລືອກຈຳນວນສິນຄ້າ ເພື່ອເບິ່ງຍອດລວມ ແລະ ຂັ້ນສະສົມ. ຂໍ້ມູນນີ້ຊ່ວຍໃຫ້ NNC ໃຫ້ຄຳປຶກສາໄດ້ໄວຂຶ້ນຜ່ານ WhatsApp.',
-    'cart.summary_title': 'ສະຫຼຸບຍອດລວມ',
-    'cart.preview_invoice': 'ເບິ່ງ PDF ອ້າງອີງ',
-    'cart.send_whatsapp': 'ສົ່ງຜ່ານ WhatsApp',
-    'cart.skip': 'ຂ້າມຂັ້ນຕອນນີ້',
-    // Rules / Invoice Modals
-    'rules.title': 'ລາຍລະອຽດໂຄງການ',
-    'rules.close': 'ປິດ',
-    'rules.download': 'ດາວໂຫຼດຮູບພາບ',
-    'invoice.title': 'ເບິ່ງຕົວຢ່າງ PDF',
-    'invoice.close': 'ປິດ',
-    'invoice.download': 'ດາວໂຫຼດຮູບພາບ',
-    // Completion
-    'completion.title': 'ຂອບໃຈທີ່ສັ່ງຊື້!',
-    'completion.desc': 'ໃບສັ່ງຊື້ຂອງທ່ານໄດ້ຮັບການບັນທຶກແລ້ວ. ທີມງານ NNC ຈະຕິດຕໍ່ຫາທ່ານທາງ WhatsApp ໃນໄວໆນີ້.',
-    'completion.wa_btn': 'ສົ່ງຂໍ້ຄວາມ WhatsApp',
-    // Footer
-    'footer.desc': 'ໂຄງການ B2B Q3/2026 ສຳລັບທ່ານໝໍ, ຄລີນິກ, ຮ້ານຢາ ແລະ ຄູ່ຮ່ວມງານຢ່າງເປັນທາງການຂອງ NNC Pharma ຢູ່ ລາວ.'
+  "lo": {
+    "nav.products": "ສິນຄ້າ",
+    "nav.accumulation": "ສະສົມຍອດ",
+    "nav.wheel": "ໝູນຮັບໂຊກ",
+    "hero.eyebrow": "NNC PHARMA · ໂຄງການຂອບໃຈຄູ່ຮ່ວມທຸລະກິດຍຸດທະສາດ · ໄຕມາດ 3/2026",
+    "hero.title_part1": "ໝູນແມ່ນໄດ້ຂອງຂວັນ 100%",
+    "hero.title_part2": "ສ່ວນຫຼຸດສະສົມສູງສຸດ 10%",
+    "hero.subtitle": "ສິດທິພິເສດສະເພາະຮ້ານຢາ & ຄລີນິກ ຢູ່ ລາວ: ໝູນຮັບຂອງຂວັນ, ຢືນຢັນຜ່ານ WhatsApp ພຽງ 1 ນາທີ, ແລະ ຄົ້ນພົບນະໂຍບາຍສ່ວນຫຼຸດສະສົມທີ່ໂປ່ງໃສຕາມແຕ່ລະຂັ້ນຍອດຂາຍ.",
+    "hero.cta_main": "ຮັບສິດໝູນພິເສດ",
+    "hero.cta_secondary": "ຄົ້ນພົບນະໂຍບາຍສ່ວນຫຼຸດ",
+    "products.eyebrow": "ໝວດຜະລິດຕະພັນ",
+    "products.title": "6 ຜະລິດຕະພັນນັບຍອດຮວມກັນ",
+    "products.desc": "ຍອດຂາຍທັງ 7 ຜະລິດຕະພັນຮວມເປັນຍອດສະສົມດຽວ — ແຕ່ລະບິນ, ບໍ່ວ່າລາຍການໃດ, ພາທ່ານເຂົ້າໃກ້ຂັ້ນສ່ວນຫຼຸດສູງຂຶ້ນ.",
+    "products.flagships_title": "ກຸ່ມຢາຕ້ານເຊື້ອຕາມໃບສັ່ງແພດ ຫຼັກ",
+    "products.support_title": "ກຸ່ມສະໝຸນໄພ & ເດັກນ້ອຍ",
+    "acc.eyebrow": "ຕາຕະລາງຜົນປະໂຫຍດ",
+    "acc.title": "ກົນໄກສ່ວນຫຼຸດສະສົມ 4 ຂັ້ນ",
+    "acc.desc": "ສ່ວນຫຼຸດ 5% ຫັກທັນທີໃນແຕ່ລະໃບບິນ. ທ້າຍໄຕມາດ, NNC ຂອບໃຈເພີ່ມ 2–5% ຄິດຈາກຍອດສະສົມລວມ — ຍອດຍິ່ງສູງ, ຜົນປະໂຫຍດຍິ່ງເລິກ.",
+    "acc.tbl_tier": "ຂັ້ນ",
+    "acc.tbl_range": "ຍອດຂາຍໄຕມາດ",
+    "acc.tbl_direct": "ຫຼຸດທັນທີ",
+    "acc.tbl_quarter": "ໂບນັດໄຕມາດ",
+    "acc.tbl_total": "ລວມຜົນປະໂຫຍດ",
+    "acc.note": "ໂປຣນີ້ ບໍ່ສາມາດໃຊ້ຮ່ວມກັບໂປຣ 30 ແຖມ 1 ເດີ້.",
+    "calc.title": "ຕາຕະລາງຄິດໄລ່ຜົນປະໂຫຍດຕົວຈິງ",
+    "calc.subtitle": "ລາກແຖບເລື່ອນຕາມຍອດຂາຍຄາດໝາຍ — ຜົນປະໂຫຍດຂອງທ່ານສະແດງທັນທີ.",
+    "calc.revenue_label": "ຍອດສັ່ງຊື້ຄາດໄວ້:",
+    "calc.immediate_label": "ຫຼຸດທັນທີ (5%):",
+    "calc.quarter_label": "ໂບນັດທ້າຍໄຕມາດ:",
+    "calc.total_label": "ຜົນປະໂຫຍດລວມຕົວຈິງ:",
+    "calc.view_pdf": "ເບິ່ງນະໂຍບາຍສະບັບເຕັມ (PDF)",
+    "form.title": "ຢືນຢັນເຂົ້າຮ່ວມ — ພຽງ 30 ວິນາທີ",
+    "form.desc": "ຂໍ້ມູນຊ່ວຍໃຫ້ NNC ມອບຂອງຂວັນຖືກຄົນ ຖືກຮ້ານ — ແລະ ໃຫ້ຜູ້ຊ່ຽວຊານທີ່ປຶກສາຕິດຕາມດູແລທ່ານຜ່ານ WhatsApp ຢ່າງຮອບຄອບທີ່ສຸດ.",
+    "form.fullname": "ຊື່ ແລະ ນາມສະກຸນ",
+    "form.phone": "ເບີໂທລະສັບ",
+    "form.business": "ຊື່ຮ້ານຢາ / ຄລີນິກ",
+    "form.province": "ແຂວງ / ນະຄອນ",
+    "form.ref_code": "ລະຫັດຜູ້ແນະນຳ (ຖ້າມີ)",
+    "form.contact_pref": "ຊ່ອງທາງຕິດຕໍ່",
+    "form.call": "ໂທ",
+    "form.other": "ອື່ນໆ",
+    "form.consent": "ຂ້ອຍຍິນຍອມໃຫ້ NNC Pharma ເກັບຂໍ້ມູນ ແລະ ໃຫ້ຄຳປຶກສາຜ່ານຊ່ອງທາງທີ່ເລືອກ.",
+    "form.submit_btn": "ຢືນຢັນເຂົ້າຮ່ວມດຽວນີ້",
+    "form.validate_btn": "ກວດສອບ",
+    "form.referral_valid": "✓ ລະຫັດແນະນຳຖືກຕ້ອງ",
+    "form.referral_invalid": "ລະຫັດບໍ່ຖືກຕ້ອງ",
+    "wheel.eyebrow": "ວົງລໍ້ຂອບໃຈຄູ່ຮ່ວມທຸລະກິດ",
+    "wheel.title": "ສິດໝູນພິເສດ ໄຕມາດ 3 ຂອງທ່ານພ້ອມແລ້ວ",
+    "wheel.desc": "ທຸກການໝູນນຳຂອງຂວັນມາໃຫ້ 100%. ທຸກລາງວັນຖືກຜູ້ຊ່ຽວຊານປະຈຳເຂດຢືນຢັນ ແລະ ມອບຜ່ານ WhatsApp — ວ່ອງໄວ, ໂປ່ງໃສ, ຕາມຄຳໝັ້ນສັນຍາ.",
+    "wheel.spin_btn": "ໝູນຮັບຂອງຂວັນດຽວນີ້",
+    "modal.formulation": "ສ່ວນປະກອບ:",
+    "modal.pack_size": "ຂະໜາດບັນຈຸ:",
+    "modal.price": "ລາຄາສົ່ງ Vientiane:",
+    "modal.wa_btn": "ສົນທະນາ WhatsApp",
+    "modal.interest_yes": "✓ ສົນໃຈແລ້ວ",
+    "modal.interest_no": "ຂ້ອຍສົນໃຈໂຕນີ້",
+    "result.congrats": "ຊົມເຊີຍທ່ານ!",
+    "result.win_intro": "ຂອງຂວັນຂອບໃຈສະເພາະທ່ານ:",
+    "result.condition": "ເງື່ອນໄຂນຳໃຊ້:",
+    "result.ref_title": "ແນະນຳເພື່ອນຮ່ວມອາຊີບ — ຮັບ 5% ຂອງມູນຄ່າບິນທຳອິດຂອງເຂົາເຈົ້າ",
+    "result.ref_desc": "ແບ່ງປັນລະຫັດສະເພາະນີ້ໃຫ້ເພື່ອນຮ່ວມອາຊີບທີ່ມີຮ້ານຢາ/ຄລີນິກ. ເມື່ອເຂົາເຈົ້າສະຫຼຸບບິນທຳອິດກັບ NNC, 5% ຂອງມູນຄ່າບິນຈະຫັກໂດຍກົງໃນບິນຄັ້ງຕໍ່ໄປຂອງທ່ານ. ຕົວຢ່າງ: ບິນ 10 ລ້ານກີບ — ທ່ານຮັບ 500.000 ກີບ.",
+    "result.ref_code": "ລະຫັດແນະນຳຂອງທ່ານ:",
+    "result.ref_link": "ກັອບປີ້ລິ້ງແຊຣ໌:",
+    "result.wa_claim_btn": "ຢືນຢັນຂອງຂວັນຜ່ານ WHATSAPP — ພຽງແຕະດຽວ",
+    "result.cta_next": "ທົດລອງຈັດບິນທຳອິດ",
+    "stepper.step1": "ລົງທະບຽນ",
+    "stepper.step2": "ນະໂຍບາຍ",
+    "stepper.step3": "ໝູນຂອງຂວັນ",
+    "stepper.step4": "ຈັດບິນ",
+    "stepper.step5": "ສຳເລັດ",
+    "survey.title": "ເລືອກຜະລິດຕະພັນທີ່ທ່ານຢາກຮັບໃບສະເໜີລາຄາຂາຍສົ່ງພິເສດ",
+    "survey.hint": "ແຕະເລືອກ (ບໍ່ຈຳກັດຈຳນວນ). ຜູ້ຊ່ຽວຊານຈະສົ່ງໃບສະເໜີລາຄາຂາຍສົ່ງລະອຽດຜ່ານ WhatsApp ສະເພາະທ່ານ.",
+    "program.badge": "ຂັ້ນຕອນ 2/2 — ປົດລັອກວົງລໍ້",
+    "program.title": "ນະໂຍບາຍສະສົມຍອດຂາຍ ໄຕມາດ 3/2026",
+    "program.desc": "ສະເພາະຮ້ານຢາ & ຄລີນິກ. ຍອດຂາຍ 7 ຜະລິດຕະພັນນັບຮວມກັນ, ແຕ່ 01/08 ຫາ 30/09/2026.",
+    "program.point1": "ຫຼຸດທັນທີ 5% ໃນທຸກໃບບິນສັ່ງຊື້.",
+    "program.point2": "ທ້າຍໄຕມາດ, ຮັບເພີ່ມ 2% → 5% ຄິດຈາກຍອດສະສົມ ທັງໝົດ — ຍິ່ງໃກ້ທ້າຍໄຕມາດ, ແຕ່ລະບິນຍິ່ງມີຄ່າ.",
+    "program.point3": "ໝາຍເຫດ: ບໍ່ນຳໃຊ້ພ້ອມກັນກັບໂຄງການແຖມ 30+1.",
+    "program.ack": "ຂ້ອຍໄດ້ອ່ານ ແລະ ເຂົ້າໃຈນະໂຍບາຍສະສົມ ໄຕມາດ 3/2026 ແລ້ວ.",
+    "program.choose_prompt": "ເລືອກ <strong>ເປົ້າໝາຍຍອດຂາຍໄຕມາດ 3</strong> ຂອງທ່ານ — NNC ໝັ້ນສັນຍາຕິດຕາມສະໜັບສະໜູນໃຫ້ທ່ານບັນລຸເປົ້າ:",
+    "program.unlock_btn": "ປົດລັອກວົງລໍ້ຂອງຂວັນ",
+    "referral_cta.tag": "ຄ່າຄອມມິດຊັນແນະນຳ 5%",
+    "referral_cta.title": "ຂະຫຍາຍເຄືອຂ່າຍຄູ່ຮ່ວມທຸລະກິດ — ຮັບທັນທີ 5% ຂອງມູນຄ່າບິນທຳອິດ",
+    "referral_cta.desc": "ທຸກຄູ່ຮ່ວມທຸລະກິດໃໝ່ທີ່ທ່ານແນະນຳ, 5% ຂອງມູນຄ່າບິນທຳອິດຂອງເຂົາເຈົ້າຈະຫັກໂດຍກົງໃນບິນສັ່ງຊື້ຄັ້ງຕໍ່ໄປຂອງທ່ານ. ຄູ່ຮ່ວມໃໝ່ຍັງໄດ້ຮັບນະໂຍບາຍສະສົມເຕັມສ່ວນ — ຜົນປະໂຫຍດຄົບຖ້ວນທັງສອງຝ່າຍ.",
+    "wheel.locked_hint": "ສຳເລັດ 2 ຂັ້ນຕອນລົງທະບຽນ ເພື່ອເປີດໃຊ້ສິດໝູນ 100% ມີຂອງຂວັນ",
+    "wheel.locked_cta": "ເລີ່ມເລີຍ →",
+    "wheel.showcase_tag": "ໝູນແມ່ນໄດ້ 100%",
+    "wheel.showcase_title": "ໂຄງສ້າງ 6 ຂອງຂວັນ ໄຕມາດ 3",
+    "wheel.showcase_sub": "ທຸກຂອງຂວັນເສີມກັນກັບສ່ວນຫຼຸດສະສົມ — ຜົນປະໂຫຍດຄຽງຄູ່ກັນ, ບໍ່ຕັດສິດກັນ:",
+    "wheel.proceed_cart_btn": "ລອງຈັດບິນສັ່ງຊື້ເລີຍ →",
+    "reward.kit_title": "ຊຸດເຄື່ອງມືເຮັດວຽກ NNC",
+    "reward.kit_desc": "ຖາດນັບຢາ + ປຶ້ມບັນທຶກໃບສັ່ງຢາ + ບິກ NNC",
+    "reward.v200_title": "ຄູປ໋ອງ 200.000 ກີບ",
+    "reward.v200_desc": "ຫັກເລີຍ ສຳລັບບິນ 5 ລ້ານຂຶ້ນໄປ",
+    "reward.ship_title": "ສົ່ງຟຣີ 2 ບິນ",
+    "reward.ship_desc": "NNC ຈ່າຍຄ່າສົ່ງໃຫ້ 2 ບິນທຳອິດ",
+    "reward.tadi_title": "ແຖມ Tadimax 1 ກັບ",
+    "reward.tadi_desc": "ສຳລັບບິນ 3 ລ້ານຂຶ້ນໄປ",
+    "reward.disc_title": "ສ່ວນຫຼຸດເພີ່ມ 1%",
+    "reward.disc_desc": "ເພີ່ມຈາກ 5% ປົກກະຕິ",
+    "reward.v100_title": "ຄູປ໋ອງ 100.000 ກີບ",
+    "reward.v100_desc": "ຫັກເລີຍ ສຳລັບບິນ 2 ລ້ານຂຶ້ນໄປ",
+    "pdf.title": "ຕາຕະລາງຜົນປະໂຫຍດ Q3/2026",
+    "pdf.subtitle": "ສຳລັບຮ້ານຢາ ແລະ ຄລີນິກ",
+    "pdf.valid_until": "ໃຊ້ໄດ້ຮອດ",
+    "pdf.products_title": "6 ໄອເທັມ ສະສົມຍອດ",
+    "pdf.products_note": "ຍອດຂາຍຂອງ 6 ໄອເທັມນີ້ ແມ່ນລວມກັນທັງໝົດ.",
+    "pdf.table_title": "ໂບນັດແບບຂັ້ນໄດ",
+    "pdf.tbl_tier": "ຂັ້ນ",
+    "pdf.tbl_range": "ຍອດຂາຍໄຕມາດ",
+    "pdf.tbl_direct": "ຫຼຸດທັນທີ",
+    "pdf.tbl_quarter": "ໂບນັດໄຕມາດ",
+    "pdf.tbl_total": "ລວມ",
+    "pdf.tbl_max": "ກຳໄລສູງສຸດ",
+    "cart.eyebrow": "ບິນສັ່ງຊື້ສະບັບຮ່າງ",
+    "cart.title": "ອອກແບບບິນສັ່ງຊື້ທຳອິດຂອງທ່ານ",
+    "cart.subtitle": "ໃສ່ຈຳນວນ — ລະບົບຄິດໄລ່ສ່ວນຫຼຸດແບບທັນທີ. ບິນຮ່າງສົ່ງຜ່ານ WhatsApp ໃຫ້ຜູ້ຊ່ຽວຊານແນະນຳລາຄາ ແລະ ຕາຕະລາງສົ່ງທີ່ເໝາະສົມ; ຍັງບໍ່ມີການຈ່າຍເງິນໃດໆ.",
+    "cart.summary_title": "ສະຫຼຸບກຳໄລ",
+    "cart.preview_invoice": "ເບິ່ງ PDF ໃບສັ່ງຊື້",
+    "cart.send_whatsapp": "ສົ່ງບິນຮ່າງຜ່ານ WHATSAPP",
+    "cart.skip": "ໄວ້ກ່ອນ — ຂ້ອຍຢາກຮັບຂອງຂວັນກ່ອນ",
+    "rules.title": "ນະໂຍບາຍສະສົມ",
+    "rules.close": "ປິດ",
+    "rules.download": "ດາວໂຫຼດຮູບ",
+    "invoice.title": "PDF ໃບສັ່ງຊື້",
+    "invoice.close": "ປິດ",
+    "invoice.download": "ດາວໂຫຼດຮູບ",
+    "completion.title": "ສຳເລັດ! ຜົນປະໂຫຍດຂອງທ່ານຖືກບັນທຶກແລ້ວ",
+    "completion.desc": "ຜູ້ຊ່ຽວຊານ NNC ຈະຕິດຕໍ່ຫາທ່ານທາງ WhatsApp ໃນໂມງເຮັດວຽກ ເພື່ອມອບຂອງຂວັນ ແລະ ສຳເລັດບິນທາງການ. ກະລຸນາບັນທຶກເບີ 020 9980 6327 ເພື່ອບໍ່ພາດຜົນປະໂຫຍດ.",
+    "completion.wa_btn": "ເຊື່ອມຕໍ່ WHATSAPP ດຽວນີ້",
+    "footer.desc": "ໂຄງການຂອບໃຈຄູ່ຮ່ວມທຸລະກິດ ໄຕມາດ 3/2026 — NNC Pharma ຄຽງຄູ່ຮ້ານຢາ & ຄລີນິກ ຢູ່ ລາວ. ທຸກຂອງຂວັນ ແລະ ສ່ວນຫຼຸດ ຢືນຢັນຜ່ານຊ່ອງທາງ WhatsApp ທາງການ: 020 9980 6327."
   }
 };
 
-// 7 Participating Products Data
+// 6 Participating Products Data
 const PRODUCTS_DATA = [
   {
     id: 'tadimax',
@@ -281,19 +309,7 @@ const PRODUCTS_DATA = [
     descLo: 'ຜະລິດຕະພັນສະໝຸນໄພປິ່ນປົວພະຍາດຕ່ອມລູກໝາກໃຫຍ່ ທີ່ມີອັດຕາການໝູນວຽນສູງສຸດໃນລາວ. ໃຫ້ຍອດຂາຍຄົງທີ່ ແລະກຳໄລສູງ.',
     image: 'images/tadimax.webp'
   },
-  {
-    id: 'bai-thach',
-    name: 'Bài Thạch NNC',
-    category: 'herbal',
-    pack: 'Hộp 1 lọ 45 viên',
-    price: 69000,
-    badgeVi: 'Thảo dược sỏi thận bán chạy nhất',
-    badgeLo: 'ສະໝຸນໄພປິ່ນປົວໜິ້ວຂາຍດີ',
-    formulation: 'Kim tiền thảo, Nhân trần, Hoàng cầm, Uất kim',
-    descVi: 'Hỗ trợ tán sỏi thận, sỏi đường tiết niệu hiệu quả lâm sàng cao. Được bệnh nhân truyền tai mua nhiều, giúp nhà thuốc giữ chân khách hàng trung thành tốt.',
-    descLo: 'ຊ່ວຍລະລາຍໜິ້ວໃນໝາກໄຂ່ຫຼັງ ແລະທາງເດີນປັດສະວະຢ່າງມີປະສິດທິຜົນ. ເປັນທີ່ນິຍົມຂອງຄົນເຈັບ, ຊ່ວຍຮັກສາຖານລູກຄ້າ.',
-    image: 'images/bai-thach.webp'
-  },
+
   {
     id: 'cv-mox-1000',
     name: 'CV Mox 1000',
@@ -367,7 +383,7 @@ const WHEEL_SEGMENTS = [
   { id: 'voucher_100k', weight: 22, nameVi: 'Voucher 100.000 KIP', nameLo: 'ຄູປ໋ອງ 100.000 ກີບ', color: '#fbbf24', textColor: '#102a24' },
   { id: 'free_shipping', weight: 20, nameVi: 'Miễn phí vận chuyển 2 đơn', nameLo: 'ສົ່ງຟຣີ 2 ບິນ', color: '#104e40', textColor: '#ffffff' },
   { id: 'tadimax_gift', weight: 15, nameVi: 'Tặng 1 hộp Tadimax', nameLo: 'ແຖມ ຕາດິແມ໋ກ 1 ກັບ', color: '#0f3a30', textColor: '#ffffff' },
-  { id: 'office_kit', weight: 25, nameVi: 'Bộ quà văn phòng NNC', nameLo: 'ຊຸດຂອງຂວັນຫ້ອງການ NNC', color: '#60a5fa', textColor: '#ffffff' },
+  { id: 'office_kit', weight: 25, nameVi: 'Bộ quà tác nghiệp NNC', nameLo: 'ຊຸດເຄື່ອງມືເຮັດວຽກ NNC', color: '#60a5fa', textColor: '#ffffff' },
   { id: 'voucher_200k', weight: 6, nameVi: 'Voucher 200.000 KIP', nameLo: 'ຄູປ໋ອງ 200.000 ກີບ', color: '#104e40', textColor: '#ffffff' }
 ];
 
@@ -397,10 +413,10 @@ const REWARD_DETAILS = {
     condLo: 'ແຖມ ຕາດິແມ໋ກ 1 ກັບ (21 ເມັດ x 2 ແຜງ) ພ້ອມບິນທຳອິດຕັ້ງແຕ່ 3.000.000 ກີບ ຂຶ້ນໄປ.'
   },
   office_kit: {
-    nameVi: 'Bộ quà văn phòng NNC Pharma',
-    nameLo: 'ຊຸດຂອງຂວັນຫ້ອງການ NNC Pharma',
-    condVi: 'Bộ sổ tay + bút ký + ô che nắng NNC, sales giao tận nơi cùng đơn hàng đầu tiên.',
-    condLo: 'ຊຸດປຶ້ມບັນທຶກ + ບິກ + ຄັນຮົ່ມ NNC, ພະນັກງານຂາຍນຳສົ່ງພ້ອມບິນທຳອິດ.'
+    nameVi: 'Bộ quà tác nghiệp NNC',
+    nameLo: 'ຊຸດເຄື່ອງມືເຮັດວຽກ NNC',
+    condVi: 'Khay đếm thuốc + sổ ghi toa + bút NNC, tư vấn viên giao tận quầy kèm đơn hàng đầu tiên (mọi giá trị đơn).',
+    condLo: 'ຖາດນັບຢາ + ປຶ້ມບັນທຶກໃບສັ່ງຢາ + ບິກ NNC, ພະນັກງານຂາຍນຳສົ່ງຮອດຮ້ານພ້ອມບິນທຳອິດ (ທຸກມູນຄ່າບິນ).'
   },
   voucher_200k: {
     nameVi: 'Voucher 200.000 KIP',
@@ -418,7 +434,23 @@ const NNC_ACCUMULATION_TIERS = [
 ];
 
 // Initialize Application
+function updateAllTextContent() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key]) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.setAttribute('placeholder', TRANSLATIONS[currentLang][key]);
+      } else {
+        el.innerHTML = TRANSLATIONS[currentLang][key];
+      }
+    }
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Apply initial language translations based on currentLang
+  updateAllTextContent();
+
   // Load query params or session storage if any
   const urlParams = new URLSearchParams(window.location.search);
   const refParam = urlParams.get('ref') || '';
@@ -459,11 +491,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderProducts();
   renderSurveyChips();
+  renderDynamicPdf();
   updateWheelLockVisual();
   updateSimulation(simulatedRevenue);
   initCountdownTimer();
+  renderLiveTicker();
 
-  // Keep sticky stepper right below the header at any screen size
+  // Keep sticky header offset synchronized at any screen size
   const syncHeaderOffset = () => {
     const hd = document.querySelector('.app-header');
     if (hd) document.documentElement.style.setProperty('--header-h', hd.offsetHeight + 'px');
@@ -483,6 +517,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateStepperVisual();
 });
+
+// ===== Mock Live Activity Stream for Lao Customers (Hero Ticker) =====
+const MOCK_LIVE_ACTIVITIES_LO = [
+  { name: 'ຮ້ານຂາຍຢາ ດາວວຽງ', location: 'ນະຄອນຫຼວງວຽງຈັນ', reward: 'Voucher 200.000 KIP', timeAgo: '2 ນາທີກ່ອນ', icon: '🎁' },
+  { name: 'ຄລີນິກ ສຸຂະພາບດີ', location: 'ຫຼວງພະບາງ', reward: 'ຊຸດຂອງຂວັນ NNC Pharma', timeAgo: '5 ນາທີກ່ອນ', icon: '🏆' },
+  { name: 'ຮ້ານຂາຍຢາ ໄຊສະຫວ່າງ', location: 'ຈຳປາສັກ', reward: 'ຟຣີຄ່າສົ່ງ 2 ອໍເດີ', timeAgo: '7 ນາທີກ່ອນ', icon: '🚚' },
+  { name: 'ໂຮງຢາ ມິດຕະພາບ', location: 'ສະຫວັນນະເຂດ', reward: 'Tadimax 1 ກ່ອງ', timeAgo: '11 ນາທີກ່ອນ', icon: '💊' },
+  { name: 'ຄລີນິກ ປະຊາຊົນ', location: 'ນະຄອນຫຼວງວຽງຈັນ', reward: 'Voucher 100.000 KIP', timeAgo: '14 ນາທີກ່ອນ', icon: '🎫' },
+  { name: 'ຮ້ານຂາຍຢາ ພອນໄຊ', location: 'ຄຳມ່ວນ', reward: 'ສ່ວນຫຼຸດ tích lũy 1%', timeAgo: '18 ນາທີກ່ອນ', icon: '✨' },
+  { name: 'ໂຮງຢາ ອຸດົມໄຊ', location: 'ອຸດົມໄຊ', reward: 'ຊຸດຂອງຂວັນ NNC Pharma', timeAgo: '22 ນາທີກ່ອນ', icon: '🎁' },
+  { name: 'ຄລີນິກ ເມືອງລາວ', location: 'ນະຄອນຫຼວງວຽງຈັນ', reward: 'Voucher 200.000 KIP', timeAgo: '26 ນາທີກ່ອນ', icon: '🏆' },
+  { name: 'ຮ້ານຂາຍຢາ ບຸນມີ', location: 'ຫຼວງນ້ຳທາ', reward: 'ຟຣີຄ່າສົ່ງ 2 ອໍເດີ', timeAgo: '31 ນາທີກ່ອນ', icon: '🚚' },
+  { name: 'ໂຮງຢາ ສີໂຄດຕະບອງ', location: 'ນະຄອນຫຼວງວຽງຈັນ', reward: 'Voucher 100.000 KIP', timeAgo: '35 ນາທີກ່ອນ', icon: '💊' },
+  { name: 'ຄລີນິກ ສີສະເກດ', location: 'ວຽງຈັນ', reward: 'ຊຸດຂອງຂວັນ NNC Pharma', timeAgo: '41 ນາທີກ່ອນ', icon: '🎁' },
+  { name: 'ຮ້ານຂາຍຢາ ລັດສະໝີ', location: 'ບໍລິຄຳໄຊ', reward: 'Tadimax 1 ກ່ອງ', timeAgo: '48 ນາທີກ່ອນ', icon: '✨' }
+];
+
+function renderLiveTicker() {
+  const track = document.getElementById('ticker-track');
+  if (!track) return;
+  
+  const itemsHtml = MOCK_LIVE_ACTIVITIES_LO.map(act => `
+    <div class="ticker-item">
+      <span class="ticker-icon">${act.icon}</span>
+      <div class="ticker-content">
+        <strong class="ticker-name">${act.name} <span class="ticker-loc">(${act.location})</span></strong>
+        <span class="ticker-action">ໄດ້ຮັບ</span>
+        <span class="ticker-reward">${act.reward}</span>
+      </div>
+      <span class="ticker-time">${act.timeAgo}</span>
+    </div>
+  `).join('');
+
+  track.innerHTML = itemsHtml + itemsHtml;
+}
+
+function pushUserWinToTicker(rewardObj) {
+  const track = document.getElementById('ticker-track');
+  if (!track) return;
+
+  const bName = registrationInfo && registrationInfo.business ? registrationInfo.business : 'ຮ້ານຂາຍຢາ Đối tác';
+  const prov = registrationInfo && registrationInfo.province ? registrationInfo.province : 'Vientiane';
+  const rName = rewardObj.nameLo || rewardObj.nameVi || 'Quà tặng NNC';
+
+  const newActivity = {
+    name: bName,
+    location: prov,
+    reward: rName,
+    timeAgo: 'ຫາເພິ່ງນີ້',
+    icon: '🎉'
+  };
+
+  MOCK_LIVE_ACTIVITIES_LO.unshift(newActivity);
+  renderLiveTicker();
+}
+
 
 // ===== Data logging to Google Sheet (Apps Script Web App) =====
 function logEvent(eventType, extra) {
@@ -575,24 +665,15 @@ function setFlowState(nextState) {
   const overlay = document.getElementById('funnel-modal-overlay');
   const registerCard = document.getElementById('register-card');
   const programCard = document.getElementById('program-card');
+  const wheelCard = document.getElementById('wheel-showcase-card');
   const orderCard = document.getElementById('order-form-card');
   const completionCard = document.getElementById('completion-card');
-  const spinBtn = document.getElementById('btn-spin-wheel');
 
   const show = (el, on) => { if (el) el.style.display = on ? 'block' : 'none'; };
 
   if (flowState === 'discover') {
     if (overlay) overlay.style.display = 'none';
     document.body.style.overflow = '';
-    if (spinBtn) spinBtn.classList.add('pulse-border');
-  } else if (flowState === 'wheel') {
-    if (overlay) overlay.style.display = 'none';
-    document.body.style.overflow = '';
-    if (spinBtn) {
-      spinBtn.disabled = false;
-      spinBtn.classList.add('pulse-border');
-    }
-    scrollToId('target-wheel-box');
   } else {
     // Open Popup Modal Overlay over screen!
     if (overlay) overlay.style.display = 'flex';
@@ -600,6 +681,7 @@ function setFlowState(nextState) {
 
     show(registerCard, flowState === 'register');
     show(programCard, flowState === 'program');
+    show(wheelCard, flowState === 'wheel');
     show(orderCard, flowState === 'cart');
     show(completionCard, flowState === 'completion');
 
@@ -617,16 +699,117 @@ function setFlowState(nextState) {
   }
 }
 
-// Wheel lock overlay + spin button visibility
+
 function updateWheelLockVisual() {
   const overlay = document.getElementById('wheel-lock-overlay');
   const spinBtn = document.getElementById('btn-spin-wheel');
-  const unlocked = (flowState === 'wheel') || hasSpun;
-  if (overlay) overlay.style.display = unlocked ? 'none' : 'flex';
+  if (overlay) overlay.style.display = 'none';
   if (spinBtn) {
-    spinBtn.style.display = unlocked && !hasSpun ? '' : (unlocked ? 'none' : 'none');
-    if (flowState === 'wheel' && !hasSpun) spinBtn.style.display = '';
+    spinBtn.style.display = 'flex';
+    spinBtn.disabled = true;
+    spinBtn.classList.remove('pulse-border');
   }
+}
+
+function renderDynamicPdf() {
+  const container = document.getElementById('dynamic-pdf-preview');
+  if (!container) return;
+
+  const t = TRANSLATIONS[currentLang];
+  
+  let productsHtml = '';
+  PRODUCTS_DATA.forEach((p) => {
+    let badgeText = '';
+    if (currentLang === 'vi') {
+      badgeText = p.category === 'herbal' ? 'Thảo dược' : 'Kháng sinh';
+    } else {
+      badgeText = p.category === 'herbal' ? 'ຢາພື້ນເມືອງ' : 'ຢາຕ້ານເຊື້ອ';
+    }
+
+    productsHtml += `
+      <div class="dyn-pdf-prod">
+        <div class="dyn-pdf-prod-badge">${badgeText}</div>
+        <img src="${p.image}" alt="${p.name}">
+        <h4>${p.name}</h4>
+        <p>${p.pack}</p>
+      </div>
+    `;
+  });
+
+  // Add the 8th item (text note)
+  productsHtml += `
+    <div class="dyn-pdf-prod-note">
+      <p>${t['pdf.products_note']}</p>
+    </div>
+  `;
+
+  let tableRowsHtml = '';
+  const fmtM = (v) => (v / 1000000).toLocaleString(currentLang === 'vi' ? 'vi-VN' : 'lo-LA');
+  
+  NNC_ACCUMULATION_TIERS.forEach(tier => {
+    let rangeText = tier.max_revenue_kip === Number.MAX_SAFE_INTEGER
+      ? (currentLang === 'vi' ? `Từ ${fmtM(tier.min_revenue_kip)} triệu KIP` : `ຕັ້ງແຕ່ ${fmtM(tier.min_revenue_kip)} ລ້ານກີບ`)
+      : (currentLang === 'vi' ? `Từ ${fmtM(tier.min_revenue_kip)} - dưới ${fmtM(tier.max_revenue_kip)} triệu` : `ຈາກ ${fmtM(tier.min_revenue_kip)} ຕ່ຳກວ່າ ${fmtM(tier.max_revenue_kip)} ລ້ານກີບ`);
+    
+    let maxReward = '';
+    if (tier.tier_id === 'tier_1') maxReward = '420,000 KIP';
+    if (tier.tier_id === 'tier_2') maxReward = '960,000 KIP';
+    if (tier.tier_id === 'tier_3') maxReward = '2,250,000 KIP';
+    if (tier.tier_id === 'tier_4') maxReward = currentLang === 'vi' ? 'Không giới hạn' : 'ບໍ່ຈຳກັດ';
+
+    tableRowsHtml += `
+      <tr>
+        <td><strong>${tier.tier_id.replace('tier_', '')}</strong></td>
+        <td><strong>${rangeText}</strong></td>
+        <td>${tier.immediate_discount}%</td>
+        <td>${tier.quarter_end_reward}%</td>
+        <td class="dyn-pdf-total">${tier.total_benefit}%</td>
+        <td class="dyn-pdf-max">${maxReward}</td>
+      </tr>
+    `;
+  });
+
+  container.innerHTML = `
+    <div class="dyn-pdf-header">
+      <h2>${t['pdf.title']}</h2>
+      <h3>${t['pdf.subtitle']}</h3>
+      <div class="dyn-pdf-date">${t['pdf.valid_until']} <span class="dyn-pdf-date-val">30/09/2026</span></div>
+    </div>
+    
+    <div class="dyn-pdf-section">
+      <div class="dyn-pdf-sec-title">
+        <span class="dyn-pdf-sec-bar"></span>
+        <h4>${t['pdf.products_title']}</h4>
+      </div>
+      <div class="dyn-pdf-products-grid">
+        ${productsHtml}
+      </div>
+    </div>
+
+    <div class="dyn-pdf-section">
+      <div class="dyn-pdf-sec-title">
+        <span class="dyn-pdf-sec-bar"></span>
+        <h4>${t['pdf.table_title']}</h4>
+      </div>
+      <div class="dyn-pdf-table-wrapper">
+        <table class="dyn-pdf-table">
+          <thead>
+            <tr>
+              <th>${t['pdf.tbl_tier']}</th>
+              <th>${t['pdf.tbl_range']}</th>
+              <th>${t['pdf.tbl_direct']}</th>
+              <th>${t['pdf.tbl_quarter']}</th>
+              <th>${t['pdf.tbl_total']}</th>
+              <th>${t['pdf.tbl_max']}</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${tableRowsHtml}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
 }
 
 // Interactive target-tier selection (active choice instead of passive reading)
@@ -766,19 +949,11 @@ function switchLanguage(lang) {
   document.getElementById('btn-lang-vi').className = lang === 'vi' ? 'active' : '';
   document.getElementById('btn-lang-lo').className = lang === 'lo' ? 'active' : '';
   
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (TRANSLATIONS[lang][key]) {
-      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-        el.setAttribute('placeholder', TRANSLATIONS[lang][key]);
-      } else {
-        el.innerHTML = TRANSLATIONS[lang][key];
-      }
-    }
-  });
+  updateAllTextContent();
 
   renderProducts();
   renderSurveyChips();
+  renderDynamicPdf();
   renderProgramTiersTable();
   updateWheelLockVisual();
   updateSimulation(simulatedRevenue);
@@ -1109,6 +1284,10 @@ function handleFormSubmit(e) {
   setFlowState('program');
 }
 
+// Marketing Conversion Nudge (Below Action Buttons)
+function updateOrderMarketingNudge(totalKip) {
+}
+
 // Draw HTML5 Canvas Lucky Wheel (6 Segments)
 function drawLuckyWheel() {
   const canvas = document.getElementById('lucky-wheel-canvas');
@@ -1165,73 +1344,50 @@ function drawLuckyWheel() {
 }
 
 // Spin Wheel interaction
+// Spin Wheel interaction
 function spinWheel() {
   if (isSpinning) return;
-
-  // Funnel gate: registration + program review required before spinning
-  if (flowState === 'discover') {
-    setFlowState('register');
-    return;
-  }
-  if (flowState === 'register') {
-    scrollToId('funnel-content-section');
-    return;
-  }
-  if (flowState === 'program') {
-    scrollToId('program-card');
-    return;
-  }
-  if (flowState !== 'wheel' || hasSpun) return;
-
   isSpinning = true;
-  const spinBtn = document.getElementById('btn-spin-wheel');
-  if (spinBtn) {
-    spinBtn.disabled = true;
-    spinBtn.classList.remove('pulse-border');
+
+  // Temporarily hide modal so the user can watch the wheel spin in the hero section
+  const overlay = document.getElementById('funnel-modal-overlay');
+  if (overlay) overlay.style.display = 'none';
+
+  // Make sure we scroll to the hero wheel so it's fully in view
+  scrollToId('target-wheel-box');
+
+  const canvas = document.getElementById('lucky-wheel-canvas');
+  if (!canvas) {
+    isSpinning = false;
+    return;
   }
-  
-  const numSegments = WHEEL_SEGMENTS.length;
-  // Weighted random pick (weight per segment; falls back to uniform)
-  const totalWeight = WHEEL_SEGMENTS.reduce((sum, seg) => sum + (seg.weight || 1), 0);
-  let roll = Math.random() * totalWeight;
-  let targetIndex = 0;
-  for (let i = 0; i < numSegments; i++) {
-    roll -= (WHEEL_SEGMENTS[i].weight || 1);
-    if (roll <= 0) { targetIndex = i; break; }
-  }
-  const targetSegmentCenterAngle = (targetIndex + 0.5) * (360 / numSegments);
-  let segmentOffsetAngle = 270 - targetSegmentCenterAngle;
-  if (segmentOffsetAngle < 0) {
-    segmentOffsetAngle += 360;
-  }
-  const totalTargetRotation = 1800 + segmentOffsetAngle;
-  
-  const canvasWrapper = document.querySelector('.wheel-outer-ring');
-  canvasWrapper.style.transition = 'transform 4.5s cubic-bezier(0.1, 0.8, 0.15, 1)';
-  canvasWrapper.style.transform = `rotate(${totalTargetRotation}deg)`;
-  
-  rewardResult = WHEEL_SEGMENTS[targetIndex];
-  
-  // Save result in session storage safely
-  try {
-    const saved = sessionStorage.getItem('nnc_b2b_session');
-    if (saved) {
-      const data = JSON.parse(saved);
-      data.rewardResultId = rewardResult.id;
-      sessionStorage.setItem('nnc_b2b_session', JSON.stringify(data));
-    }
-  } catch (e) {
-    console.error('Session write error during spin:', e);
-  }
-  
+
+  const btn = document.getElementById('btn-spin-wheel');
+  if (btn) btn.disabled = true;
+
+  // Spin animation
+  const randomDeg = Math.floor(Math.random() * 360) + 1800; // at least 5 full spins
+  canvas.style.transition = 'transform 4.5s cubic-bezier(0.17, 0.67, 0.12, 0.99)';
+  canvas.style.transform = `rotate(${randomDeg}deg)`;
+
+  // Show result after spin ends
   setTimeout(() => {
     isSpinning = false;
-    hasSpun = true;
-    updateWheelLockVisual();
-    logEvent('spin_result');
-    showResultModal(rewardResult.id);
-  }, 4700);
+    
+    // Pick a random reward
+    const keys = Object.keys(REWARD_DETAILS);
+    const randomKey = keys[Math.floor(Math.random() * keys.length)];
+    const details = REWARD_DETAILS[randomKey];
+    
+    rewardResult = {
+      nameVi: details.nameVi,
+      nameLo: details.nameLo
+    };
+
+    showResultModal(randomKey);
+  }, 4700); // Wait 4.5s for spin + 0.2s padding
 }
+
 
 // Show Result Pop-up
 function showResultModal(rewardId) {
@@ -1280,34 +1436,33 @@ function renderOrderProductsList() {
   PRODUCTS_DATA.forEach(p => {
     const qty = quantities[p.id] || 0;
     const itemTotal = qty * p.price;
+    const hasQty = qty > 0;
     html += `
-      <li class="order-product-item" id="order-item-${p.id}">
+      <li class="order-product-item ${hasQty ? 'has-qty' : ''}" id="order-item-${p.id}">
         <div class="order-item-visual">
           <img src="${p.image}" alt="${p.name}" onerror="this.src='images/nnc-logo-160.webp'">
         </div>
         <div class="order-item-details">
-          <h4>${p.name}</h4>
-          <span class="pack-size">${p.pack}</span>
+          <div class="item-name-row">
+            <h4 class="item-name">${p.name}</h4>
+            <span class="pack-size">(${p.pack})</span>
+          </div>
           <span class="unit-price">${p.price.toLocaleString()} KIP</span>
         </div>
         <div class="order-item-controls">
-          <div class="qty-total-mobile sm-hidden">
-            <span>Total: ${itemTotal.toLocaleString()} KIP</span>
-          </div>
           <div class="qty-control-buttons">
             <button type="button" class="btn-qty-minus" onclick="changeOrderQty('${p.id}', -1)">−</button>
-            <input type="number" class="qty-input" value="${qty}" min="0" onchange="setOrderQty('${p.id}', this.value)" style="width:40px; text-align:center; border:none; font-weight:700; font-family:var(--font-mono); font-size:1rem; -moz-appearance:textfield; outline:none; background:transparent;" />
+            <input type="number" class="qty-input" value="${qty}" min="0" onchange="setOrderQty('${p.id}', this.value)" />
             <button type="button" class="btn-qty-plus" onclick="changeOrderQty('${p.id}', 1)">+</button>
           </div>
-          <div class="qty-total-desktop md-visible">
-            <span>${itemTotal.toLocaleString()} KIP</span>
-          </div>
+          ${hasQty ? '' : ''}
         </div>
       </li>
     `;
   });
   container.innerHTML = html;
 }
+
 
 function setOrderQty(productId, value) {
   let val = parseInt(value, 10);
@@ -1324,6 +1479,63 @@ function changeOrderQty(productId, delta) {
   calculateOrderTotals();
 }
 
+function buildWhatsAppSummary(headline) {
+  const isLao = currentLang === 'lo';
+  let msg = isLao 
+    ? `[B2B - NNC Pharma]\nສະບາຍດີ NNC,\n${headline || 'ຂ້ອຍຕ້ອງການຮັບຄຳປຶກສາ B2B Q3'}:\n\n`
+    : `[B2B - NNC Pharma]\nXin chào NNC,\n${headline || 'Tôi muốn tư vấn chương trình B2B Q3'}:\n\n`;
+
+  // 1. Customer Info
+  if (registrationInfo) {
+    msg += isLao 
+      ? `📋 ຂໍ້ມູນລົງທະບຽນ:\n- ລູກຄ້າ: ${registrationInfo.fullname}\n- ເບີໂທ: ${registrationInfo.phone}\n- ຫົວໜ່ວຍ: ${registrationInfo.business}\n- ແຂວງ: ${registrationInfo.province}\n`
+      : `📋 THÔNG TIN ĐĂNG KÝ:\n- Khách hàng: ${registrationInfo.fullname}\n- SĐT: ${registrationInfo.phone}\n- Đơn vị: ${registrationInfo.business}\n- Tỉnh/TP: ${registrationInfo.province}\n`;
+    if (registrationInfo.refCode) {
+      msg += isLao ? `- ລະຫັດແນະນຳ: ${registrationInfo.refCode}\n` : `- Mã giới thiệu: ${registrationInfo.refCode}\n`;
+    }
+    msg += `\n`;
+  }
+
+  // 2. Target Tier
+  const targetT = targetTierId ? NNC_ACCUMULATION_TIERS.find(x => x.tier_id === targetTierId) : null;
+  if (targetT) {
+    msg += isLao
+      ? `🎯 ເປົ້າໝາຍໄຕມາດ: ${targetT.name_lo}\n`
+      : `🎯 MỤC TIÊU QUÝ: ${targetT.name_vi}\n`;
+  }
+
+  // 3. Lucky Wheel Reward
+  if (rewardResult) {
+    msg += isLao
+      ? `🎁 ຖືກລາງວັນ: ${rewardResult.nameLo}\n\n`
+      : `🎁 TRÚNG THƯỞNG: ${rewardResult.nameVi}\n\n`;
+  }
+
+  // 4. Cart / Order items
+  let totalKip = 0;
+  let hasItems = false;
+  let itemsMsg = isLao ? `🛒 ໃບສັ່ງຊື້ອ້າງອີງ:\n` : `🛒 ĐƠN HÀNG DỰ KIẾN:\n`;
+  
+  PRODUCTS_DATA.forEach((p, idx) => {
+    const qty = quantities[p.id] || 0;
+    if (qty > 0) {
+      hasItems = true;
+      const sub = qty * p.price;
+      totalKip += sub;
+      itemsMsg += `${idx + 1}. ${p.name}: ${qty} x ${p.price.toLocaleString()} = ${sub.toLocaleString()}\n`;
+    }
+  });
+
+  if (hasItems) {
+    msg += itemsMsg;
+    msg += isLao
+      ? `\n=> ລວມຍອດຊຳລະ: ${totalKip.toLocaleString()} KIP\n`
+      : `\n=> Tổng thanh toán: ${totalKip.toLocaleString()} KIP\n`;
+  }
+
+  return msg;
+}
+
 function calculateOrderTotals() {
   let totalKip = 0;
   PRODUCTS_DATA.forEach(p => {
@@ -1338,6 +1550,24 @@ function calculateOrderTotals() {
       activeTier = NNC_ACCUMULATION_TIERS[i];
       break;
     }
+  }
+
+  // Determine next tier
+  const nextTier = NNC_ACCUMULATION_TIERS.find(t => totalKip < t.min_revenue_kip);
+  let nextTierHtml = '';
+  if (nextTier) {
+    const diff = nextTier.min_revenue_kip - totalKip;
+    const nextName = currentLang === 'vi' ? nextTier.name_vi : nextTier.name_lo;
+    const nextDisc = nextTier.immediate_discount;
+    nextTierHtml = currentLang === 'vi' 
+      ? `<div class="upsell-nudge">🔥 <strong>Cần thêm ${(diff).toLocaleString()} KIP</strong> để đạt <strong>${nextName}</strong> & hưởng <strong>chiết khấu ${nextDisc}%</strong>!</div>`
+      : `<div class="upsell-nudge">🔥 <strong>ຊື້ເພີ່ມອີກ ${(diff).toLocaleString()} ກີບ</strong> ເພື່ອຂຶ້ນ <strong>${nextName}</strong> ແລະ ຮັບ <strong>ສ່ວນຫຼຸດ ${nextDisc}%</strong>!</div>`;
+  } else if (activeTier) {
+    const maxTierName = currentLang === 'vi' ? activeTier.name_vi : activeTier.name_lo;
+    const maxDisc = activeTier.immediate_discount;
+    nextTierHtml = currentLang === 'vi'
+      ? `<div class="upsell-nudge" style="background:rgba(16,185,129,0.1); border-color:#10b981; color:#064e3b;">🎉 <strong>Chúc mừng!</strong> Bạn đã đạt mức tối đa <strong>${maxTierName}</strong> & hưởng <strong>chiết khấu ${maxDisc}%</strong>!</div>`
+      : `<div class="upsell-nudge" style="background:rgba(16,185,129,0.1); border-color:#10b981; color:#064e3b;">🎉 <strong>ຊົມເຊີຍ!</strong> ທ່ານບັນລຸຂັ້ນສູງສຸດແລ້ວ <strong>${maxTierName}</strong> ພ້ອມຮັບ <strong>ສ່ວນຫຼຸດ ${maxDisc}%</strong>!</div>`;
   }
 
   const invoiceBox = document.getElementById('order-invoice-box');
@@ -1367,6 +1597,7 @@ function calculateOrderTotals() {
           <span>${currentLang === 'vi' ? 'TỔNG THANH TOÁN:' : 'ຍອດລວມທີ່ຕ້ອງຈ່າຍ:'}</span>
           <span>${finalAmount.toLocaleString()} KIP</span>
         </div>
+        ${nextTierHtml}
         <div class="invoice-bonus">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg>
           ${currentLang === 'vi' ? 'Quyền lợi thêm:' : 'ສິດທິປະໂຫຍດເພີ່ມເຕີມ:'} ${currentLang === 'vi' ? 'Thưởng cuối quý' : 'ລາງວັນທ້າຍໄຕມາດ'} ${activeTier.quarter_end_reward}%
@@ -1380,34 +1611,23 @@ function calculateOrderTotals() {
           <span>${currentLang === 'vi' ? 'Tổng thanh toán:' : 'ຍອດລວມທີ່ຕ້ອງຈ່າຍ:'}</span>
           <span>${totalKip.toLocaleString()} KIP</span>
         </div>
-        <div class="invoice-bonus text-muted" style="background:transparent; border:none; padding:0; margin-top:12px; font-weight:500;">
-          ${currentLang === 'vi' ? 'Chưa đạt mức tích lũy tối thiểu (2.000.000 KIP)' : 'ຍັງບໍ່ບັນລຸຂັ້ນສະສົມຂັ້ນຕ່ຳ (2.000.000 KIP)'}
-        </div>
+        ${nextTierHtml}
       `;
       formCard.classList.remove('tier-active-theme');
     }
+  }
 
-    // Append target tier nudge inside invoice box if applicable
-    if (targetTierId) {
-      const target = NNC_ACCUMULATION_TIERS.find(x => x.tier_id === targetTierId);
-      if (target) {
-        const tName = currentLang === 'vi' ? target.name_vi : target.name_lo;
-        let nudgeHtml = '';
-        if (totalKip >= target.min_revenue_kip) {
-          nudgeHtml = currentLang === 'vi'
-            ? `<div class="order-target-nudge reached">🎯 Đơn này đã đạt mục tiêu <strong>${tName}</strong> anh/chị chọn (tổng lợi ích ${target.total_benefit}%).</div>`
-            : `<div class="order-target-nudge reached">🎯 ບິນນີ້ບັນລຸເປົ້າໝາຍ <strong>${tName}</strong> ທີ່ທ່ານເລືອກ (ຜົນປະໂຫຍດ ${target.total_benefit}%).</div>`;
-        } else {
-          const diff = target.min_revenue_kip - totalKip;
-          nudgeHtml = currentLang === 'vi'
-            ? `<div class="order-target-nudge">🎯 Mục tiêu anh/chị đã chọn: <strong>${tName}</strong> — đơn này còn thiếu <strong>${diff.toLocaleString()} KIP</strong> để đạt (doanh số tích lũy cả quý).</div>`
-            : `<div class="order-target-nudge">🎯 ເປົ້າໝາຍທີ່ທ່ານເລືອກ: <strong>${tName}</strong> — ບິນນີ້ຍັງຂາດ <strong>${diff.toLocaleString()} ກີບ</strong> (ນັບຍອດສະສົມທັງໄຕມາດ).</div>`;
-        }
-        invoiceBox.innerHTML += nudgeHtml;
-      }
-    }
+  updateOrderMarketingNudge(totalKip);
+}
+
+// Marketing Conversion Nudge (Below Action Buttons)
+function updateOrderMarketingNudge(totalKip) {
+  const nudgeContainer = document.getElementById('order-marketing-nudge');
+  if (nudgeContainer) {
+    nudgeContainer.innerHTML = '';
   }
 }
+
 
 // PDF rules viewer modal toggles
 function openRulesPdfModal() {

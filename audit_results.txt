@@ -1,0 +1,36 @@
+
+--- Auditing VI_MOI (vi) ---
+MISMATCH Key: reward.kit_desc
+  Expected: Sổ tay + Bút + Ô dù cao cấp
+  Actual:   Khay đếm thuốc + sổ ghi toa + bút NNC
+MISMATCH Key: reward.kit_title
+  Expected: Bộ quà tặng NNC
+  Actual:   Bộ quà tác nghiệp NNC
+MISMATCH Key: pdf.products_note
+  Expected: Doanh số của 7 mã hàng này được cộng dồn chung.
+  Actual:   Doanh số của 6 mã hàng này được cộng dồn chung.
+MISMATCH Key: pdf.products_title
+  Expected: 7 MÃ HÀNG TÍCH LŨY
+  Actual:   6 MÃ HÀNG TÍCH LŨY
+MISMATCH Key: products.title
+  Expected: 7 sản phẩm cộng dồn doanh số
+  Actual:   6 sản phẩm cộng dồn doanh số
+Total mismatches in VI_MOI: 5
+
+--- Auditing LO_MOI (lo) ---
+MISMATCH Key: reward.kit_title
+  Expected: ຊຸດຂອງຂວັນ NNC
+  Actual:   ຊຸດເຄື່ອງມືເຮັດວຽກ NNC
+MISMATCH Key: reward.kit_desc
+  Expected: ປຶ້ມບັນທຶກ + ບິກ + ຮົ່ມ
+  Actual:   ຖາດນັບຢາ + ປຶ້ມບັນທຶກໃບສັ່ງຢາ + ບິກ NNC
+MISMATCH Key: pdf.products_note
+  Expected: ຍອດຂາຍຂອງ 7 ໄອເທັມນີ້ ແມ່ນລວມກັນທັງໝົດ.
+  Actual:   ຍອດຂາຍຂອງ 6 ໄອເທັມນີ້ ແມ່ນລວມກັນທັງໝົດ.
+MISMATCH Key: pdf.products_title
+  Expected: 7 ໄອເທັມ ສະສົມຍອດ
+  Actual:   6 ໄອເທັມ ສະສົມຍອດ
+MISMATCH Key: products.title
+  Expected: 7 ຜະລິດຕະພັນນັບຍອດຮວມກັນ
+  Actual:   6 ຜະລິດຕະພັນນັບຍອດຮວມກັນ
+Total mismatches in LO_MOI: 5

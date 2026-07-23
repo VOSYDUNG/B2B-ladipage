@@ -1,0 +1,9 @@
+{
+  "STT": 10,
+  "Màn Hình / Vị Trí": "10. Vòng Quay May Mắn (Lucky Wheel)",
+  "Key Code (Tham chiếu code)": "wheel.spin_btn",
+  "NỘI DUNG MỚI (dán vào code)": "QUAY NHẬN QUÀ NGAY",
+  "Nội dung cũ": "HÚP TRỌN QUÀ NGAY",
+  "Trạng thái": "ĐỔI",
+  "Lý do thay đổi": "\"HÚP TRỌN QUÀ NGAY\" là teencode — rủi ro phản cảm cao nhất trang với dược sĩ lớn tuổi. Bắt buộc đổi. (Bản trau chuốt ngôn từ marketing chuyên nghiệp theo yêu cầu.)"
+}
