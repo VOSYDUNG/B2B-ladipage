@@ -300,7 +300,8 @@ const PRODUCTS_DATA = [
     id: 'tadimax',
     name: 'Tadimax',
     category: 'herbal',
-    pack: 'Hộp 21 viên x 2 vỉ',
+    packVi: 'Hộp 21 viên x 2 vỉ',
+    packLo: 'ກັບ 2 ແຜງ x 21 ເມັດ',
     price: 193000,
     badgeVi: 'Best-Seller · Lợi nhuận sỉ tốt',
     badgeLo: 'ຂາຍດີທີ່ສຸດ · ກຳໄລດີ',
@@ -314,7 +315,8 @@ const PRODUCTS_DATA = [
     id: 'cv-mox-1000',
     name: 'CV Mox 1000',
     category: 'antibiotic',
-    pack: 'Hộp 2 vỉ x 7 viên',
+    packVi: 'Hộp 2 vỉ x 7 viên',
+    packLo: 'ກັບ 2 ແຜງ x 7 ເມັດ',
     price: 71000,
     badgeVi: 'Kháng sinh chủ lực phòng khám',
     badgeLo: 'ຢາຕ້ານເຊື້ອຫຼັກຄລີນິກ',
@@ -327,7 +329,8 @@ const PRODUCTS_DATA = [
     id: 'nc-cv-mox-625',
     name: 'NC CV Mox 625',
     category: 'antibiotic',
-    pack: 'Hộp 10 vỉ x 10 viên',
+    packVi: 'Hộp 10 vỉ x 10 viên',
+    packLo: 'ກັບ 10 ແຜງ x 10 ເມັດ',
     price: 369000,
     badgeVi: 'Biên lợi nhuận sỉ rất cao',
     badgeLo: 'ກຳໄລສີສູງຫຼາຍ',
@@ -340,7 +343,8 @@ const PRODUCTS_DATA = [
     id: 'cv-mox-228-5',
     name: 'CV MOX 228.5 (Hỗn dịch)',
     category: 'antibiotic',
-    pack: 'Chai 60ml',
+    packVi: 'Chai 60ml',
+    packLo: 'ຕຸກ 60ml',
     price: 24000,
     badgeVi: 'Dễ kê đơn · Phổ biến nhi khoa',
     badgeLo: 'ແນະນຳງ່າຍ · ຍອດນິຍົມສຳລັບເດັກນ້ອຍ',
@@ -353,7 +357,8 @@ const PRODUCTS_DATA = [
     id: 'cefixad-100',
     name: 'Cefixad 100mg',
     category: 'antibiotic',
-    pack: 'Chai 30ml (100mg/5ml)',
+    packVi: 'Chai 30ml (100mg/5ml)',
+    packLo: 'ຕຸກ 30ml (100mg/5ml)',
     price: 30000,
     badgeVi: 'Kháng sinh Cephalosporin bán chạy',
     badgeLo: 'ຢαຕ້ານເຊື້ອ Cephalosporin ຂາຍດີ',
@@ -366,7 +371,8 @@ const PRODUCTS_DATA = [
     id: 'azihadi',
     name: 'AZIHADI (Hỗn dịch)',
     category: 'antibiotic',
-    pack: 'Chai 30ml',
+    packVi: 'Chai 30ml',
+    packLo: 'ຕຸກ 30ml',
     price: 32000,
     badgeVi: 'Kê đơn ngắn ngày hiệu quả cao',
     badgeLo: 'ໃຊ້ໄລຍະສັ້ນມີປະສິດທິຜົນສູງ',
@@ -731,7 +737,7 @@ function renderDynamicPdf() {
         <div class="dyn-pdf-prod-badge">${badgeText}</div>
         <img src="${p.image}" alt="${p.name}">
         <h4>${p.name}</h4>
-        <p>${p.pack}</p>
+        <p>${currentLang === 'vi' ? p.packVi : p.packLo}</p>
       </div>
     `;
   });
@@ -1018,7 +1024,7 @@ function renderProducts() {
         </div>
         <div class="product-card-info">
           <h3 class="product-card-name" onclick="showProductModal('${p.id}')">${p.name}</h3>
-          <span class="product-card-pack">${p.pack}</span>
+          <span class="product-card-pack">${currentLang === 'vi' ? p.packVi : p.packLo}</span>
           <p class="product-card-desc">${desc.substring(0, 105)}...</p>
           <div class="product-card-bottom">
             <div class="product-card-price">
@@ -1085,7 +1091,7 @@ function showProductModal(productId) {
   document.getElementById('modal-product-cat').innerText = p.category === 'herbal' ? (currentLang === 'vi' ? 'Thảo dược' : 'ຢາສະໝຸນໄພ') : (currentLang === 'vi' ? 'Kháng sinh' : 'ຢາຕ້ານເຊື້ອ');
   document.getElementById('modal-product-desc').innerText = currentLang === 'vi' ? p.descVi : p.descLo;
   document.getElementById('modal-product-formulation').innerText = p.formulation;
-  document.getElementById('modal-product-pack').innerText = p.pack;
+  document.getElementById('modal-product-pack').innerText = currentLang === 'vi' ? p.packVi : p.packLo;
   document.getElementById('modal-product-price').innerText = p.price.toLocaleString() + ' KIP';
   
   updateModalInterestButton();
@@ -1445,7 +1451,7 @@ function renderOrderProductsList() {
         <div class="order-item-details">
           <div class="item-name-row">
             <h4 class="item-name">${p.name}</h4>
-            <span class="pack-size">(${p.pack})</span>
+            <span class="pack-size">(${currentLang === 'vi' ? p.packVi : p.packLo})</span>
           </div>
           <span class="unit-price">${p.price.toLocaleString()} KIP</span>
         </div>
@@ -1728,7 +1734,7 @@ function generateInvoicePreview() {
       
       ctx.fillStyle = '#6b7280';
       ctx.font = 'normal 20px sans-serif';
-      ctx.fillText(p.pack, 180, currentY + 30);
+      ctx.fillText(currentLang === 'vi' ? p.packVi : p.packLo, 180, currentY + 30);
       
       ctx.fillStyle = '#111827';
       ctx.font = 'bold 24px sans-serif';
