@@ -4401,5 +4401,17 @@ html[lang="lo"] .tier-target-card.selected::after { content: '✓ ເປົ້�
   margin: 0;
 }
 
-
-
+/* --- Global Mobile UI Fixes & Enhancements --- */
+@media (max-width: 768px) {
+  .header-nav { display: none !important; }
+  .wheel-rewards-showcase-grid { grid-template-columns: 1fr !important; }
+  .tiers-table {
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  .table-header, .table-row { min-width: 550px !important; }
+  .hero-title { font-size: 1.8rem !important; }
+  .hero-subtitle { font-size: 0.9rem !important; }
+  .modal-card { padding: 1.5rem !important; }
+}
