@@ -423,12 +423,12 @@ const PRODUCTS_DATA = [
 
 // Lucky Wheel Segments (6 items matching React)
 const WHEEL_SEGMENTS = [
-  { id: 'samsung', weight: 0, nameVi: 'Samsung Galaxy A16', nameLo: 'ໂທລະສັບ Samsung Galaxy A16', color: '#0f3a30', textColor: '#ffffff' },
-  { id: 'omron', weight: 0, nameVi: 'Máy đo huyết áp Omron', nameLo: 'ເຄື່ອງວັດແທກຄວາມດັນເລືອດ Omron', color: '#fbbf24', textColor: '#102a24' },
-  { id: 'scale', weight: 0, nameVi: 'Cân sức khỏe điện tử', nameLo: 'ຊິງຊັ່ງນໍ້າໜັກດິຈິຕອນ', color: '#104e40', textColor: '#ffffff' },
-  { id: 'v200k', weight: 10, nameVi: 'Voucher 200.000 KIP', nameLo: 'ບັດຂອງຂວັນ 200.000 KIP', color: '#0f3a30', textColor: '#ffffff' },
-  { id: 'v100k', weight: 45, nameVi: 'Voucher 100.000 KIP', nameLo: 'ບັດຂອງຂວັນ 100.000 KIP', color: '#60a5fa', textColor: '#ffffff' },
-  { id: 'sample', weight: 45, nameVi: 'Thuốc mẫu <100k', nameLo: 'ຢາຕົວຢ່າງ <100k', color: '#104e40', textColor: '#ffffff' }
+  { id: 'office-kit', weight: 25, nameVi: 'Bộ quà văn phòng', nameLo: 'ເຄື່ອງໃຊ້ຫ້ອງການ', color: '#083D33', textColor: '#FFFFFF' },
+  { id: 'voucher-100k', weight: 22, nameVi: 'Voucher 100.000 KIP', nameLo: 'Voucher 100K', color: '#0F5747', textColor: '#FFFFFF' },
+  { id: 'free-ship', weight: 20, nameVi: 'Freeship 2 đơn', nameLo: 'ຟຣີຄ່າສົ່ງ 2 ບິນ', color: '#146C59', textColor: '#FFFFFF' },
+  { id: 'tadimax', weight: 15, nameVi: 'Tặng 1 hộp Tadimax', nameLo: 'ແຖມ 1 ກັບ Tadimax', color: '#F0B429', textColor: '#083D33' },
+  { id: 'extra-1', weight: 12, nameVi: 'Chiết khấu thêm 1%', nameLo: 'ຫຼຸດເພີ່ມ 1%', color: '#1A836D', textColor: '#FFFFFF' },
+  { id: 'voucher-200k', weight: 6, nameVi: 'Voucher 200.000 KIP', nameLo: 'Voucher 200K', color: '#083D33', textColor: '#F0B429' }
 ];
 
 const REWARD_DETAILS = {
@@ -1298,62 +1298,79 @@ function handleFormSubmit(e) {
 
 // Draw HTML5 Canvas Lucky Wheel (6 Segments)
 function drawLuckyWheel() {
-  const canvas = document.getElementById('lucky-wheel-canvas');
+  let canvas = document.getElementById('lucky-wheel-canvas');
   if (!canvas) return;
-  
+
   if (canvas.tagName === 'IMG') {
-    canvas.src = `/images/mock-wheel-${currentLang}.png`;
-    return;
+    const parent = canvas.parentNode;
+    if (parent) {
+      const newCanvas = document.createElement('canvas');
+      newCanvas.id = 'lucky-wheel-canvas';
+      newCanvas.width = 400;
+      newCanvas.height = 400;
+      newCanvas.style.cssText = 'width: 100%; height: 100%; display: block; border-radius: 50%;';
+      parent.replaceChild(newCanvas, canvas);
+      canvas = newCanvas;
+    }
   }
-  
+
   const ctx = canvas.getContext('2d');
-  const size = canvas.width;
+  if (!ctx) return;
+
+  const size = canvas.width || 400;
   const center = size / 2;
-  const radius = center - 10;
+  const radius = center - 8;
   const numSegments = WHEEL_SEGMENTS.length;
   const anglePerSegment = (Math.PI * 2) / numSegments;
-  
+
   ctx.clearRect(0, 0, size, size);
-  
+
   WHEEL_SEGMENTS.forEach((seg, i) => {
     const startAngle = i * anglePerSegment;
     const endAngle = startAngle + anglePerSegment;
-    
+
     ctx.beginPath();
     ctx.moveTo(center, center);
     ctx.arc(center, center, radius, startAngle, endAngle);
     ctx.closePath();
     ctx.fillStyle = seg.color;
     ctx.fill();
-    
-    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
-    ctx.lineWidth = 1;
+
+    ctx.strokeStyle = '#F0B429';
+    ctx.lineWidth = 2;
     ctx.stroke();
-    
+
     ctx.save();
     ctx.translate(center, center);
     ctx.rotate(startAngle + anglePerSegment / 2);
     ctx.textAlign = 'right';
     ctx.textBaseline = 'middle';
-    ctx.fillStyle = seg.textColor;
-    ctx.font = `bold ${currentLang === 'lo' ? '10px' : '11px'} 'Inter', sans-serif`;
-    
+    ctx.fillStyle = seg.textColor || '#FFFFFF';
+    ctx.font = `bold ${currentLang === 'lo' ? '12px' : '13px'} "Be Vietnam Pro", sans-serif`;
+
     const text = currentLang === 'vi' ? seg.nameVi : seg.nameLo;
-    ctx.fillText(text, radius - 20, 0);
+    ctx.fillText(text, radius - 18, 0);
     ctx.restore();
   });
-  
-  // Center Pin
+
+  // Outer Gold Rim
   ctx.beginPath();
-  ctx.arc(center, center, 24, 0, Math.PI * 2);
-  ctx.fillStyle = '#d9b45e';
-  ctx.shadowColor = 'rgba(0,0,0,0.3)';
-  ctx.shadowBlur = 8;
+  ctx.arc(center, center, radius, 0, Math.PI * 2);
+  ctx.strokeStyle = '#F0B429';
+  ctx.lineWidth = 4;
+  ctx.stroke();
+
+  // Center Emblem Pin
+  ctx.beginPath();
+  ctx.arc(center, center, 28, 0, Math.PI * 2);
+  ctx.fillStyle = '#F0B429';
+  ctx.shadowColor = 'rgba(0,0,0,0.4)';
+  ctx.shadowBlur = 10;
   ctx.fill();
-  
+
   ctx.beginPath();
-  ctx.arc(center, center, 14, 0, Math.PI * 2);
-  ctx.fillStyle = '#f59e0b';
+  ctx.arc(center, center, 18, 0, Math.PI * 2);
+  ctx.fillStyle = '#083D33';
   ctx.fill();
 }
 
@@ -2014,3 +2031,4 @@ function onPdfScroll() {
 
 // Initialize immediately since React already mounted the DOM
 initApp();
+window.addEventListener("load", function() { setTimeout(drawLuckyWheel, 50); setTimeout(drawLuckyWheel, 200); setTimeout(drawLuckyWheel, 600); });

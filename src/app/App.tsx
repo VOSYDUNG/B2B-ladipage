@@ -422,7 +422,7 @@ export default function App() {
             </svg>
           </div>
           <div class="wheel-outer-ring">
-            <img id="lucky-wheel-canvas" src="/images/mock-wheel-vi.png" alt="Lucky Wheel" style="width: 100%; height: 100%; display: block;" />
+            <canvas id="lucky-wheel-canvas" width="400" height="400" style="width: 100%; height: 100%; display: block; border-radius: 50%;"></canvas>
           </div>
           <div class="btn-spin" id="btn-spin-wheel" onclick="spinWheel()" style="cursor: pointer;" data-i18n="wheel.center_emblem">100%<br>TRÚNG QUÀ</div>
         </div>
