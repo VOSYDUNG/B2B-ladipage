@@ -1,0 +1,8 @@
+.progress { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 8px; width: min(620px, 100%); }
+.item { min-width: 0; display: grid; grid-template-columns: 26px 1fr; align-items: center; gap: 7px; color: #8a9692; font-size: 0.69rem; font-weight: 800; }
+.number { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: #e8eeeb; color: #6c7b76; }
+.active { color: var(--color-primary); }
+.active .number { background: var(--color-primary); color: white; }
+.done .number { background: var(--color-accent); color: #163128; }
+.label { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+@media (max-width: 640px) { .label { display: none; } .item { grid-template-columns: 1fr; justify-items: center; } }

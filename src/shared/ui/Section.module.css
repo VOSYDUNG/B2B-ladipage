@@ -1,0 +1,7 @@
+.section { padding: clamp(64px, 8vw, 108px) 0; }
+.surface { background: var(--color-surface); }
+.soft { background: linear-gradient(180deg, #f5faf7, #eef6f2); }
+.header { max-width: 760px; margin-bottom: clamp(28px, 4vw, 48px); }
+.eyebrow { margin-bottom: 10px; color: var(--color-primary); font-weight: 800; font-size: 0.78rem; letter-spacing: 0.14em; }
+.title { font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1.08; letter-spacing: -0.04em; }
+.description { margin-top: 16px; color: var(--color-muted); font-size: clamp(1rem, 1.4vw, 1.12rem); line-height: 1.75; }

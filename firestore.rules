@@ -1,0 +1,59 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isShortText(value, maxLength) {
+      return value is string && value.size() > 0 && value.size() <= maxLength;
+    }
+
+    function validPhone(value) {
+      return value is string && value.matches('^[+]?[0-9]{8,18}$');
+    }
+
+    match /nnc_b2b_campaign_leads/{leadId} {
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          'campaignId', 'role', 'fullName', 'phoneNormalized',
+          'businessName', 'referralCodeUsed', 'consent', 'source', 'createdAt'
+        ]) &&
+        request.resource.data.campaignId == 'NNC_B2B_REWARDS_Q3_2026' &&
+        request.resource.data.role in ['pharmacy', 'clinic', 'dealer', 'doctor'] &&
+        isShortText(request.resource.data.fullName, 120) &&
+        validPhone(request.resource.data.phoneNormalized) &&
+        isShortText(request.resource.data.businessName, 160) &&
+        (request.resource.data.referralCodeUsed is string || request.resource.data.referralCodeUsed == null) &&
+        request.resource.data.consent == true &&
+        request.resource.data.source == 'landing_page_uat' &&
+        request.resource.data.createdAt == request.time;
+      allow read, update, delete: if false;
+    }
+
+    match /nnc_b2b_campaign_events/{eventId} {
+      allow create: if
+        request.resource.data.campaignId == 'NNC_B2B_REWARDS_Q3_2026' &&
+        request.resource.data.eventType in [
+          'policy_acknowledged', 'spin_preview_completed', 'flow_completed'
+        ] &&
+        request.resource.data.createdAt == request.time;
+      allow read, update, delete: if false;
+    }
+
+    match /nnc_b2b_campaign_cart_drafts/{draftId} {
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          'campaignId', 'phoneNormalized', 'items', 'status', 'createdAt'
+        ]) &&
+        request.resource.data.campaignId == 'NNC_B2B_REWARDS_Q3_2026' &&
+        validPhone(request.resource.data.phoneNormalized) &&
+        request.resource.data.items is list &&
+        request.resource.data.items.size() <= 7 &&
+        request.resource.data.status == 'draft' &&
+        request.resource.data.createdAt == request.time;
+      allow read, update, delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

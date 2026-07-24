@@ -6,8 +6,9 @@ coverage/
 .firebase/
 .DS_Store
 *.log
-.env*
-!.env.example
+.env
+.env.local
+.env.*.local
 
 # Local source packages and production handoff artifacts are not part of the app.
 New-design/
@@ -21,3 +22,11 @@ WHITE_LOTUS_Q3_2026_ANTIGRAVITY_HANDOFF.zip
 stitch_h_th_ng_landing_page_marketing.zip
 nnc-q3-rewards-PRODUCTION-v2 (2).zip
 scripts/__pycache__/
+NNC_B2B_REACT_UIUX_REFACTORED_UAT/
+NNC_B2B_REACT_UIUX_REFACTORED_UAT.zip
+NNC_B2B_Campaign_Final_To_Son.zip
+NNC_B2B_Final_Send_To_Son.zip
+nnc-b2b-landing-page-update.zip
+nnc-q3-rewards-latest.zip
+visual_desktop.png
+visual_mobile.png

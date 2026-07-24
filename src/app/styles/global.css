@@ -1,0 +1,83 @@
+@layer reset, tokens, base, utilities;
+
+@layer reset {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body, h1, h2, h3, p, ul, ol { margin: 0; }
+  ul, ol { padding: 0; list-style: none; }
+  img, picture, svg, canvas { display: block; max-width: 100%; }
+  button, input, select, textarea { font: inherit; }
+  button { cursor: pointer; }
+  a { color: inherit; text-decoration: none; }
+}
+
+@layer tokens {
+  :root {
+    color-scheme: light;
+    --font-sans: 'Be Vietnam Pro', 'Noto Sans Lao', system-ui, sans-serif;
+    --color-ink: #0b2f27;
+    --color-muted: #5d706a;
+    --color-surface: #ffffff;
+    --color-canvas: #f4f7f5;
+    --color-primary: #0f5a49;
+    --color-primary-strong: #083d33;
+    --color-primary-soft: #e7f4ef;
+    --color-accent: #f0b429;
+    --color-accent-soft: #fff4ce;
+    --color-border: #d8e4df;
+    --color-danger: #b42318;
+    --shadow-sm: 0 8px 24px rgba(9, 47, 39, 0.08);
+    --shadow-lg: 0 24px 70px rgba(7, 38, 31, 0.18);
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 32px;
+    --container: 1200px;
+    --header-height: 72px;
+  }
+}
+
+@layer base {
+  html, body, #root { min-width: 320px; min-height: 100%; }
+  body {
+    overflow-x: clip;
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body[data-locale='lo'] { font-family: 'Noto Sans Lao', var(--font-sans); }
+
+  :focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--color-accent) 75%, white);
+    outline-offset: 3px;
+  }
+
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+}
+
+@layer utilities {
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .container {
+    width: min(var(--container), calc(100% - 40px));
+    margin-inline: auto;
+  }
+
+  @media (max-width: 640px) {
+    .container { width: min(100% - 28px, var(--container)); }
+  }
+}
