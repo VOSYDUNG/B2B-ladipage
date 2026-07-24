@@ -1,6 +1,6 @@
 // Campaign & App Configurations
 const CONFIG = {
-  whatsappNumber: '8562099806327',
+  whatsappNumber: '8562095355355',
   // Dán URL Web App của Google Apps Script vào đây (xem HUONG-DAN-CAI-DAT.md).
   // Để trống '' thì trang vẫn chạy bình thường, chỉ không lưu dữ liệu về Sheet.
   sheetWebhookUrl: '',
@@ -20,7 +20,6 @@ let simulatedRevenue = 12000000;
 let isSpinning = false;
 let wheelRotation = 0;
 let selectedModalProductId = '';
-let interestedProductsSet = new Set();
 let quantities = {}; // holds ordering quantity of 6 products
 let rewardResult = null; // won wheel segment object
 let participantId = '';
@@ -156,9 +155,9 @@ const TRANSLATIONS = {
     "invoice.close": "Đóng",
     "invoice.download": "Tải ảnh",
     "completion.title": "Hoàn tất! Quyền lợi của anh/chị đã được ghi nhận",
-    "completion.desc": "Chuyên viên NNC sẽ chủ động kết nối WhatsApp trong giờ làm việc để trao quà và hoàn tất đơn chính thức. Anh/chị vui lòng lưu số 020 9980 6327 để không bỏ lỡ quyền lợi.",
+    "completion.desc": "Chuyên viên NNC sẽ chủ động kết nối WhatsApp trong giờ làm việc để trao quà và hoàn tất đơn chính thức. Anh/chị vui lòng lưu số 020 9535 5355 để không bỏ lỡ quyền lợi.",
     "completion.wa_btn": "KẾT NỐI WHATSAPP NGAY",
-    "footer.desc": "Chương trình tri ân đối tác Quý 3/2026 — NNC Pharma đồng hành cùng Nhà thuốc & Phòng khám tại Lào. Mọi quà tặng và chiết khấu được xác nhận qua kênh WhatsApp chính thức: 020 9980 6327.",
+    "footer.desc": "Chương trình tri ân đối tác Quý 3/2026 — NNC Pharma đồng hành cùng Nhà thuốc & Phòng khám tại Lào. Mọi quà tặng và chiết khấu được xác nhận qua kênh WhatsApp chính thức: 020 9535 5355.",
     "reward.samsung_title": "Samsung Galaxy A16",
     "reward.samsung_desc": "Phần quà đặc biệt",
     "reward.omron_title": "Huyết áp Omron",
@@ -300,9 +299,9 @@ const TRANSLATIONS = {
     "invoice.close": "ປິດ",
     "invoice.download": "ດາວໂຫຼດຮູບ",
     "completion.title": "ສຳເລັດ! ຜົນປະໂຫຍດຂອງທ່ານຖືກບັນທຶກແລ້ວ",
-    "completion.desc": "ຜູ້ຊ່ຽວຊານ NNC ຈະຕິດຕໍ່ຫາທ່ານທາງ WhatsApp ໃນໂມງເຮັດວຽກ ເພື່ອມອບຂອງຂວັນ ແລະ ສຳເລັດບິນທາງການ. ກະລຸນາບັນທຶກເບີ 020 9980 6327 ເພື່ອບໍ່ພາດຜົນປະໂຫຍດ.",
+    "completion.desc": "ຜູ້ຊ່ຽວຊານ NNC ຈະຕິດຕໍ່ຫາທ່ານທາງ WhatsApp ໃນໂມງເຮັດວຽກ ເພື່ອມອບຂອງຂວັນ ແລະ ສຳເລັດບິນທາງການ. ກະລຸນາບັນທຶກເບີ 020 9535 5355 ເພື່ອບໍ່ພາດຜົນປະໂຫຍດ.",
     "completion.wa_btn": "ເຊື່ອມຕໍ່ WHATSAPP ດຽວນີ້",
-    "footer.desc": "ໂຄງການຂອບໃຈຄູ່ຮ່ວມທຸລະກິດ ໄຕມາດ 3/2026 — NNC Pharma ຄຽງຄູ່ຮ້ານຢາ & ຄລີນິກ ຢູ່ ລາວ. ທຸກຂອງຂວັນ ແລະ ສ່ວນຫຼຸດ ຢືນຢັນຜ່ານຊ່ອງທາງ WhatsApp ທາງການ: 020 9980 6327.",
+    "footer.desc": "ໂຄງການຂອບໃຈຄູ່ຮ່ວມທຸລະກິດ ໄຕມາດ 3/2026 — NNC Pharma ຄຽງຄູ່ຮ້ານຢາ & ຄລີນິກ ຢູ່ ລາວ. ທຸກຂອງຂວັນ ແລະ ສ່ວນຫຼຸດ ຢືນຢັນຜ່ານຊ່ອງທາງ WhatsApp ທາງການ: 020 9535 5355.",
     "reward.samsung_title": "ໂທລະສັບ Samsung Galaxy A16",
     "reward.samsung_desc": "ລາງວັນພິເສດ",
     "reward.omron_title": "ເຄື່ອງວັດແທກຄວາມດັນເລືອດ Omron",
@@ -521,7 +520,7 @@ document.addEventListener('DOMContentLoaded', () => {
   PRODUCTS_DATA.forEach(p => quantities[p.id] = 0);
 
   renderProducts();
-  renderSurveyChips();
+  
   renderDynamicPdf();
   updateWheelLockVisual();
   updateSimulation(simulatedRevenue);
@@ -983,7 +982,7 @@ function switchLanguage(lang) {
   updateAllTextContent();
 
   renderProducts();
-  renderSurveyChips();
+  
   renderDynamicPdf();
   renderProgramTiersTable();
   updateWheelLockVisual();
@@ -1029,11 +1028,7 @@ function renderProducts() {
     const badge = currentLang === 'vi' ? p.badgeVi : p.badgeLo;
     const desc = currentLang === 'vi' ? p.descVi : p.descLo;
     const isFlagship = flagships.includes(p.id);
-    const isInterested = interestedProductsSet.has(p.id);
-    
-    const actionBtnHtml = isInterested 
-      ? `<button type="button" class="btn-card-view font-black" style="background-color:#10b981; color:white; border-color:#10b981;" onclick="toggleInterestFromCard('${p.id}')">✓</button>`
-      : `<button type="button" class="btn-card-view" onclick="showProductModal('${p.id}')">
+    const actionBtnHtml = `<button type="button" class="btn-card-view" onclick="showProductModal('${p.id}')">
           <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
             <circle cx="12" cy="12" r="3"></circle>
@@ -1041,7 +1036,7 @@ function renderProducts() {
         </button>`;
 
     const cardHtml = `
-      <div class="product-card" id="card-${p.id}" style="${isInterested ? 'border-color: #34d399; box-shadow: 0 20px 40px rgba(16, 185, 129, 0.1);' : ''}">
+      <div class="product-card" id="card-${p.id}">
         <div class="product-card-visual" onclick="showProductModal('${p.id}')">
           <span class="product-card-badge">${badge}</span>
           <span class="product-number-badge">${String(PRODUCTS_DATA.indexOf(p) + 1).padStart(2, '0')}</span>
@@ -1073,37 +1068,6 @@ function renderProducts() {
   supportContainer.innerHTML = supportHtml;
 }
 
-// Quick survey chips (products of interest) inside the registration form
-function renderSurveyChips() {
-  const wrap = document.getElementById('survey-products-chips');
-  if (!wrap) return;
-  wrap.innerHTML = PRODUCTS_DATA.map(p => {
-    const active = interestedProductsSet.has(p.id) ? ' active' : '';
-    const name = p.name;
-    return `<button type="button" class="survey-chip${active}" data-pid="${p.id}" onclick="toggleSurveyChip('${p.id}')">${name}</button>`;
-  }).join('');
-}
-
-function toggleSurveyChip(productId) {
-  if (interestedProductsSet.has(productId)) {
-    interestedProductsSet.delete(productId);
-  } else {
-    interestedProductsSet.add(productId);
-  }
-  renderSurveyChips();
-  // keep product-card hearts in sync
-  if (typeof renderProducts === 'function') renderProducts();
-}
-
-function toggleInterestFromCard(productId) {
-  if (interestedProductsSet.has(productId)) {
-    interestedProductsSet.delete(productId);
-  } else {
-    interestedProductsSet.add(productId);
-  }
-  renderProducts();
-}
-
 // Product Details Modal
 function showProductModal(productId) {
   const p = PRODUCTS_DATA.find(item => item.id === productId);
@@ -1131,25 +1095,8 @@ function closeProductModal(e) {
   hideProductModal();
 }
 
-function updateModalInterestButton() {
-  const btn = document.getElementById('modal-interest-btn');
-  const isInterested = interestedProductsSet.has(selectedModalProductId);
-  
-  if (isInterested) {
-    btn.className = 'btn-toggle-interest selected';
-    btn.innerText = currentLang === 'vi' ? '✓ Đang quan tâm sản phẩm này' : '✓ ສົນໃຈຜະລິດຕະພັນນີ້ແລ້ວ';
-  } else {
-    btn.className = 'btn-toggle-interest';
-    btn.innerText = currentLang === 'vi' ? 'Tôi quan tâm sản phẩm này' : 'ຂ້ອຍສົນໃຈຜະລິດຕະພັນນີ້';
-  }
 }
 
-function toggleModalProductInterest() {
-  if (interestedProductsSet.has(selectedModalProductId)) {
-    interestedProductsSet.delete(selectedModalProductId);
-  } else {
-    interestedProductsSet.add(selectedModalProductId);
-  }
   updateModalInterestButton();
   renderProducts();
 }
@@ -1282,11 +1229,11 @@ function handleFormSubmit(e) {
     return;
   }
 
-  const contactRadio = document.querySelector('input[name="preferredContact"]:checked');
-  const preferredContact = contactRadio ? contactRadio.value : 'whatsapp';
+  const dob = document.getElementById('dob').value;
+  const businessTypeRadio = document.querySelector('input[name="businessType"]:checked');
+  const businessType = businessTypeRadio ? businessTypeRadio.value : '';
 
-  const surveyInterests = Array.from(interestedProductsSet);
-  registrationInfo = { fullname, phone, business, province, refCode, preferredContact, surveyInterests };
+  registrationInfo = { fullname, phone, business, province, refCode, dob, businessType };
   
   // Generate a mock participant ID
   const randomSuffix = Math.floor(1000 + Math.random() * 9000);
@@ -1304,9 +1251,9 @@ function handleFormSubmit(e) {
     console.error('Session write error:', err);
   }
 
-  // Pre-fill interests checklist in the order form with catalog selections
+  
   PRODUCTS_DATA.forEach(p => {
-    quantities[p.id] = interestedProductsSet.has(p.id) ? 1 : 0;
+    quantities[p.id] = 0;
   });
 
   logEvent('register');
