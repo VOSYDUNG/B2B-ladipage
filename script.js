@@ -749,9 +749,12 @@ function updateWheelLockVisual() {
     spinBtn.style.display = 'flex';
     if (flowState === 'wheel') {
       spinBtn.disabled = false;
+      spinBtn.style.pointerEvents = 'auto';
+      spinBtn.style.cursor = 'pointer';
       spinBtn.classList.add('pulse-border');
     } else {
       spinBtn.disabled = true;
+      spinBtn.style.pointerEvents = 'none';
       spinBtn.classList.remove('pulse-border');
     }
   }
