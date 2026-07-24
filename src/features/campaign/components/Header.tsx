@@ -23,8 +23,8 @@ export function Header({ locale, onLocaleChange, onOpenWhatsApp }: HeaderProps) 
 
         <nav className={styles.nav} aria-label="Primary navigation">
           <a href="#products">{t('nav.products')}</a>
-          <a href="#policy">{t('nav.policy')}</a>
-          <a href="#rewards">{t('nav.rewards')}</a>
+          <a href="#accumulation">{locale === 'lo' ? 'ນະໂຍບາຍ' : 'Tích lũy'}</a>
+          <a href="#hero-wheel-container">{t('nav.wheel')}</a>
         </nav>
 
         <div className={styles.actions}>

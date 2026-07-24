@@ -9,6 +9,7 @@ export type CampaignStep =
   | 'complete';
 
 export type BusinessRole = 'pharmacy' | 'clinic' | 'dealer' | 'doctor';
+export type BusinessType = 'hospital_clinic' | 'pharmacy';
 
 export interface Product {
   id: string;
@@ -17,6 +18,12 @@ export interface Product {
   packVi: string;
   packLo: string;
   priceKip: number;
+  formulation?: string;
+  descriptionVi?: string;
+  descriptionLo?: string;
+  categoryVi?: string;
+  categoryLo?: string;
+  isFlagship?: boolean;
 }
 
 export interface Tier {
@@ -42,15 +49,21 @@ export interface Reward {
   weight: number;
   status: RewardStatus;
   wheelIndex: number;
+  conditionVi?: string;
+  conditionLo?: string;
   image?: string;
 }
 
 export interface RegistrationData {
-  role: BusinessRole;
+  role?: BusinessRole;
   fullName: string;
   phone: string;
   businessName: string;
+  businessType: BusinessType;
+  dob: string;
+  province: string;
   referralCode: string;
+  contactPref?: 'whatsapp' | 'call' | 'other';
   consent: boolean;
 }
 
@@ -63,6 +76,18 @@ export interface SpinResult {
   rewardId: string;
   sampleProductId?: string;
   createdAt: string;
+  referralCode?: string;
+}
+
+export interface LiveTickerItem {
+  id: string;
+  name: string;
+  business: string;
+  province: string;
+  rewardVi: string;
+  rewardLo: string;
+  timeAgoVi: string;
+  timeAgoLo: string;
 }
 
 export interface CampaignState {
@@ -75,6 +100,10 @@ export interface CampaignState {
   spin: SpinResult | null;
   cart: CartLine[];
   firestoreStatus: 'idle' | 'saving' | 'saved' | 'error';
+  rulesPdfOpen: boolean;
+  invoiceModalOpen: boolean;
+  selectedProductId: string | null;
+  simulatedRevenue: number;
 }
 
 export type CampaignAction =
@@ -88,4 +117,8 @@ export type CampaignAction =
   | { type: 'SAVE_SPIN'; spin: SpinResult }
   | { type: 'SET_CART_QUANTITY'; productId: string; quantity: number }
   | { type: 'SET_FIRESTORE_STATUS'; status: CampaignState['firestoreStatus'] }
+  | { type: 'SET_RULES_PDF_OPEN'; open: boolean }
+  | { type: 'SET_INVOICE_MODAL_OPEN'; open: boolean }
+  | { type: 'SET_SELECTED_PRODUCT_ID'; productId: string | null }
+  | { type: 'SET_SIMULATED_REVENUE'; revenue: number }
   | { type: 'RESET_FLOW' };

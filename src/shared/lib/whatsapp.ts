@@ -8,8 +8,14 @@ export function getWhatsAppNumber(): string {
   return (import.meta.env.VITE_WHATSAPP_NUMBER || DEFAULT_NUMBER).replace(/\D/g, '');
 }
 
-export function buildWhatsAppUrl(state: CampaignState): string {
+export function buildWhatsAppUrl(input: CampaignState | string): string {
   const number = getWhatsAppNumber();
+
+  if (typeof input === 'string') {
+    return `https://wa.me/${number}?text=${encodeURIComponent(input)}`;
+  }
+
+  const state = input;
   const registration = state.registration;
   const reward = REWARDS.find((candidate) => candidate.id === state.spin?.rewardId);
   const sampleProduct = PRODUCTS.find(
@@ -27,7 +33,7 @@ export function buildWhatsAppUrl(state: CampaignState): string {
           `ເບີໂທ: ${registration?.phone ?? '-'}`,
           `ສະຖານປະກອບການ: ${registration?.businessName ?? '-'}`,
           `ເປົ້າໝາຍ: ${tier?.nameLo ?? '-'}`,
-          `ສິດ UAT: ${reward?.nameLo ?? '-'}${sampleProduct ? ` — ${sampleProduct.name}` : ''}`,
+          `ສິດ: ${reward?.nameLo ?? '-'}${sampleProduct ? ` — ${sampleProduct.name}` : ''}`,
           `ບິນຮ່າງ: ${formatKip(cart.subtotalKip, 'lo')}`,
           'ກະລຸນາກວດສອບນະໂຍບາຍ, ຂອງຂວັນ ແລະ ລາຄາກ່ອນຢືນຢັນ.',
         ]
@@ -37,7 +43,7 @@ export function buildWhatsAppUrl(state: CampaignState): string {
           `Số điện thoại: ${registration?.phone ?? '-'}`,
           `Cơ sở: ${registration?.businessName ?? '-'}`,
           `Bậc mục tiêu: ${tier?.nameVi ?? '-'}`,
-          `Quyền lợi UAT: ${reward?.nameVi ?? '-'}${sampleProduct ? ` — ${sampleProduct.name}` : ''}`,
+          `Quyền lợi: ${reward?.nameVi ?? '-'}${sampleProduct ? ` — ${sampleProduct.name}` : ''}`,
           `Tổng đơn nháp: ${formatKip(cart.subtotalKip, 'vi')}`,
           'Vui lòng kiểm tra chính sách, quà tặng và giá trước khi xác nhận chính thức.',
         ];

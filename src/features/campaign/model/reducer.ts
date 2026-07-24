@@ -10,6 +10,10 @@ export const INITIAL_STATE: CampaignState = {
   spin: null,
   cart: [],
   firestoreStatus: 'idle',
+  rulesPdfOpen: false,
+  invoiceModalOpen: false,
+  selectedProductId: null,
+  simulatedRevenue: 12000000,
 };
 
 export function campaignReducer(
@@ -54,6 +58,14 @@ export function campaignReducer(
     }
     case 'SET_FIRESTORE_STATUS':
       return { ...state, firestoreStatus: action.status };
+    case 'SET_RULES_PDF_OPEN':
+      return { ...state, rulesPdfOpen: action.open };
+    case 'SET_INVOICE_MODAL_OPEN':
+      return { ...state, invoiceModalOpen: action.open };
+    case 'SET_SELECTED_PRODUCT_ID':
+      return { ...state, selectedProductId: action.productId };
+    case 'SET_SIMULATED_REVENUE':
+      return { ...state, simulatedRevenue: action.revenue };
     case 'RESET_FLOW':
       return { ...INITIAL_STATE, locale: state.locale };
     default:

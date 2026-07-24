@@ -11,17 +11,17 @@ interface ProgramStepProps {
   locale: Locale;
   selectedTierId: string | null;
   acknowledged: boolean;
-  saving: boolean;
+  saving?: boolean;
   onSelectTier: (tierId: string) => void;
   onAcknowledge: (value: boolean) => void;
-  onBack: () => void;
-  onContinue: () => Promise<void>;
+  onUnlockWheel: () => void;
+  onBack?: () => void;
 }
 
 export function ProgramStep(props: ProgramStepProps) {
-  const { locale, selectedTierId, acknowledged, saving, onSelectTier, onAcknowledge, onBack, onContinue } = props;
+  const { locale, selectedTierId, acknowledged, saving, onSelectTier, onAcknowledge, onUnlockWheel } = props;
   const t = (key: string) => translate(locale, key);
-  const canContinue = Boolean(selectedTierId && acknowledged && !saving);
+  const canContinue = Boolean(acknowledged && !saving);
   const formatRange = (min: number, max: number | null) => max
     ? `${formatKip(min, locale)} – <${formatKip(max, locale)}`
     : `≥ ${formatKip(min, locale)}`;
@@ -54,9 +54,23 @@ export function ProgramStep(props: ProgramStepProps) {
         <div className={styles.previewText}>
           <strong>{locale === 'vi' ? 'Nguyên tắc cần xác nhận' : 'ຫຼັກການທີ່ຕ້ອງຢືນຢັນ'}</strong>
           <p>{locale === 'vi' ? 'Doanh số của 7 sản phẩm được cộng chung. Giảm ngay 5% trên hóa đơn đủ điều kiện; thưởng cuối quý từ 2% đến 5%. Không áp dụng đồng thời chương trình 30+1.' : 'ຍອດຂາຍ 7 ຜະລິດຕະພັນນັບຮວມ. ຫຼຸດທັນທີ 5% ແລະ ໂບນັດທ້າຍໄຕມາດ 2%–5%. ບໍ່ໃຊ້ຮ່ວມກັບ 30+1.'}</p>
-          <button type="button" onClick={() => window.open('/images/page-1.png', '_blank', 'noopener,noreferrer')}>
-            {t('policy.view')} ↗
-          </button>
+        </div>
+      </div>
+
+      {/* Referral CTA Banner */}
+      <div className="program-referral-cta-banner" style={{ background: '#062B24', border: '1px solid #10B981', borderRadius: '8px', padding: '1rem', margin: '1rem 0', color: '#FFF' }}>
+        <div style={{ display: 'flex', gap: '0.8rem', alignItems: 'center' }}>
+          <div style={{ fontSize: '1.8rem' }}>🤝</div>
+          <div>
+            <h4 style={{ color: '#F0B429', margin: '0 0 0.2rem' }}>
+              {locale === 'lo' ? '🔥 ຮັບໂບນັດ 5% ເມື່ອແນະນຳເພື່ອນ' : '🔥 THƯỞNG GIỚI THIỆU 5%'}
+            </h4>
+            <p style={{ fontSize: '0.85rem', margin: 0, color: 'rgba(255,255,255,0.8)' }}>
+              {locale === 'lo'
+                ? 'ຮັບ 5% ຂອງບິນທຳອິດເມື່ອເພື່ອນຮ່ວມງານໃຊ້ລະຫັດຂອງທ່ານ.'
+                : 'Mở rộng mạng lưới đối tác — nhận ngay 5% giá trị đơn đầu tiên của đồng nghiệp khi họ dùng mã giới thiệu của bạn.'}
+            </p>
+          </div>
         </div>
       </div>
 
@@ -66,8 +80,9 @@ export function ProgramStep(props: ProgramStepProps) {
       </label>
 
       <div className={shared.actions}>
-        <Button type="button" variant="ghost" onClick={onBack}>{t('common.back')}</Button>
-        <Button type="button" disabled={!canContinue} onClick={() => void onContinue()}>{saving ? '…' : t('program.unlock')}</Button>
+        <Button type="button" disabled={!canContinue} onClick={onUnlockWheel}>
+          {saving ? '…' : (locale === 'lo' ? 'ເປີດວົງລໍ້' : 'MỞ KHÓA VÒNG QUAY')}
+        </Button>
       </div>
     </div>
   );

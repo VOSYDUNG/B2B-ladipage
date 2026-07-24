@@ -2,21 +2,31 @@ import { Button } from '../../../shared/ui/Button';
 import { PRODUCTS, REWARDS, TIERS } from '../model/config';
 import type { CampaignState, Locale } from '../model/types';
 import { translate } from '../model/translations';
+import { buildWhatsAppUrl } from '../../../shared/lib/whatsapp';
 import styles from './CompletionStep.module.css';
 
 interface CompletionStepProps {
-  locale: Locale;
+  locale?: Locale;
   state: CampaignState;
-  onWhatsApp: () => void;
+  onWhatsApp?: () => void;
   onClose: () => void;
-  onReset: () => void;
+  onReset?: () => void;
 }
 
-export function CompletionStep({ locale, state, onWhatsApp, onClose, onReset }: CompletionStepProps) {
+export function CompletionStep({ locale = 'vi', state, onWhatsApp, onClose, onReset }: CompletionStepProps) {
   const t = (key: string) => translate(locale, key);
   const tier = TIERS.find((item) => item.id === state.selectedTierId);
   const reward = REWARDS.find((item) => item.id === state.spin?.rewardId);
   const sample = PRODUCTS.find((item) => item.id === state.spin?.sampleProductId);
+
+  const handleWhatsAppClick = () => {
+    if (onWhatsApp) {
+      onWhatsApp();
+    } else {
+      window.open(buildWhatsAppUrl(state), '_blank');
+    }
+  };
+
   return (
     <div className={styles.card}>
       <div className={styles.icon}>✓</div>
@@ -29,9 +39,11 @@ export function CompletionStep({ locale, state, onWhatsApp, onClose, onReset }: 
         <div><span>{locale === 'vi' ? 'Quyền lợi UAT' : 'ສິດ UAT'}</span><strong>{reward ? (locale === 'vi' ? reward.nameVi : reward.nameLo) : '—'}{sample ? ` — ${sample.name}` : ''}</strong></div>
       </div>
       <div className={styles.actions}>
-        <Button type="button" fullWidth onClick={onWhatsApp}>{t('complete.whatsapp')}</Button>
+        <Button type="button" fullWidth onClick={handleWhatsAppClick}>{t('complete.whatsapp')}</Button>
         <Button type="button" variant="secondary" fullWidth onClick={onClose}>{t('common.close')}</Button>
-        <Button type="button" variant="ghost" fullWidth onClick={onReset}>{locale === 'vi' ? 'XÓA PHIÊN UAT' : 'ລຶບ SESSION UAT'}</Button>
+        {onReset && (
+          <Button type="button" variant="ghost" fullWidth onClick={onReset}>{locale === 'vi' ? 'XÓA PHIÊN UAT' : 'ລຶບ SESSION UAT'}</Button>
+        )}
       </div>
     </div>
   );

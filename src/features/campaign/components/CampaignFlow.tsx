@@ -1,139 +1,183 @@
-import type { Dispatch } from 'react';
-import { Dialog } from '../../../shared/ui/Dialog';
-import { buildWhatsAppUrl } from '../../../shared/lib/whatsapp';
-import type { CampaignAction, CampaignState, RegistrationData, SpinResult } from '../model/types';
-import { translate } from '../model/translations';
-import type { CampaignRepository } from '../services/campaignRepository';
+import React from 'react';
+import type { CampaignState, CampaignAction, Reward } from '../model/types';
+import { REWARDS } from '../model/config';
+import { RegistrationStep } from './RegistrationStep';
+import { ProgramStep } from './ProgramStep';
+import { WheelStep } from './WheelStep';
+import { SpinResultModal } from './SpinResultModal';
 import { CartStep } from './CartStep';
 import { CompletionStep } from './CompletionStep';
-import { FlowProgress } from './FlowProgress';
-import { ProgramStep } from './ProgramStep';
-import { RegistrationStep } from './RegistrationStep';
-import { WheelStep } from './WheelStep';
+import { RulesPdfModal } from './RulesPdfModal';
+import { InvoicePreviewModal } from './InvoicePreviewModal';
+import { ProductDetailModal } from './ProductDetailModal';
+import { PRODUCTS } from '../model/config';
 
 interface CampaignFlowProps {
   state: CampaignState;
-  dispatch: Dispatch<CampaignAction>;
-  repository: CampaignRepository;
+  dispatch: React.Dispatch<CampaignAction>;
 }
 
-export function CampaignFlow({ state, dispatch, repository }: CampaignFlowProps) {
-  const locale = state.locale;
-  const saving = state.firestoreStatus === 'saving';
-  const setSaving = (status: CampaignState['firestoreStatus']) => dispatch({ type: 'SET_FIRESTORE_STATUS', status });
+export const CampaignFlow: React.FC<CampaignFlowProps> = ({ state, dispatch }) => {
+  if (!state.dialogOpen) return null;
 
-  const execute = async (task: () => Promise<void>): Promise<boolean> => {
-    setSaving('saving');
-    try {
-      await task();
-      setSaving('saved');
-      return true;
-    } catch (error) {
-      console.error(error);
-      setSaving('error');
-      return false;
+  const currentStep = state.step;
+  const locale = state.locale;
+
+  const getStepNumber = () => {
+    switch (currentStep) {
+      case 'register':
+        return 1;
+      case 'policy':
+        return 2;
+      case 'spin':
+        return 3;
+      case 'cart':
+        return 4;
+      case 'complete':
+        return 5;
+      default:
+        return 1;
     }
   };
 
-  const saveRegistration = async (registration: RegistrationData) => {
-    const saved = await execute(() => repository.saveRegistration(registration));
-    if (saved) dispatch({ type: 'SAVE_REGISTRATION', registration });
+  const currentStepNum = getStepNumber();
+
+  const handleClose = () => {
+    dispatch({ type: 'CLOSE_FLOW' });
   };
 
-  const continuePolicy = async () => {
-    if (!state.registration || !state.selectedTierId || !state.policyAcknowledged) return;
-    const saved = await execute(() => repository.savePolicyAcknowledgement({
-      phone: state.registration!.phone,
-      selectedTierId: state.selectedTierId!,
-      policyVersion: 'Q3-2026-LAO-v1',
-    }));
-    if (saved) dispatch({ type: 'GO_TO_STEP', step: 'spin' });
-  };
+  const selectedProduct = state.selectedProductId
+    ? PRODUCTS.find((p) => p.id === state.selectedProductId) || null
+    : null;
 
-  const saveSpin = async (spin: SpinResult) => {
-    if (!state.registration) return;
-    const saved = await execute(() => repository.saveSpinPreview({ phone: state.registration!.phone, spin }));
-    if (saved) dispatch({ type: 'SAVE_SPIN', spin });
-  };
-
-  const sendCart = async () => {
-    if (!state.registration) return;
-    const saved = await execute(() => repository.saveCartDraft({ phone: state.registration!.phone, cart: state.cart }));
-    if (!saved) return;
-    window.open(buildWhatsAppUrl(state), '_blank', 'noopener,noreferrer');
-    dispatch({ type: 'GO_TO_STEP', step: 'complete' });
-    void repository.saveCompletion(state);
-  };
-
-  const completeWithoutCart = () => {
-    dispatch({ type: 'GO_TO_STEP', step: 'complete' });
-    void repository.saveCompletion(state);
-  };
-
-  const title = state.step === 'browse'
-    ? translate(locale, 'flow.register')
-    : translate(locale, `flow.${state.step}`);
+  const wonReward: Reward | null = state.spin
+    ? REWARDS.find((r) => r.id === state.spin?.rewardId) || REWARDS[0]
+    : null;
 
   return (
-    <Dialog open={state.dialogOpen} title={title} closeLabel={translate(locale, 'common.close')} onClose={() => dispatch({ type: 'CLOSE_FLOW' })}>
-      <div style={{ display: 'grid', gap: 28 }}>
-        {state.firestoreStatus === 'error' && (
-          <p role="alert" style={{ margin: 0, padding: '12px 14px', borderRadius: 12, background: '#fff0ed', color: '#9f2d20', fontSize: '.82rem' }}>
-            {locale === 'vi' ? 'Không thể lưu dữ liệu. Vui lòng kiểm tra kết nối hoặc cấu hình Firebase rồi thử lại.' : 'ບໍ່ສາມາດບັນທຶກຂໍ້ມູນ. ກະລຸນາກວດສອບ Firebase ແລະ ລອງໃໝ່.'}
-          </p>
-        )}
-        <FlowProgress step={state.step} locale={locale} />
+    <div className="funnel-modal-overlay" style={{ display: 'flex' }} onClick={handleClose}>
+      <div className="funnel-modal-card-container" onClick={(e) => e.stopPropagation()}>
+        <button type="button" className="btn-funnel-modal-close" onClick={handleClose}>
+          ×
+        </button>
 
-        {state.step === 'register' && (
-          <RegistrationStep locale={locale} initialValue={state.registration} saving={saving} onSubmit={saveRegistration} />
+        {/* Stepper Progress Indicator */}
+        <div className="modal-stepper-wrapper mb-4" style={{ marginBottom: '1.5rem' }}>
+          <div className="stepper-steps" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div className={`stepper-step ${currentStepNum >= 1 ? 'active' : ''}`}>
+              <div className="step-icon">1</div>
+              <div className="step-label">{locale === 'lo' ? 'ລົງທະບຽນ' : 'Đăng ký'}</div>
+            </div>
+            <div className={`stepper-line ${currentStepNum >= 2 ? 'active' : ''}`} />
+            <div className={`stepper-step ${currentStepNum >= 2 ? 'active' : ''}`}>
+              <div className="step-icon">2</div>
+              <div className="step-label">{locale === 'lo' ? 'ນະໂຍບາຍ' : 'Chương trình'}</div>
+            </div>
+            <div className={`stepper-line ${currentStepNum >= 3 ? 'active' : ''}`} />
+            <div className={`stepper-step ${currentStepNum >= 3 ? 'active' : ''}`}>
+              <div className="step-icon">3</div>
+              <div className="step-label">{locale === 'lo' ? 'ໝູນຂອງຂວັນ' : 'Quay quà'}</div>
+            </div>
+            <div className={`stepper-line ${currentStepNum >= 4 ? 'active' : ''}`} />
+            <div className={`stepper-step ${currentStepNum >= 4 ? 'active' : ''}`}>
+              <div className="step-icon">4</div>
+              <div className="step-label">{locale === 'lo' ? 'ສ້າງບິນ' : 'Đơn hàng'}</div>
+            </div>
+            <div className={`stepper-line ${currentStepNum >= 5 ? 'active' : ''}`} />
+            <div className={`stepper-step ${currentStepNum >= 5 ? 'active' : ''}`}>
+              <div className="step-icon">5</div>
+              <div className="step-label">{locale === 'lo' ? 'ສຳເລັດ' : 'Hoàn thành'}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Step 1: Registration */}
+        {currentStep === 'register' && (
+          <RegistrationStep
+            initialData={state.registration}
+            locale={locale}
+            onSubmit={(data) => {
+              dispatch({ type: 'SAVE_REGISTRATION', registration: data });
+              dispatch({ type: 'GO_TO_STEP', step: 'policy' });
+            }}
+          />
         )}
 
-        {state.step === 'policy' && (
+        {/* Step 2: Program Review & ACK */}
+        {currentStep === 'policy' && (
           <ProgramStep
             locale={locale}
-            selectedTierId={state.selectedTierId}
+            selectedTierId={state.selectedTierId || 'tier-1'}
             acknowledged={state.policyAcknowledged}
-            saving={saving}
-            onSelectTier={(tierId) => dispatch({ type: 'SELECT_TIER', tierId })}
-            onAcknowledge={(value) => dispatch({ type: 'ACKNOWLEDGE_POLICY', value })}
-            onBack={() => dispatch({ type: 'GO_TO_STEP', step: 'register' })}
-            onContinue={continuePolicy}
+            onSelectTier={(id) => dispatch({ type: 'SELECT_TIER', tierId: id })}
+            onAcknowledge={(val) => dispatch({ type: 'ACKNOWLEDGE_POLICY', value: val })}
+            onUnlockWheel={() => dispatch({ type: 'GO_TO_STEP', step: 'spin' })}
           />
         )}
 
-        {state.step === 'spin' && (
+        {/* Step 3: Wheel Spin or Spin Result */}
+        {currentStep === 'spin' && !state.spin && (
           <WheelStep
             locale={locale}
+            onSpinComplete={(result) => {
+              dispatch({ type: 'SAVE_SPIN', spin: result });
+            }}
+          />
+        )}
+
+        {currentStep === 'spin' && state.spin && (
+          <SpinResultModal
+            reward={wonReward}
             spin={state.spin}
-            saving={saving}
-            onBack={() => dispatch({ type: 'GO_TO_STEP', step: 'policy' })}
-            onSaveSpin={saveSpin}
-            onContinue={() => dispatch({ type: 'GO_TO_STEP', step: 'cart' })}
+            registration={state.registration}
+            locale={locale}
+            onProceedToCart={() => dispatch({ type: 'GO_TO_STEP', step: 'cart' })}
           />
         )}
 
-        {state.step === 'cart' && (
+        {/* Step 4: Order Form (Cart) */}
+        {currentStep === 'cart' && (
           <CartStep
-            locale={locale}
             cart={state.cart}
-            saving={saving}
-            onQuantityChange={(productId, quantity) => dispatch({ type: 'SET_CART_QUANTITY', productId, quantity })}
-            onBack={() => dispatch({ type: 'GO_TO_STEP', step: 'spin' })}
-            onSend={sendCart}
-            onSkip={completeWithoutCart}
+            registration={state.registration}
+            locale={locale}
+            onSetQuantity={(id, qty) => dispatch({ type: 'SET_CART_QUANTITY', productId: id, quantity: qty })}
+            onOpenInvoiceModal={() => dispatch({ type: 'SET_INVOICE_MODAL_OPEN', open: true })}
+            onComplete={() => dispatch({ type: 'GO_TO_STEP', step: 'complete' })}
           />
         )}
 
-        {state.step === 'complete' && (
+        {/* Step 5: Completion */}
+        {currentStep === 'complete' && (
           <CompletionStep
-            locale={locale}
             state={state}
-            onWhatsApp={() => window.open(buildWhatsAppUrl(state), '_blank', 'noopener,noreferrer')}
-            onClose={() => dispatch({ type: 'CLOSE_FLOW' })}
-            onReset={() => dispatch({ type: 'RESET_FLOW' })}
+            onClose={handleClose}
           />
         )}
+
+        {/* Rules PDF Modal */}
+        <RulesPdfModal
+          isOpen={state.rulesPdfOpen}
+          locale={locale}
+          onClose={() => dispatch({ type: 'SET_RULES_PDF_OPEN', open: false })}
+        />
+
+        {/* Invoice Canvas Preview Modal */}
+        <InvoicePreviewModal
+          isOpen={state.invoiceModalOpen}
+          cart={state.cart}
+          registration={state.registration}
+          locale={locale}
+          onClose={() => dispatch({ type: 'SET_INVOICE_MODAL_OPEN', open: false })}
+        />
+
+        {/* Product Detail Modal */}
+        <ProductDetailModal
+          product={selectedProduct}
+          locale={locale}
+          onClose={() => dispatch({ type: 'SET_SELECTED_PRODUCT_ID', productId: null })}
+        />
       </div>
-    </Dialog>
+    </div>
   );
-}
+};

@@ -1,5 +1,5 @@
-import { PRODUCTS, SAMPLE_PRODUCT_IDS, TIERS } from './config.ts';
-import type { CartLine, Reward, Tier } from './types.ts';
+import { PRODUCTS, TIERS } from './config.ts';
+import type { CartLine, Product, Reward, Tier } from './types.ts';
 
 export function formatKip(value: number, locale: 'vi' | 'lo' = 'vi'): string {
   return `${new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'lo-LA').format(Math.round(value))} KIP`;
@@ -19,11 +19,29 @@ export function getNextTier(revenueKip: number): Tier | null {
   return TIERS.find((tier) => revenueKip < tier.minRevenueKip) ?? null;
 }
 
-export function calculateCart(lines: CartLine[]) {
+export function calculateTierBenefits(revenueKip: number) {
+  const tier = getTierForRevenue(revenueKip) || TIERS[0];
+  const immediateDiscountKip = revenueKip * 0.05;
+  const quarterBonusPercent = tier ? tier.quarterRewardPercent : 2;
+  const quarterBonusKip = revenueKip * (quarterBonusPercent / 100);
+  const totalBenefitKip = immediateDiscountKip + quarterBonusKip;
+
+  return {
+    tier,
+    tierNameVi: tier ? tier.nameVi : 'Bậc 1',
+    tierNameLo: tier ? tier.nameLo : 'ຂັ້ນ 1',
+    immediateDiscountKip,
+    quarterBonusPercent,
+    quarterBonusKip,
+    totalBenefitKip,
+  };
+}
+
+export function calculateCart(lines: CartLine[], products: Product[] = PRODUCTS) {
   const items = lines
     .filter((line) => line.quantity > 0)
     .map((line) => {
-      const product = PRODUCTS.find((candidate) => candidate.id === line.productId);
+      const product = products.find((candidate) => candidate.id === line.productId);
       if (!product) return null;
       return {
         ...line,
@@ -39,6 +57,7 @@ export function calculateCart(lines: CartLine[]) {
   const estimatedQuarterRewardKip = tier
     ? subtotalKip * (tier.quarterRewardPercent / 100)
     : 0;
+  const payableKip = subtotalKip - immediateDiscountKip;
 
   return {
     items,
@@ -46,9 +65,12 @@ export function calculateCart(lines: CartLine[]) {
     tier,
     immediateDiscountKip,
     estimatedQuarterRewardKip,
-    estimatedPayableKip: subtotalKip - immediateDiscountKip,
+    estimatedPayableKip: payableKip,
+    payableKip,
   };
 }
+
+export const calculateCartTotal = calculateCart;
 
 export function chooseWeightedReward(rewards: Reward[], random = Math.random): Reward {
   const activeRewards = rewards.filter((reward) => reward.status === 'active' && reward.weight > 0);
@@ -62,14 +84,6 @@ export function chooseWeightedReward(rewards: Reward[], random = Math.random): R
   }
 
   return activeRewards[activeRewards.length - 1];
-}
-
-export function chooseSampleProduct(random = Math.random): string {
-  const index = Math.min(
-    SAMPLE_PRODUCT_IDS.length - 1,
-    Math.floor(random() * SAMPLE_PRODUCT_IDS.length),
-  );
-  return SAMPLE_PRODUCT_IDS[index];
 }
 
 export function normalizePhone(value: string): string {
