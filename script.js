@@ -1941,7 +1941,7 @@ function initCountdownTimer() {
 // Utility scroll
 function scrollToId(id) {
   const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth' });
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // Close all active modals/popups using Escape key
