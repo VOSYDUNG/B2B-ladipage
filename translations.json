@@ -129,7 +129,19 @@
     "completion.title": "Hoàn tất! Quyền lợi của anh/chị đã được ghi nhận",
     "completion.desc": "Chuyên viên NNC sẽ chủ động kết nối WhatsApp trong giờ làm việc để trao quà và hoàn tất đơn chính thức. Anh/chị vui lòng lưu số 020 9980 6327 để không bỏ lỡ quyền lợi.",
     "completion.wa_btn": "KẾT NỐI WHATSAPP NGAY",
-    "footer.desc": "Chương trình tri ân đối tác Quý 3/2026 — NNC Pharma đồng hành cùng Nhà thuốc & Phòng khám tại Lào. Mọi quà tặng và chiết khấu được xác nhận qua kênh WhatsApp chính thức: 020 9980 6327."
+    "footer.desc": "Chương trình tri ân đối tác Quý 3/2026 — NNC Pharma đồng hành cùng Nhà thuốc & Phòng khám tại Lào. Mọi quà tặng và chiết khấu được xác nhận qua kênh WhatsApp chính thức: 020 9980 6327.",
+    "reward.samsung_title": "Samsung Galaxy A16",
+    "reward.samsung_desc": "Phần quà đặc biệt",
+    "reward.omron_title": "Huyết áp Omron",
+    "reward.omron_desc": "Thiết bị y tế chính hãng",
+    "reward.scale_title": "Cân sức khỏe",
+    "reward.scale_desc": "Cân điện tử tiện ích",
+    "reward.v200k_title": "Voucher 200.000 KIP",
+    "reward.v200k_desc": "Áp dụng vật tư y tế & thuốc",
+    "reward.v100k_title": "Voucher 100.000 KIP",
+    "reward.v100k_desc": "Áp dụng vật tư y tế & thuốc",
+    "reward.sample_title": "Thuốc mẫu <100k",
+    "reward.sample_desc": "1 trong 5 mã đạt chuẩn"
   },
   "lo": {
     "nav.products": "ສິນຄ້າ",
@@ -261,6 +273,18 @@
     "completion.title": "ສຳເລັດ! ຜົນປະໂຫຍດຂອງທ່ານຖືກບັນທຶກແລ້ວ",
     "completion.desc": "ຜູ້ຊ່ຽວຊານ NNC ຈະຕິດຕໍ່ຫາທ່ານທາງ WhatsApp ໃນໂມງເຮັດວຽກ ເພື່ອມອບຂອງຂວັນ ແລະ ສຳເລັດບິນທາງການ. ກະລຸນາບັນທຶກເບີ 020 9980 6327 ເພື່ອບໍ່ພາດຜົນປະໂຫຍດ.",
     "completion.wa_btn": "ເຊື່ອມຕໍ່ WHATSAPP ດຽວນີ້",
-    "footer.desc": "ໂຄງການຂອບໃຈຄູ່ຮ່ວມທຸລະກິດ ໄຕມາດ 3/2026 — NNC Pharma ຄຽງຄູ່ຮ້ານຢາ & ຄລີນິກ ຢູ່ ລາວ. ທຸກຂອງຂວັນ ແລະ ສ່ວນຫຼຸດ ຢືນຢັນຜ່ານຊ່ອງທາງ WhatsApp ທາງການ: 020 9980 6327."
+    "footer.desc": "ໂຄງການຂອບໃຈຄູ່ຮ່ວມທຸລະກິດ ໄຕມາດ 3/2026 — NNC Pharma ຄຽງຄູ່ຮ້ານຢາ & ຄລີນິກ ຢູ່ ລາວ. ທຸກຂອງຂວັນ ແລະ ສ່ວນຫຼຸດ ຢືນຢັນຜ່ານຊ່ອງທາງ WhatsApp ທາງການ: 020 9980 6327.",
+    "reward.samsung_title": "ໂທລະສັບ Samsung Galaxy A16",
+    "reward.samsung_desc": "ລາງວັນພິເສດ",
+    "reward.omron_title": "ເຄື່ອງວັດແທກຄວາມດັນເລືອດ Omron",
+    "reward.omron_desc": "ອຸປະກອນການແພດແທ້",
+    "reward.scale_title": "ຊິງຊັ່ງນໍ້າໜັກດິຈິຕອນ",
+    "reward.scale_desc": "ອຸປະກອນສະດວກສະບາຍ",
+    "reward.v200k_title": "ບັດຂອງຂວັນ 200.000 KIP",
+    "reward.v200k_desc": "ອຸປະກອນການແພດ ແລະ ຢາ",
+    "reward.v100k_title": "ບັດຂອງຂວັນ 100.000 KIP",
+    "reward.v100k_desc": "ອຸປະກອນການແພດ ແລະ ຢາ",
+    "reward.sample_title": "ຢາຕົວຢ່າງ <100k",
+    "reward.sample_desc": "1 ໃນ 5 ລະຫັດ"
   }
 }

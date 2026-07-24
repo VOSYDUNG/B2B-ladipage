@@ -158,7 +158,19 @@ const TRANSLATIONS = {
     "completion.title": "Hoàn tất! Quyền lợi của anh/chị đã được ghi nhận",
     "completion.desc": "Chuyên viên NNC sẽ chủ động kết nối WhatsApp trong giờ làm việc để trao quà và hoàn tất đơn chính thức. Anh/chị vui lòng lưu số 020 9980 6327 để không bỏ lỡ quyền lợi.",
     "completion.wa_btn": "KẾT NỐI WHATSAPP NGAY",
-    "footer.desc": "Chương trình tri ân đối tác Quý 3/2026 — NNC Pharma đồng hành cùng Nhà thuốc & Phòng khám tại Lào. Mọi quà tặng và chiết khấu được xác nhận qua kênh WhatsApp chính thức: 020 9980 6327."
+    "footer.desc": "Chương trình tri ân đối tác Quý 3/2026 — NNC Pharma đồng hành cùng Nhà thuốc & Phòng khám tại Lào. Mọi quà tặng và chiết khấu được xác nhận qua kênh WhatsApp chính thức: 020 9980 6327.",
+    "reward.samsung_title": "Samsung Galaxy A16",
+    "reward.samsung_desc": "Phần quà đặc biệt",
+    "reward.omron_title": "Huyết áp Omron",
+    "reward.omron_desc": "Thiết bị y tế chính hãng",
+    "reward.scale_title": "Cân sức khỏe",
+    "reward.scale_desc": "Cân điện tử tiện ích",
+    "reward.v200k_title": "Voucher 200.000 KIP",
+    "reward.v200k_desc": "Áp dụng vật tư y tế & thuốc",
+    "reward.v100k_title": "Voucher 100.000 KIP",
+    "reward.v100k_desc": "Áp dụng vật tư y tế & thuốc",
+    "reward.sample_title": "Thuốc mẫu <100k",
+    "reward.sample_desc": "1 trong 5 mã đạt chuẩn"
   },
   "lo": {
     "nav.products": "ສິນຄ້າ",
@@ -290,7 +302,19 @@ const TRANSLATIONS = {
     "completion.title": "ສຳເລັດ! ຜົນປະໂຫຍດຂອງທ່ານຖືກບັນທຶກແລ້ວ",
     "completion.desc": "ຜູ້ຊ່ຽວຊານ NNC ຈະຕິດຕໍ່ຫາທ່ານທາງ WhatsApp ໃນໂມງເຮັດວຽກ ເພື່ອມອບຂອງຂວັນ ແລະ ສຳເລັດບິນທາງການ. ກະລຸນາບັນທຶກເບີ 020 9980 6327 ເພື່ອບໍ່ພາດຜົນປະໂຫຍດ.",
     "completion.wa_btn": "ເຊື່ອມຕໍ່ WHATSAPP ດຽວນີ້",
-    "footer.desc": "ໂຄງການຂອບໃຈຄູ່ຮ່ວມທຸລະກິດ ໄຕມາດ 3/2026 — NNC Pharma ຄຽງຄູ່ຮ້ານຢາ & ຄລີນິກ ຢູ່ ລາວ. ທຸກຂອງຂວັນ ແລະ ສ່ວນຫຼຸດ ຢືນຢັນຜ່ານຊ່ອງທາງ WhatsApp ທາງການ: 020 9980 6327."
+    "footer.desc": "ໂຄງການຂອບໃຈຄູ່ຮ່ວມທຸລະກິດ ໄຕມາດ 3/2026 — NNC Pharma ຄຽງຄູ່ຮ້ານຢາ & ຄລີນິກ ຢູ່ ລາວ. ທຸກຂອງຂວັນ ແລະ ສ່ວນຫຼຸດ ຢືນຢັນຜ່ານຊ່ອງທາງ WhatsApp ທາງການ: 020 9980 6327.",
+    "reward.samsung_title": "ໂທລະສັບ Samsung Galaxy A16",
+    "reward.samsung_desc": "ລາງວັນພິເສດ",
+    "reward.omron_title": "ເຄື່ອງວັດແທກຄວາມດັນເລືອດ Omron",
+    "reward.omron_desc": "ອຸປະກອນການແພດແທ້",
+    "reward.scale_title": "ຊິງຊັ່ງນໍ້າໜັກດິຈິຕອນ",
+    "reward.scale_desc": "ອຸປະກອນສະດວກສະບາຍ",
+    "reward.v200k_title": "ບັດຂອງຂວັນ 200.000 KIP",
+    "reward.v200k_desc": "ອຸປະກອນການແພດ ແລະ ຢາ",
+    "reward.v100k_title": "ບັດຂອງຂວັນ 100.000 KIP",
+    "reward.v100k_desc": "ອຸປະກອນການແພດ ແລະ ຢາ",
+    "reward.sample_title": "ຢາຕົວຢ່າງ <100k",
+    "reward.sample_desc": "1 ໃນ 5 ລະຫັດ"
   }
 };
 
@@ -385,52 +409,53 @@ const PRODUCTS_DATA = [
 
 // Lucky Wheel Segments (6 items matching React)
 const WHEEL_SEGMENTS = [
-  { id: 'extra_discount', weight: 12, nameVi: 'Chiết khấu thêm 1% đơn đầu', nameLo: 'ສ່ວນຫຼຸດເພີ່ມ 1% ບິນທຳອິດ', color: '#0f3a30', textColor: '#ffffff' },
-  { id: 'voucher_100k', weight: 22, nameVi: 'Voucher 100.000 KIP', nameLo: 'ຄູປ໋ອງ 100.000 ກີບ', color: '#fbbf24', textColor: '#102a24' },
-  { id: 'free_shipping', weight: 20, nameVi: 'Miễn phí vận chuyển 2 đơn', nameLo: 'ສົ່ງຟຣີ 2 ບິນ', color: '#104e40', textColor: '#ffffff' },
-  { id: 'tadimax_gift', weight: 15, nameVi: 'Tặng 1 hộp Tadimax', nameLo: 'ແຖມ ຕາດິແມ໋ກ 1 ກັບ', color: '#0f3a30', textColor: '#ffffff' },
-  { id: 'office_kit', weight: 25, nameVi: 'Bộ quà tác nghiệp NNC', nameLo: 'ຊຸດເຄື່ອງມືເຮັດວຽກ NNC', color: '#60a5fa', textColor: '#ffffff' },
-  { id: 'voucher_200k', weight: 6, nameVi: 'Voucher 200.000 KIP', nameLo: 'ຄູປ໋ອງ 200.000 ກີບ', color: '#104e40', textColor: '#ffffff' }
+  { id: 'samsung', weight: 0, nameVi: 'Samsung Galaxy A16', nameLo: 'ໂທລະສັບ Samsung Galaxy A16', color: '#0f3a30', textColor: '#ffffff' },
+  { id: 'omron', weight: 0, nameVi: 'Máy đo huyết áp Omron', nameLo: 'ເຄື່ອງວັດແທກຄວາມດັນເລືອດ Omron', color: '#fbbf24', textColor: '#102a24' },
+  { id: 'scale', weight: 0, nameVi: 'Cân sức khỏe điện tử', nameLo: 'ຊິງຊັ່ງນໍ້າໜັກດິຈິຕອນ', color: '#104e40', textColor: '#ffffff' },
+  { id: 'v200k', weight: 10, nameVi: 'Voucher 200.000 KIP', nameLo: 'ບັດຂອງຂວັນ 200.000 KIP', color: '#0f3a30', textColor: '#ffffff' },
+  { id: 'v100k', weight: 45, nameVi: 'Voucher 100.000 KIP', nameLo: 'ບັດຂອງຂວັນ 100.000 KIP', color: '#60a5fa', textColor: '#ffffff' },
+  { id: 'sample', weight: 45, nameVi: 'Thuốc mẫu <100k', nameLo: 'ຢາຕົວຢ່າງ <100k', color: '#104e40', textColor: '#ffffff' }
 ];
 
 const REWARD_DETAILS = {
-  extra_discount: {
-    nameVi: 'Chiết khấu thêm 1% trên đơn hàng đầu tiên',
-    nameLo: 'ສ່ວນຫຼຸດເພີ່ມ 1% ໃນບິນສັ່ງຊື້ທຳອິດ',
-    condVi: 'Cộng thêm 1% chiết khấu trực tiếp (ngoài mức 5% chuẩn) cho hóa đơn đầu tiên trong Q3/2026, tối đa 300.000 KIP.',
-    condLo: 'ເພີ່ມສ່ວນຫຼຸດ 1% (ນອກເໜືອຈາກ 5% ມາດຕະຖານ) ສຳລັບບິນທຳອິດໃນໄຕມາດ 3/2026, ສູງສຸດ 300.000 ກີບ.'
+  samsung: {
+    nameVi: 'Điện thoại Samsung Galaxy A16',
+    nameLo: 'ໂທລະສັບ Samsung Galaxy A16',
+    condVi: 'Phần quà đặc biệt từ NNC dành cho khách hàng may mắn.',
+    condLo: 'ລາງວັນພິເສດຈາກ NNC ສຳລັບລູກຄ້າຜູ້ໂຊກດີ.'
   },
-  voucher_100k: {
-    nameVi: 'Voucher 100.000 KIP',
-    nameLo: 'ຄູປ໋ອງ 100.000 ກີບ',
-    condVi: 'Trừ trực tiếp 100.000 KIP vào hóa đơn nhập hàng từ 2.000.000 KIP trở lên trong Q3/2026.',
-    condLo: 'ຫັກ 100.000 ກີບ ໂດຍກົງໃນບິນສັ່ງຊື້ຕັ້ງແຕ່ 2.000.000 ກີບ ຂຶ້ນໄປ ໃນໄຕມາດ 3/2026.'
+  omron: {
+    nameVi: 'Máy đo huyết áp Omron',
+    nameLo: 'ເຄື່ອງວັດແທກຄວາມດັນເລືອດ Omron',
+    condVi: 'Thiết bị y tế chính hãng theo tiêu chuẩn Nhật Bản.',
+    condLo: 'ອຸປະກອນການແພດແທ້ຕາມມາດຕະຖານຍີ່ປຸ່ນ.'
   },
-  free_shipping: {
-    nameVi: 'Miễn phí vận chuyển 2 đơn hàng đầu',
-    nameLo: 'ສົ່ງຟຣີ 2 ບິນທຳອິດ',
-    condVi: 'NNC hỗ trợ toàn bộ cước vận chuyển cho 2 đơn hàng đầu tiên phát sinh trong Q3/2026.',
-    condLo: 'NNC ຮັບຜິດຊອບຄ່າຂົນສົ່ງທັງໝົດສຳລັບ 2 ບິນທຳອິດໃນໄຕມາດ 3/2026.'
+  scale: {
+    nameVi: 'Cân sức khỏe điện tử',
+    nameLo: 'ຊິງຊັ່ງນໍ້າໜັກດິຈິຕອນ',
+    condVi: 'Phần quà sức khỏe tiện ích cho gia đình và phòng khám.',
+    condLo: 'ຂອງຂວັນສຸຂະພາບສະດວກສະບາຍສຳລັບຄອບຄົວ ແລະ ຄລີນິກ.'
   },
-  tadimax_gift: {
-    nameVi: 'Tặng 1 hộp Tadimax kèm đơn hàng',
-    nameLo: 'ແຖມ ຕາດິແມ໋ກ 1 ກັບ ພ້ອມບິນສັ່ງຊື້',
-    condVi: 'Tặng 1 hộp Tadimax (21 viên x 2 vỉ) kèm đơn hàng đầu tiên từ 3.000.000 KIP trở lên.',
-    condLo: 'ແຖມ ຕາດິແມ໋ກ 1 ກັບ (21 ເມັດ x 2 ແຜງ) ພ້ອມບິນທຳອິດຕັ້ງແຕ່ 3.000.000 ກີບ ຂຶ້ນໄປ.'
+  v200k: {
+    nameVi: 'Voucher 200.000 KIP VTYT & thuốc',
+    nameLo: 'ບັດຂອງຂວັນ 200.000 KIP ອຸປະກອນການແພດ ແລະ ຢາ',
+    condVi: 'Sử dụng để mua các mặt hàng vật tư y tế và thuốc tại NNC.',
+    condLo: 'ໃຊ້ສຳລັບຊື້ອຸປະກອນການແພດ ແລະ ຢາຢູ່ NNC.'
   },
-  office_kit: {
-    nameVi: 'Bộ quà tác nghiệp NNC',
-    nameLo: 'ຊຸດເຄື່ອງມືເຮັດວຽກ NNC',
-    condVi: 'Khay đếm thuốc + sổ ghi toa + bút NNC, tư vấn viên giao tận quầy kèm đơn hàng đầu tiên (mọi giá trị đơn).',
-    condLo: 'ຖາດນັບຢາ + ປຶ້ມບັນທຶກໃບສັ່ງຢາ + ບິກ NNC, ພະນັກງານຂາຍນຳສົ່ງຮອດຮ້ານພ້ອມບິນທຳອິດ (ທຸກມູນຄ່າບິນ).'
+  v100k: {
+    nameVi: 'Voucher 100.000 KIP VTYT & thuốc',
+    nameLo: 'ບັດຂອງຂວັນ 100.000 KIP ອຸປະກອນການແພດ ແລະ ຢາ',
+    condVi: 'Sử dụng để mua các mặt hàng vật tư y tế và thuốc tại NNC.',
+    condLo: 'ໃຊ້ສຳລັບຊື້ອຸປະກອນການແພດ ແລະ ຢາຢູ່ NNC.'
   },
-  voucher_200k: {
-    nameVi: 'Voucher 200.000 KIP',
-    nameLo: 'ຄູປ໋ອງ 200.000 ກີບ',
-    condVi: 'Trừ trực tiếp 200.000 KIP vào hóa đơn nhập hàng từ 5.000.000 KIP trở lên trong Q3/2026.',
-    condLo: 'ຫັກ 200.000 ກີບ ໂດຍກົງໃນບິນສັ່ງຊື້ຕັ້ງແຕ່ 5.000.000 ກີບ ຂຶ້ນໄປ ໃນໄຕມາດ 3/2026.'
+  sample: {
+    nameVi: 'Thuốc mẫu <100k',
+    nameLo: 'ຢາຕົວຢ່າງ <100k',
+    condVi: 'Nhận ngẫu nhiên 1 trong 5 mã sản phẩm đạt chuẩn của chương trình.',
+    condLo: 'ຮັບແບບສຸ່ມ 1 ໃນ 5 ລະຫັດຜະລິດຕະພັນທີ່ໄດ້ມາດຕະຖານຂອງໂຄງການ.'
   }
 };
+
 
 const NNC_ACCUMULATION_TIERS = [
   { tier_id: "tier_1", name_vi: "Bậc 1", name_lo: "ຂັ້ນ 1", min_revenue_kip: 2000000, max_revenue_kip: 6000000, immediate_discount: 5, quarter_end_reward: 2, total_benefit: 7 },
