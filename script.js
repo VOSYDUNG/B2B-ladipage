@@ -719,6 +719,7 @@ function setFlowState(nextState) {
       // Step 3: Go outside, let user spin manually
       const overlay = document.getElementById('funnel-modal-overlay');
       if (overlay) overlay.style.display = 'none';
+      document.body.style.overflow = ''; // UNLOCK BODY SCROLLING!
       setTimeout(() => {
         scrollToId('target-wheel-box');
       }, 100);
