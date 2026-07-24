@@ -715,6 +715,11 @@ function setFlowState(nextState) {
     show(orderCard, flowState === 'cart');
     show(completionCard, flowState === 'completion');
 
+    if (flowState === 'wheel') {
+      // Auto-spin immediately, skipping any manual confirmation
+      setTimeout(() => spinWheel(), 100);
+    }
+
     if (flowState === 'cart') {
       renderOrderProductsList();
       calculateOrderTotals();
