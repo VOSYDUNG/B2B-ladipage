@@ -716,8 +716,13 @@ function setFlowState(nextState) {
     show(completionCard, flowState === 'completion');
 
     if (flowState === 'wheel') {
-      // Auto-spin immediately, skipping any manual confirmation
-      setTimeout(() => spinWheel(), 100);
+      // Step 3: Go outside, let user spin manually
+      const overlay = document.getElementById('funnel-modal-overlay');
+      if (overlay) overlay.style.display = 'none';
+      setTimeout(() => {
+        scrollToId('target-wheel-box');
+      }, 100);
+      return;
     }
 
     if (flowState === 'cart') {
@@ -741,8 +746,13 @@ function updateWheelLockVisual() {
   if (overlay) overlay.style.display = 'none';
   if (spinBtn) {
     spinBtn.style.display = 'flex';
-    spinBtn.disabled = true;
-    spinBtn.classList.remove('pulse-border');
+    if (flowState === 'wheel') {
+      spinBtn.disabled = false;
+      spinBtn.classList.add('pulse-border');
+    } else {
+      spinBtn.disabled = true;
+      spinBtn.classList.remove('pulse-border');
+    }
   }
 }
 
