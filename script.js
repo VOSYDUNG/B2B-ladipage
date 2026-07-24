@@ -1797,9 +1797,12 @@ function buildWhatsAppSummary(headline) {
 
   // 1. Customer Info
   if (registrationInfo) {
+    let bTypeVi = registrationInfo.businessType === 'hospital_clinic' ? 'Bệnh viện / Phòng khám' : (registrationInfo.businessType === 'pharmacy' ? 'Nhà thuốc' : '');
+    let bTypeLo = registrationInfo.businessType === 'hospital_clinic' ? 'ໂຮງໝໍ / ຄລີນິກ' : (registrationInfo.businessType === 'pharmacy' ? 'ຮ້ານຂາຍຢາ' : '');
+
     msg += isLao 
-      ? `👤 ຂໍ້ມູນລູກຄ້າ:\n- ຊື່: ${registrationInfo.fullname}\n- ເບີໂທ: ${registrationInfo.phone}\n- ຮ້ານ/ຄລີນິກ: ${registrationInfo.business}\n- ແຂວງ: ${registrationInfo.province}\n`
-      : `👤 THÔNG TIN KHÁCH HÀNG:\n- Họ tên: ${registrationInfo.fullname}\n- SĐT: ${registrationInfo.phone}\n- Cơ sở: ${registrationInfo.business}\n- Tỉnh/TP: ${registrationInfo.province}\n`;
+      ? `👤 ຂໍ້ມູນລູກຄ້າ:\n- ຊື່: ${registrationInfo.fullname}\n- ເບີໂທ: ${registrationInfo.phone}\n- ວັນເດືອນປີເກີດ: ${registrationInfo.dob || 'ບໍ່ມີ'}\n- ປະເພດທຸລະກິດ: ${bTypeLo}\n- ຊື່ຮ້ານ/ຄລີນິກ: ${registrationInfo.business}\n- ແຂວງ: ${registrationInfo.province}\n`
+      : `👤 THÔNG TIN KHÁCH HÀNG:\n- Họ tên: ${registrationInfo.fullname}\n- SĐT: ${registrationInfo.phone}\n- Ngày sinh: ${registrationInfo.dob || 'Không có'}\n- Loại hình: ${bTypeVi}\n- Tên Cơ sở: ${registrationInfo.business}\n- Tỉnh/TP: ${registrationInfo.province}\n`;
     if (registrationInfo.refCode) {
       msg += isLao ? `- ລະຫັດແນະນຳທີ່ໃຊ້: ${registrationInfo.refCode}\n` : `- Mã giới thiệu dùng: ${registrationInfo.refCode}\n`;
     }
