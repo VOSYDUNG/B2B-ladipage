@@ -1385,8 +1385,6 @@ function showResultModal(rewardId) {
   const cond = currentLang === 'vi' ? details.condVi : details.condLo;
   
   document.getElementById('result-reward-name').innerText = name;
-  document.getElementById('result-reward-condition').innerText = cond;
-  
   const code = getMyReferralCode();
   document.getElementById('my-referral-code').innerText = code;
   document.getElementById('my-referral-link').innerText = `${window.location.origin}/?ref=${code}`;
