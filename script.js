@@ -1082,8 +1082,6 @@ function showProductModal(productId) {
   document.getElementById('modal-product-formulation').innerText = p.formulation;
   document.getElementById('modal-product-pack').innerText = currentLang === 'vi' ? p.packVi : p.packLo;
   document.getElementById('modal-product-price').innerText = p.price.toLocaleString() + ' KIP';
-  
-  updateModalInterestButton();
   document.getElementById('product-modal').classList.add('active');
 }
 
@@ -1093,12 +1091,6 @@ function hideProductModal() {
 
 function closeProductModal(e) {
   hideProductModal();
-}
-
-}
-
-  updateModalInterestButton();
-  renderProducts();
 }
 
 // Accumulation Profit Simulator
