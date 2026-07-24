@@ -32,7 +32,6 @@ export const Hero: React.FC<HeroProps> = ({
 
     ctx.clearRect(0, 0, width, height);
 
-    // Segment colors
     const colors = ['#083D33', '#0F5747', '#146C59', '#1A836D', '#083D33', '#0F5747'];
 
     for (let i = 0; i < numSegments; i++) {
@@ -50,7 +49,6 @@ export const Hero: React.FC<HeroProps> = ({
       ctx.lineWidth = 3;
       ctx.stroke();
 
-      // Segment text
       ctx.save();
       ctx.translate(centerX, centerY);
       ctx.rotate(startAngle + anglePerSegment / 2);
@@ -66,11 +64,15 @@ export const Hero: React.FC<HeroProps> = ({
 
   return (
     <>
-      <section className="hero-section" id="hero-wheel-container">
+      <section className="campaign-hero hero-section" id="hero-wheel-container">
+        <picture className="campaign-hero__media">
+          <source media="(max-width: 767px)" srcSet="/images/visual_mobile.png" />
+          <img src="/images/visual_desktop.png" alt="NNC Pharma B2B Campaign" />
+        </picture>
         <div className="hero-overlay"></div>
-        <div className="hero-container">
+        <div className="campaign-hero__content hero-container">
           {/* Left Content */}
-          <div className="hero-card">
+          <div className="campaign-hero__copy hero-card">
             <div className="hero-badges">
               <span className="badge-promo">
                 <span className="pulse-dot"></span> B2B · Q3/2026
@@ -97,7 +99,7 @@ export const Hero: React.FC<HeroProps> = ({
                 : 'Dành riêng Nhà thuốc & Phòng khám tại Lào. Hoàn thành 2 bước để mở khóa lượt quay — mọi lượt quay đều có quà.'}
             </p>
 
-            <div className="hero-actions-btns">
+            <div className="campaign-hero__actions hero-actions-btns">
               <button type="button" className="btn-primary" onClick={onOpenRegister}>
                 {locale === 'lo' ? 'ລົງທະບຽນເປີດສິດໝູນ' : 'ĐĂNG KÝ THAM GIA NGAY'}
               </button>
